@@ -153,37 +153,28 @@ function getAllPosts()
             if($post_image!=="none")
             {
                 echo "
-                <div class='post-body my-2'>
-                <span class='m-4'>$post_body</span>
+                <div class='post-body m-2'>
+                <span>$post_body</span>
                 </div>
 
                 <div class='post-image w-100 h-100 d-flex justify-content-center'>
-                <img class='w-75 h-25' src='assets/images/posts/$post_image' alt='image'>
-                </div>
-                
-                <div class='container my-2 mx-auto w-75 bg-white d-flex justify-content-between align-items-center'>
-                <div class='d-block'><span class='badge badge-primary p-2 mr-1'>$post_likes</span>
-                <span class='badge badge-secondary'><span>Like</span> <i class='fa fa-thumbs-up fa-lg'></i></span>
-                </div>
-                <span>Comments <i class='fa fa-comments'>1</i></span>
-                </div>
-                ";
+                <img class='w-100 h-25' src='assets/images/posts/$post_image' alt='image'>
+                </div>";
             }else{
                 echo "
-                <div class='post-body'>
-                <span class='m-4 h4'>$post_body</span>
-                </div>
-                
-                <div class='container my-2 mx-auto w-100 bg-white d-flex justify-content-between align-items-center'>
-                <div class='d-block'><span class='badge badge-primary p-2 mr-1'>$post_likes</span>
-                <span class='badge badge-secondary'><span>Like</span> <i class='fa fa-thumbs-up fa-lg'></i></span>
-                </div>
-                <span>Comments <i class='fa fa-comments'>1</i></span>
-                </div>
-                ";
+                <div class='post-body m-2'>
+                <span class='h4'>$post_body</span>
+                </div> ";
             }
 
-           echo "</div><br><hr>";
+           echo " 
+           <div class='container my-2 mx-auto w-100 bg-white d-flex justify-content-between align-items-center'>
+           <div class='d-block'><span class='badge badge-primary mr-1'>$post_likes</span>
+           <span class='badge badge-secondary'><span>Like</span> <i class='fa fa-thumbs-up fa-lg'></i></span>
+           </div>
+           <span>Comments <i class='fa fa-comments'>1</i></span>
+           </div>
+           </div><br><hr>";
     }
 }
 

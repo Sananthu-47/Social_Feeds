@@ -15,13 +15,12 @@ body
     box-sizing: border-box;
 }
 
-/* .wrapper
-{
-    width: 100%;
-    height: 100vh;
-    position: relative;
-    top: 0px;
-} */
+.navbar {
+    position: sticky !important;
+    top: 0;
+    z-index: 5;
+}
+
 
 .register-bg , .login-bg
 {

@@ -1,4 +1,4 @@
-<div class="navbar custom-header d-flex jusify-content-around">
+<div class="navbar py-1 custom-header d-flex jusify-content-around">
     <a href="index.php" class="remove-decoration text-end"><span class="custom-logo-font">
         Social_Feeds
     </span></a>

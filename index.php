@@ -13,7 +13,7 @@
     </div>
     </div>
 
-    <div class="card bg-light col-12 col-md-6 p-0">
+    <div class="card main-content bg-light col-12 col-md-6 p-0">
     <div class="content">
         <?php include "includes/say-something.php"; ?>
         <hr>
