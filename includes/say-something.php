@@ -13,14 +13,14 @@
             <input type="file" name="image" id="add-post" class="d-none" onChange="previewImage(this)">
         <span class="btn btn-primary text-white"  onClick="addPhotoPost()">Add image</span>
         </div>
-        <div class="col-9 col-lg-10 p-0">
+        <div class="col-9 col-lg-9 p-0">
             <textarea name="post-body" contenteditable class="w-100 textarea" placeholder="Have something to say?"></textarea>
         </div>
-        <div class="d-none col-12 col-lg-2 d-lg-flex justify-content-center">
+        <div class="d-none col-2 p-0 d-lg-flex justify-content-center align-items-center">
             <input type="submit" class="btn btn-primary text-white" value="Post" name="post">
         </div>
  </div>  
-    <div class="col-12 col-lg-1 d-flex d-lg-none justify-content-center lg-ml-4">
+    <div class="col-12 col-lg-2 d-flex d-lg-none justify-content-center lg-ml-4">
             <input type="submit" class="btn btn-primary text-white" value="Post" name="post">
     </div>
 

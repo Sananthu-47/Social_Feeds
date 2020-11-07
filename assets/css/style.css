@@ -13,6 +13,12 @@ body
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    overflow-y: hidden;
+}
+
+a
+{
+    text-decoration: none !important;
 }
 
 .navbar {
@@ -152,6 +158,51 @@ body
       height: 100%;
   }
 
+  .post-image
+  {
+      width: 60%;
+      height: 400px;
+  }
+
+  .post-image img
+  {
+      width: 100%;
+      height: 100%;
+  }
+
+  .like-comment
+  {
+      width: 60%;
+  }
+
+  .main-content
+  {
+      max-height: 100vh;
+      overflow-y: scroll;
+  }
+
+  .friends-list
+  {
+      max-height: 450px;
+      overflow-y: scroll;
+  }
+
+  .home-wrapper
+  {
+      position: relative;
+  }
+
+  .profile-mobile
+  {
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      border: 2px solid #000;
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
+  }
+
 
 @media screen and (max-width: 600px)
 {
@@ -171,4 +222,15 @@ body
     {
         padding: 0;
     }
+
+    .post-image
+  {
+      width: 100%;
+      height: 300px;
+  }
+
+  .like-comment
+  {
+      width: 100%;
+  }
 }
