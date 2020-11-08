@@ -13,7 +13,7 @@ body
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    overflow-y: hidden;
+    
 }
 
 a
@@ -136,6 +136,11 @@ a
     background-size: cover;
 }
 
+.profile-side-image img
+{
+    width: 100%;
+    height: 100%;
+}
 
 .textarea
 {
@@ -166,7 +171,7 @@ a
 
   .post-image img
   {
-      width: 100%;
+      width: 90%;
       height: 100%;
   }
 
@@ -190,6 +195,8 @@ a
   .home-wrapper
   {
       position: relative;
+      top: 0;
+      overflow-y: hidden;
   }
 
   .profile-mobile
@@ -201,6 +208,14 @@ a
       position: relative;
       left: 50%;
       transform: translateX(-50%);
+      cursor: pointer;
+  }
+
+  .profile-mobile img
+  {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
   }
 
 
@@ -225,7 +240,7 @@ a
 
     .post-image
   {
-      width: 100%;
+      width: 90%;
       height: 300px;
   }
 

@@ -28,19 +28,32 @@ function previewImage(e) {
     document.getElementById('preview').src='';
   }
 
+  if(document.getElementById('friends'))
+  {
+  document.getElementById('friends').addEventListener('click',()=>
+  {
+    document.querySelector('.main-content').style.display="none";
+    document.querySelector('.friends-list').classList.remove('d-none');
+  });
+}
 
-//   const form = document.getElementById('likes-form');
-// form.addEventListener('click',(e)=>{
-//     e.preventDefault();
-//     const formData = new FormData(form);
-//     postData(formData);
-// });
+function selectFile()
+            {
+                document.getElementById('profile-image').click();
+            }
 
-// async function postData(formData) {
-//     const response = await fetch ('global.php',{
-//         method : 'POST',
-//         body : formData
-//     });
-//     const data = await response.text();
-//     console.log(data);
-// }
+            function displayImage(e) {
+              if(e.files[0])
+              {
+                let reader = new FileReader();
+                reader.onload = (e)=>{
+                    if(e.target.result.match(/^data:image\//))
+                    {
+                  document.getElementById('preview').setAttribute('src', e.target.result);
+                    }else{
+                        alert("Not supported");
+                    }
+                }
+                reader.readAsDataURL(e.files[0]);
+              }
+            }

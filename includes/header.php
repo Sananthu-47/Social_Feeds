@@ -1,6 +1,6 @@
 <?php
     require "db.php";
-    require_once "global.php";
+    require "global.php";
     ob_start();
     session_start();
 ?>

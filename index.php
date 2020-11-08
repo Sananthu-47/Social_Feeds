@@ -5,6 +5,13 @@
     {
         header("Location: login.php");
     }
+
+    if(isset($_GET['profile_username']))
+    {
+        $_username = $_GET['profile_username'];
+    }else{
+        $_username = $_SESSION['username'];
+    }
 ?>
 <div class="w-100 home-wrapper d-flex justify-content-center">
     <div class="card bg-light d-none d-md-flex col-3 p-0">
