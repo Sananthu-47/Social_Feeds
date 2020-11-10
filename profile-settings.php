@@ -13,7 +13,13 @@
     $bio = charecterParse(trim($_POST['bio']));
     $user_image =time(). '_' .$_FILES['profile']['name'];
     $user_image_temp = $_FILES['profile']['tmp_name'];
-    move_uploaded_file($user_image_temp,"assets/images/profiles/$user_image");
+    if($_FILES['profile']['tmp_name'] !== '')
+    {
+        $image_query = ", user_image = '{$user_image}'";
+    }else{
+        $image_query = '';
+    }
+   move_uploaded_file($user_image_temp,"assets/images/profiles/$user_image");
     $username = $first_name . '_' . $last_name;
         $query = "SELECT username FROM users WHERE first_name = '$first_name' && last_name = '$last_name'";
         $result = mysqli_query($connection,$query);
@@ -30,10 +36,6 @@
 
             if(!empty($first_name) || !empty($last_name))
             {
-                if($_FILES['profile']['size'] <= 0)
-                    {
-                        $user_image = "profile.png";
-                    }
 
                     //Get list of all my friends
                     $all_friends = getUserInfo('friends_list',$_SESSION['username']);  
@@ -56,8 +58,12 @@
                                   }
                     }//foreach
 
-                    $query = "UPDATE users SET username = '$username' , first_name = '$first_name' , last_name = '$last_name' , user_image = '$user_image' , bio = '$bio'  WHERE id = '$user_id' ";
+                    $query = "UPDATE users SET username = '$username' , first_name = '$first_name' , last_name = '$last_name'  , bio = '$bio'". $image_query ." WHERE id = '$user_id' ";
                     $result = mysqli_query($connection,$query);
+
+                    $query = "UPDATE posts SET posted_by = '$username'  WHERE posted_by = '{$_SESSION['username']}' ";
+                    $result = mysqli_query($connection,$query);
+
                     session_destroy();
                     session_start();
                     $_SESSION['username'] = $username;
@@ -87,30 +93,13 @@
     $first_name = $row['first_name'];
     $last_name = $row['last_name'];
     $bio = $row['bio'];
-
-    //   $all_friends = getUserInfo('friends_list','Ananthu_Sv_1');  
-    //   $friends_array = array_filter(explode(',',$all_friends));
-    //   foreach ($friends_array as $friend) { 
-
-    //         $query = "SELECT friends_list FROM users WHERE username = '$friend'";
-    //         $result = mysqli_query($connection,$query);
-    //         $response = [];
-    //         $response = mysqli_fetch_assoc($result);
-    //         for($i=0;$i<count($response);$i++)
-    //         {
-    //                 $string = $response['friends_list'];
-    //                 $search = ',Ananthu_Sv_1,';
-    //                 $updated_list = str_replace($search, ',Gabar_1,' , $string);
-
-    //         }//for
-    //   }//foreach
 ?>
 
 <div class="container-fluid d-flex flex-column justify-content-center text-content-center p-1 col-12 col-md-6 col-lg-4 mt-2">
 <form action="" method="post" class="form form-group" enctype="multipart/form-data">
             <div class="profile-mobile" onClick="selectFile()">
             <img src="assets/images/profiles/<?php echo getUserInfo('user_image',$username); ?>" class="image-full" id="preview" alt="">
-            <input type="file" name="profile" id="profile-image" value="" onChange="displayImage(this)" class="d-none">
+            <input type="file" name="profile" id="profile-image" accept="<?php echo getUserInfo('user_image',$username); ?>" onChange="displayImage(this)" class="d-none">
             </div>
             <label class='badge badge-dark' for="username">Username</label>
             <input type="text" name="username" class="form-control border" id="username" placeholder="Username" value="<?php echo $username ;?>" disabled='true'>

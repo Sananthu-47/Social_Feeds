@@ -28,9 +28,40 @@
     </div>
     </div>
 
-    <div class="card friends-list bg-light d-none d-md-flex col-3 p-0">
-    <?php include "includes/all-friends.php" ?>
-    </div>
+            <div class="card friends-list bg-light d-none d-md-flex col-12 col-md-3 p-0">
+                        <div class="alert-info text-center p-2">
+                        <span class="text-dark h4"><?php echo "<span class='text-primary h3'>".$_username."</span>"; ?> Friends List</span>
+                        </div>
+                    <ul class="list-group" id="all-friends">
+                    
+                    </ul>
+            </div>
 </div>
+
+<script>
+    
+    //Load all friends
+$(document).ready(function(e)
+{
+    viewAllFriends();
+});
+
+    function viewAllFriends()
+    {
+        let request_to = "<?php echo $_username; ?>";
+        let request_from = "<?php echo $_SESSION['username']; ?>";
+
+        $.ajax({
+            url : "process/all-friends.php",
+            type : "POST",
+            data : {request_to , request_from},
+            success : function(data)
+            {
+                $("#all-friends").html(data);
+            }
+        });
+    }
+    
+</script>
 
 <?php require "includes/footer.php"; ?>

@@ -194,8 +194,8 @@ a
 
   .home-wrapper
   {
-      position: relative;
-      top: 0;
+      position: fixed;
+      top: 60px;
       overflow-y: hidden;
   }
 
@@ -218,6 +218,18 @@ a
       border-radius: 50%;
   }
 
+
+
+  @media screen and (max-width: 768px)
+{
+    .home-wrapper
+  {
+      position: fixed;
+      top: 100px;
+      overflow-y: hidden;
+  }
+
+}
 
 @media screen and (max-width: 600px)
 {
@@ -247,5 +259,12 @@ a
   .like-comment
   {
       width: 100%;
+  }
+
+  .home-wrapper
+  {
+      position: fixed;
+      top: 90px;
+      overflow-y: hidden;
   }
 }

@@ -1,4 +1,4 @@
-<div class=" my-5 side-user d-block d-xl-flex justify-content-center">
+<div class="my-5 side-user d-block d-xl-flex justify-content-center">
     <div class="profile-side-image m-2">
     <a href="<?php echo $_username; ?>"><img src="assets/images/profiles/<?php echo getUserInfo('user_image',$_username); ?>" class="profile-image-tag" alt=""></a>
     </div>
