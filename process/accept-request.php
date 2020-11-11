@@ -6,9 +6,9 @@ include "../global.php";
     $from = $_POST['request_from'];
     $my_friend_list = getUserInfo('friends_list',$from) . $to . ',' ;//My friends list
     $accepted_friend_list = getUserInfo('friends_list',$to) . $from . ',' ;//The new friends friend list
-
+    $status = "friends";
     //Update the friends_request table with friends status to notify
-    $query = "UPDATE friend_requests SET request_status = 'friends' WHERE request_by = '$from' AND request_to = '$to'";
+    $query = "UPDATE friend_requests SET request_status = '$status' WHERE request_by = '{$to}' AND request_to = '{$from}'";
     $result = mysqli_query($connection,$query);
     //Update my friends list with the new friend added
     $query = "UPDATE users SET friends_list = '$my_friend_list' WHERE username = '$from'";

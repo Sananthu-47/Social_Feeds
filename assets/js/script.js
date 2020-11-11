@@ -37,6 +37,15 @@ function previewImage(e) {
   });
 }
 
+if(document.getElementById('close'))
+  {
+  document.getElementById('close').addEventListener('click',()=>
+  {
+    document.querySelector('.main-content').style.display="flex";
+    document.querySelector('.friends-list').classList.add('d-none');
+  });
+}
+
 function selectFile()
             {
                 document.getElementById('profile-image').click();

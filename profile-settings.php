@@ -58,19 +58,33 @@
                                   }
                     }//foreach
 
+                    //Update my name and profile
                     $query = "UPDATE users SET username = '$username' , first_name = '$first_name' , last_name = '$last_name'  , bio = '$bio'". $image_query ." WHERE id = '$user_id' ";
                     $result = mysqli_query($connection,$query);
-
+                    //Update posts setion with my new updated name
                     $query = "UPDATE posts SET posted_by = '$username'  WHERE posted_by = '{$_SESSION['username']}' ";
                     $result = mysqli_query($connection,$query);
-
+                    //Get all the user name with the old name in request by and to in request table
+                    $request_by_list = getFreindRequestInfo('request_by',$_SESSION['username']);
+                    $request_to_list = getFreindRequestInfo('request_to',$_SESSION['username']);
+                    
+                    //Update the fried_request table with the updated request_by
+                    foreach ($request_by_list as $id) {
+                        $query = "UPDATE friend_requests SET request_by = '$username' WHERE id = '$id' ";
+                        $result = mysqli_query($connection,$query);
+                    } 
+                    //Update the friend_reuets table with the updated request_to
+                    foreach ($request_to_list as $id) {
+                        $query = "UPDATE friend_requests SET request_to = '$username' WHERE id = '$id' ";
+                        $result = mysqli_query($connection,$query);
+                    } 
                     session_destroy();
                     session_start();
                     $_SESSION['username'] = $username;
 
                         if(!$result)
                         {
-                            alert('alert-danger',"User couldn't be updated!");
+                            alert('alert-danger',"User couldn't be updated!".mysqli_error($connection));
                         }else{
                             alert('alert-success',"User updated successfully!");
                         }

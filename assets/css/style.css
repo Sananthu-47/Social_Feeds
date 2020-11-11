@@ -21,6 +21,11 @@ a
     text-decoration: none !important;
 }
 
+hr
+{
+    border-top: 5px solid rgb(0,0,0,.1) !important;
+}
+
 .navbar {
     position: sticky !important;
     top: 0;

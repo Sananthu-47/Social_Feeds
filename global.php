@@ -312,3 +312,20 @@ function getAllPosts()
     }
 }
 
+function getFreindRequestInfo($getValue,$username)
+{
+    global $connection;
+    $query = "SELECT id FROM friend_requests WHERE $getValue = '$username'";
+        $result = mysqli_query($connection,$query);
+        $user_array= [];
+        if(!$result)
+        {
+            die("Error".mysqli_error($connection));
+        }
+        while($row = mysqli_fetch_assoc($result))
+        {
+            array_push($user_array,$row['id']);
+        }
+        
+        return $user_array;
+}
