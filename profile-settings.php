@@ -116,7 +116,7 @@
             <input type="file" name="profile" id="profile-image" accept="<?php echo getUserInfo('user_image',$username); ?>" onChange="displayImage(this)" class="d-none">
             </div>
             <label class='badge badge-dark' for="username">Username</label>
-            <input type="text" name="username" class="form-control border" id="username" placeholder="Username" value="<?php echo $username ;?>" disabled='true'>
+            <input type="text" name="username" class="form-control border profile-username" id="username" placeholder="Username" value="<?php echo $username ;?>" disabled='true'>
             <label class='badge badge-dark' for="bio">Add bio</label>
             <textarea type="text" name="bio" class="form-control border" id="bio" placeholder="Bio"><?php echo $bio ;?></textarea>
             <label class='badge badge-dark' for="first-name">First name</label>

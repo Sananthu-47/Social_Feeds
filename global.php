@@ -113,7 +113,7 @@ function getDateFormat($interval)
 {
     $time_message = '';
 
-    if($interval->y >= 1)
+            if($interval->y >= 1)
             {
                 if($interval->y==1)
                 {
@@ -157,19 +157,20 @@ function getDateFormat($interval)
             {
                 if($interval->s < 30)
                 {
-                    $time_message = "Just now";
+                   return $time_message = "Just now";
                 }else{
-                    $time_message = $interval->s . " seconds ago";
+                   return $time_message = $interval->s . " seconds ago";
                 }
             }
 }
 
 function getSpecificUserPosts($user)
 {
+    if(getUserInfo('account_type',$user) === 'public' || isFriend($user) || $user === $_SESSION['username'])
+    {
     global $connection;
     $query = "SELECT * FROM posts WHERE posted_by = '{$user}' ORDER BY id DESC";
     $result = mysqli_query($connection,$query);
-
     if(!$result)
     {
         alert("alert-danger","Failed to fetch posts");
@@ -234,6 +235,10 @@ function getSpecificUserPosts($user)
     else{
         return "<div class='text-secondary text-center my-3'>No post!</div>";
     }
+  }//End of the accoutn_type
+  else{
+      echo "<span class='text-center h4'>Account private</span>";
+  }
 }
 
 function getAllPosts()

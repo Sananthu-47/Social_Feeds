@@ -2,16 +2,24 @@
 <?php include "includes/nav.php"; ?>
 
 <?php 
+
+if(!isset($_SESSION['username']))
+    {
+        header("Location: login.php");
+    }
+    
     if(isset($_GET['profile_username']))
     {
         $_username = $_GET['profile_username'];
+    }else{
+        $_username = $_SESSION['username'];
     }
 ?>
 
 <div class="w-100 d-flex justify-content-center home-wrapper">
     <div class="card bg-light d-none d-md-flex col-3 p-0">
-    <div class="d-flex justify-content-center">
-        <?php include "includes/profile-user-side.php"; ?>
+    <div class="d-flex justify-content-center" id="profile-data">
+    <!-- Here goes the data from the profile side ajax php -->
     </div>
     <!-- Add friend button  -->
     <div class='d-flex justify-content-center'>
@@ -98,6 +106,7 @@ $(document).on('click','#accept-request',function(e){
             $("#friend-form").html(data);
             $("#friend-form-mobile").html(data);
             viewAllFriends();
+            loadProfileData();
         }
     });
 });
@@ -133,6 +142,7 @@ $(document).on('click',"#unfriend",function(e){
             $("#friend-form").html(data);
             $("#friend-form-mobile").html(data);
             viewAllFriends();
+            loadProfileData();
         }
     });
 });
@@ -152,6 +162,10 @@ $(document).on('click',"#unfriend",function(e){
             <span class="text-dark">Last name: <?php echo getUserInfo('last_name',$_username); ?></span>
             <span class="text-dark">Posts: <?php echo getUserInfo('posts',$_username); ?></span>
             <span class="text-dark">Friends: <?php echo getUserInfo('friends',$_username); ?></span>
+            <?php if(getUserInfo('bio',$_username) !== '')
+            {
+            echo "<span class='text-dark'>Bio: ".getUserInfo('bio',$_username)."</span>";
+            } ?>
             <!-- Request buttons -->
             <div class='d-flex justify-content-center my-2'>
     <?php 
@@ -210,6 +224,7 @@ $(document).on('click',"#unfriend",function(e){
 $(document).ready(function(e)
 {
     viewAllFriends();
+    loadProfileData();
 });
 
     function viewAllFriends()
@@ -227,6 +242,20 @@ $(document).ready(function(e)
             }
         });
     }
+
+    function loadProfileData()
+{
+    let username = "<?php echo $_username; ?>";
+    $.ajax({
+        url : "process/profile-user-side.php",
+        type : "POST",
+        data : {username},
+        success : function(data)
+        {
+            $("#profile-data").html(data);
+        }
+    });
+}
     
     </script>
 

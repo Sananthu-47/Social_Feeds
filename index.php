@@ -15,8 +15,8 @@
 ?>
 <div class="w-100 home-wrapper d-flex justify-content-center">
     <div class="card bg-light d-none d-md-flex col-3 p-0">
-    <div class="d-flex justify-content-center">
-        <?php include "includes/home-page-user.php"; ?>
+    <div class="d-flex justify-content-center" id="profile-data">
+        <!-- Here goes the data from the profile side ajax data -->
     </div>
     </div>
 
@@ -44,6 +44,7 @@
 $(document).ready(function(e)
 {
     viewAllFriends();
+    loadProfileData();
 });
 
     function viewAllFriends()
@@ -61,6 +62,20 @@ $(document).ready(function(e)
             }
         });
     }
+
+function loadProfileData()
+{
+    let username = "<?php echo $_username; ?>";
+    $.ajax({
+        url : "process/profile-user-side.php",
+        type : "POST",
+        data : {username},
+        success : function(data)
+        {
+            $("#profile-data").html(data);
+        }
+    });
+}
     
 </script>
 
