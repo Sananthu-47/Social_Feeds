@@ -1,6 +1,6 @@
 <?php
-    require "db.php";
-    require "global.php";
+    include "db.php";
+    include "global.php";
     ob_start();
     session_start();
 ?>
@@ -14,6 +14,6 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="assets/css/style.css">
-    <title>Document</title>
+    <title>Social_Feeds</title>
 </head>
 <body>

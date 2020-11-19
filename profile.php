@@ -20,6 +20,7 @@ if(!isset($_SESSION['username']))
     <div class="card bg-light d-none d-md-flex col-3 p-0">
     <div class="d-flex justify-content-center" id="profile-data">
     <!-- Here goes the data from the profile side ajax php -->
+    <h3 class="loading text-center">Loading...</h3>
     </div>
     <!-- Add friend button  -->
     <div class='d-flex justify-content-center'>
@@ -28,7 +29,7 @@ if(!isset($_SESSION['username']))
     {?>
         <form  id="friend-form" method="POST">
          <?php
-            if(isFriend($_username))
+            if(isFriend($_username , $_SESSION['username']))
             {
                 echo "<input type='submit' data-reqto='{$_username}' data-reqfrom='{$_SESSION['username']}' id='unfriend' class='btn btn-danger'
                 value='Unfriend $_username'>";
@@ -150,6 +151,7 @@ $(document).on('click',"#unfriend",function(e){
 </script>
 
     <div class="card main-content bg-light col-12 col-md-6 p-0">
+    <div class="content" id="main-content">
         <?php include "includes/say-something.php"; ?>
         <!--- Mobile view of profile --->
         <div class="d-flex d-md-none flex-column text-center">
@@ -173,7 +175,7 @@ $(document).on('click',"#unfriend",function(e){
     {?>
         <form  id="friend-form-mobile" method="POST">
          <?php
-            if(isFriend($_username))
+            if(isFriend($_username , $_SESSION['username']))
             {
                 echo "<input type='submit' data-reqto='{$_username}' data-reqfrom='{$_SESSION['username']}' id='unfriend' class='btn btn-danger'
                 value='Unfriend $_username'>";
@@ -205,7 +207,9 @@ $(document).on('click',"#unfriend",function(e){
             </div>
         </div><!-- </mobile>  -->
         <hr>
-        <?php echo getSpecificUserPosts($_username); ?>
+        <!--   Get all specific users  -->
+        <h3 class="loading text-center">Loading...</h3>
+    </div>
     </div>
 
     <div class="card friends-list bg-light d-none d-md-flex col-12 col-md-3 p-0">
@@ -214,17 +218,26 @@ $(document).on('click',"#unfriend",function(e){
                 <span class="text-dark m-auto h5"><?php echo "<span class='text-primary h4'>".$_username."</span>"; ?> Friends List</span>
                 </div>
             <ul class="list-group" id="all-friends">
-            
+            <h3 class="loading text-center">Loading...</h3>
             </ul>
     </div>
 
     <script>
-    
+    let flag = 0;
     //Load all friends
 $(document).ready(function(e)
 {
+    $(".loading").hide();
     viewAllFriends();
     loadProfileData();
+    getSpecificUserPost(flag);
+
+    $(".main-content").scroll(function(){
+        if($(".main-content").scrollTop() >= $("#main-content").innerHeight() - $(document).innerHeight())
+        {
+            getSpecificUserPost(flag+=5);
+        }
+        });
 });
 
     function viewAllFriends()
@@ -239,6 +252,21 @@ $(document).ready(function(e)
             success : function(data)
             {
                 $("#all-friends").html(data);
+            }
+        });
+    }
+
+    function getSpecificUserPost(page)
+    {
+        let username = "<?php echo $_username; ?>";
+        let loggedInUser = "<?php echo $_SESSION['username'] ?>";
+        $.ajax({
+            url : "process/get-specific-user-post.php",
+            type : "POST",
+            data : {username,loggedInUser,page},
+            success : function(data)
+            {
+                $("#main-content").append(data);
             }
         });
     }
