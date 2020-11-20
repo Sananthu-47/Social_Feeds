@@ -25,6 +25,7 @@
                 $post_user = $row['posted_by'];
                 $posted_at = $row['posted_at'];
                 $post_likes = $row['likes'];
+                $post_id = $row['id'];
                 $user_image = getUserInfo('user_image',$post_user);
                 $date_time_now = date("Y-m-d H:i:s");
                 $post_posted = new DateTime($posted_at);
@@ -33,8 +34,8 @@
                 $time_message = getDateFormat($interval);
 
                 echo "
-                <div class='d-flex flex-column justify-content-center'>
                 
+                <div class='d-flex flex-column'>
                     <div class='user-details mx-2 d-flex'>
                     <div class='image-preview mx-3'>
                     <a href='$post_user'><img src='assets/images/profiles/$user_image' alt='image'></a>
@@ -42,9 +43,17 @@
                     <div class='d-flex flex-column'>
                     <a href='$post_user'><span class='text-primary'>$post_user</span></a>
                     <span class='text-dark'>$time_message</span>
-                    </div>
+                    </div>";  
+                    
+                    if($post_user === $logged_in_user)
+                    {
+                   echo " 
+                    <div id='post-details'>
+                    <i class='fa fa-trash mx-2' id='delete-post' data-user='$logged_in_user' data-postId='$post_id'></i>
+                    <i class='fa fa-edit' id='edit-post'></i>
                     </div>";
-
+                    }
+                echo "</div>";//d-flex and flex-column
                     if($post_image!=="none")
                     {
                         echo "

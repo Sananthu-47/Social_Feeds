@@ -228,6 +228,27 @@ hr
       cursor: not-allowed;
   }
 
+  #post-details
+  {
+    position: absolute;
+    left: 85%;
+    transform: translateX(50%);
+    margin-right: 10px;
+    text-align: center;
+    font-size: 20px;
+  }
+
+  #post-details .fa-trash:hover
+  {
+    color: red;
+    cursor: pointer;
+  }
+
+  #post-details .fa-edit:hover
+  {
+    color: rgb(0, 204, 255);
+    cursor: pointer;
+  }
 
 
   @media screen and (max-width: 768px)

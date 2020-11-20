@@ -208,6 +208,7 @@ $(document).on('click',"#unfriend",function(e){
         </div><!-- </mobile>  -->
         <hr>
         <!--   Get all specific users  -->
+        <div id='all-posts'></div>
         <h3 class="loading text-center">Loading...</h3>
     </div>
     </div>
@@ -233,11 +234,41 @@ $(document).ready(function(e)
     getSpecificUserPost(flag);
 
     $(".main-content").scroll(function(){
+        console.log($(".main-content").scrollTop());
+            console.log($("#main-content").innerHeight() - $(document).innerHeight());
         if($(".main-content").scrollTop() >= $("#main-content").innerHeight() - $(document).innerHeight())
         {
             getSpecificUserPost(flag+=5);
         }
         });
+});
+
+
+    //Delete specific post
+$(document).on('click',"#delete-post",function(e){
+    let request_from = $(this).data("user");
+    let post_id =$(this).data("postid");
+let conformation = confirm("Do you really want to delete the post");
+if(conformation)
+{
+    $.ajax({
+        url : "process/delete-post.php",
+        type : "POST",
+        data : {request_from , post_id},
+        success : function(data)
+        {
+            if(data == 1)
+            {
+            loadProfileData();
+            $("#all-posts").empty();
+            flag = 0;
+            getSpecificUserPost(flag);
+            }else{
+                alert(data);
+            }
+        }
+    });
+}
 });
 
     function viewAllFriends()
@@ -266,7 +297,7 @@ $(document).ready(function(e)
             data : {username,loggedInUser,page},
             success : function(data)
             {
-                $("#main-content").append(data);
+                $("#all-posts").append(data);
             }
         });
     }
