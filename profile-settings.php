@@ -1,26 +1,24 @@
 <?php include "includes/header.php"; ?>
 <?php include "includes/nav.php"; ?>
-
 <?php
     $user_id = getUserInfo('id',$_SESSION['username']);
-?>
-
-<?php
- if(isset($_POST['update']))
- {
-    $first_name = charecterParse(ucfirst(strtolower(trim($_POST['first_name']))));
-    $last_name = charecterParse(ucfirst(strtolower(trim($_POST['last_name']))));
-    $bio = charecterParse(trim($_POST['bio']));
-    $user_image =time(). '_' .$_FILES['profile']['name'];
-    $user_image_temp = $_FILES['profile']['tmp_name'];
-    if($_FILES['profile']['tmp_name'] !== '')
+     if(isset($_POST['update']))
     {
-        $image_query = ", user_image = '{$user_image}'";
-    }else{
-        $image_query = '';
-    }
-   move_uploaded_file($user_image_temp,"assets/images/profiles/$user_image");
-    $username = $first_name . '_' . $last_name;
+        $first_name = charecterParse(ucfirst(strtolower(trim($_POST['first_name']))));
+        $last_name = charecterParse(ucfirst(strtolower(trim($_POST['last_name']))));
+        $bio = charecterParse(trim($_POST['bio']));
+        $user_image =time(). '_' .$_FILES['profile']['name'];
+        $user_image_temp = $_FILES['profile']['tmp_name'];
+        $acc_type = strtolower($_POST['account_type']);
+        
+        if($_FILES['profile']['tmp_name'] !== '')
+        {
+            $image_query = ", user_image = '{$user_image}'";
+        }else{
+            $image_query = '';
+        }
+        move_uploaded_file($user_image_temp,"assets/images/profiles/$user_image");
+        $username = $first_name . '_' . $last_name;
         $query = "SELECT username FROM users WHERE first_name = '$first_name' && last_name = '$last_name'";
         $result = mysqli_query($connection,$query);
 
@@ -34,7 +32,7 @@
             $username = $username . '_' . $unique;
         }
 
-            if(!empty($first_name) || !empty($last_name))
+            if(!empty($first_name) && !empty($last_name) && !empty($acc_type) && !empty($user_image))
             {
 
                     //Get list of all my friends
@@ -59,7 +57,7 @@
                     }//foreach
 
                     //Update my name and profile
-                    $query = "UPDATE users SET username = '$username' , first_name = '$first_name' , last_name = '$last_name'  , bio = '$bio'". $image_query ." WHERE id = '$user_id' ";
+                    $query = "UPDATE users SET username = '$username' , account_type = '$acc_type' , first_name = '$first_name' , last_name = '$last_name'  , bio = '$bio'". $image_query ." WHERE id = '$user_id' ";
                     $result = mysqli_query($connection,$query);
                     //Update posts setion with my new updated name
                     $query = "UPDATE posts SET posted_by = '$username'  WHERE posted_by = '{$_SESSION['username']}' ";
@@ -107,6 +105,7 @@
     $first_name = $row['first_name'];
     $last_name = $row['last_name'];
     $bio = $row['bio'];
+    $account_type = $row['account_type'];
 ?>
 
 <div class="container-fluid d-flex flex-column justify-content-center text-content-center p-1 col-12 col-md-6 col-lg-4 mt-2">
@@ -117,8 +116,11 @@
             </div>
             <label class='badge badge-dark' for="username">Username</label>
             <input type="text" name="username" class="form-control border profile-username" id="username" placeholder="Username" value="<?php echo $username ;?>" disabled='true'>
+            <label class='badge badge-dark' for="account-type">Account type</label>
+            <input type="button" class="form-control border btn btn-sm text-uppercase font-weight-bold" id="account-type" value="<?php echo $account_type ;?>">
+            <input type="hidden" id="hidden-account-type" value="<?php echo $account_type ;?>" name="account_type" >
             <label class='badge badge-dark' for="bio">Add bio</label>
-            <textarea type="text" name="bio" class="form-control border" id="bio" placeholder="Bio"><?php echo $bio ;?></textarea>
+            <textarea type="text" name="bio" class="form-control border" id="bio" placeholder="About me!"><?php echo $bio ;?></textarea>
             <label class='badge badge-dark' for="first-name">First name</label>
             <input type="text" name="first_name" class="form-control border" id="first-name" placeholder="First name" value="<?php echo $first_name ;?>">
             <label class='badge badge-dark' for="last-name">Last name</label>
@@ -128,3 +130,18 @@
 </div>
 
 <?php include "includes/footer.php"; ?>
+
+<script>
+
+$("#account-type").on("click",()=>{
+    if($("#account-type").val()==="public")
+    {
+        $("#hidden-account-type").val("private");
+        $("#account-type").val("private");
+    }else{
+        $("#hidden-account-type").val("public");
+        $("#account-type").val("public");
+    }
+});
+
+</script>
