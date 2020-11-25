@@ -20,6 +20,7 @@
     {
         while($row = mysqli_fetch_assoc($result))
         {
+                $post_id = $row['id'];
                 $post_body = $row['post_body'];
                 $post_image = $row['post_image'];
                 $post_user = $row['posted_by'];
@@ -73,8 +74,15 @@
 
                 echo " 
                 <div class='container my-2 mx-auto like-comment bg-white d-flex justify-content-between align-items-center'>
-                <div class='d-block'><span class='badge badge-primary mr-1'>$post_likes</span>
-                <span class='badge badge-secondary'><span>Like</span> <i class='fa fa-thumbs-up fa-lg'></i></span>
+                <div class='d-block'><span class='badge badge-primary mr-1' id='post".$post_id."'>$post_likes</span>
+                <span class='badge badge-";
+                if(postLiked($post_id,getUserInfo('id',$logged_in_user)))
+                {
+                    echo "primary";
+                }else{
+                    echo "secondary";
+                }
+                echo "' id='like' data-post='$post_id'><span>Like</span> <i class='fa fa-thumbs-up fa-lg'></i></span>
                 </div>
                 <span>Comments <i class='fa fa-comments'>1</i></span>
                 </div>

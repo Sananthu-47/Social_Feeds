@@ -250,6 +250,11 @@ hr
     cursor: pointer;
   }
 
+  #like
+  {
+      cursor: pointer;
+  }
+
 
   @media screen and (max-width: 768px)
 {

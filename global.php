@@ -25,6 +25,20 @@ function getUserInfo($getValue,$username)
         return $row[0];
 }
 
+function getPostInfo($getValue,$id)
+{
+    global $connection;
+    $query = "SELECT $getValue FROM posts where id = '$id'";
+        $result = mysqli_query($connection,$query);
+
+        if(!$result)
+        {
+            die("Error".mysqli_error($connection));
+        }
+        $row = mysqli_fetch_array($result);
+        return $row[0];
+}
+
 function addPost($post_to,$post_data,$image)
 {
     global $connection;
@@ -179,4 +193,17 @@ function getFreindRequestInfo($getValue,$username)
         }
         
         return $user_array;
+}
+
+function postLiked($post_id,$user_id)
+{
+    global $connection;
+    $query = "SELECT post_status FROM likes WHERE post_id = '$post_id' AND user_id = '$user_id'";
+    $result = mysqli_query($connection,$query); 
+    if(mysqli_fetch_array($result)['post_status'] == "liked")
+    {
+        return true;
+    }else{
+        return false;
+    }
 }

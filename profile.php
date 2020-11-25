@@ -315,6 +315,33 @@ if(conformation)
         }
     });
 }
+
+$(document).on('click',"#like",function(e){
+    let post_id = $(this).data("post");
+    let user_id = "<?php echo getUserInfo("id",$_SESSION['username']); ?>";
+    let postCount = $("#post"+post_id);
+    let likeBtn = this;
+    $.ajax({
+        url : "process/like.php",
+        type : "POST",
+        data : {post_id , user_id},
+        success : function(data)
+        {
+            let result = JSON.parse(data);
+            
+            if(result.status == "add-like")
+            {
+            likeBtn.classList.remove("badge-secondary");
+            likeBtn.classList.add("badge-primary");
+            postCount.html(result.like);
+            }else{
+            likeBtn.classList.add("badge-secondary");
+            likeBtn.classList.remove("badge-primary");
+            postCount.html(result.like);
+            }
+        }
+    });
+});
     
     </script>
 
