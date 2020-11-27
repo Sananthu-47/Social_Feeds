@@ -54,20 +54,21 @@ function addPost($post_to,$post_data,$image)
         {
             $post_image = "none";
         }
-        $post_image_temp = $_FILES['image']['tmp_name'];
-        move_uploaded_file($post_image_temp,"assets/images/posts/$post_image");
+        echo $_FILES['image']['tmp_name'];
+        // $post_image_temp = $_FILES['image']['tmp_name'];
+        // move_uploaded_file($post_image_temp,"assets/images/posts/$post_image");
 
-        if($post_by == $post_to)
-        {
-            $post_to="";
-        }
+        // if($post_by == $post_to)
+        // {
+        //     $post_to="";
+        // }
 
-        $query = "INSERT INTO posts (post_body , post_image , post_to, posted_by , posted_at) VALUES ('{$post_body}' , '{$post_image}' , '{$post_to}' , '{$post_by}' , '{$post_at}')";
-        $result = mysqli_query($connection,$query);
+        // $query = "INSERT INTO posts (post_body , post_image , post_to, posted_by , posted_at) VALUES ('{$post_body}' , '{$post_image}' , '{$post_to}' , '{$post_by}' , '{$post_at}')";
+        // $result = mysqli_query($connection,$query);
 
-        $total_post = getUserInfo('posts',$post_by);
-        $query = "UPDATE users SET posts = $total_post+1 WHERE username = '$post_by'";
-        $result = mysqli_query($connection,$query);
+        // $total_post = getUserInfo('posts',$post_by);
+        // $query = "UPDATE users SET posts = $total_post+1 WHERE username = '$post_by'";
+        // $result = mysqli_query($connection,$query);
 
     }else{
         alert('alert-danger','Post cannot be empty!');

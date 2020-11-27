@@ -51,7 +51,7 @@
                    echo " 
                     <div id='post-details'>
                     <i class='fa fa-trash mx-2' id='delete-post' data-user='$logged_in_user' data-postId='$post_id'></i>
-                    <i class='fa fa-edit' id='edit-post'></i>
+                    <i class='fa fa-edit' id='edit-post' data-user='$logged_in_user' data-postId='$post_id'></i>
                     </div>";
                     }
                 echo "</div>";//d-flex and flex-column

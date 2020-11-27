@@ -234,8 +234,6 @@ $(document).ready(function(e)
     getSpecificUserPost(flag);
 
     $(".main-content").scroll(function(){
-        console.log($(".main-content").scrollTop());
-            console.log($("#main-content").innerHeight() - $(document).innerHeight());
         if($(".main-content").scrollTop() >= $("#main-content").innerHeight() - $(document).innerHeight())
         {
             getSpecificUserPost(flag+=5);
@@ -270,6 +268,48 @@ if(conformation)
     });
 }
 });
+
+//Add post
+$("#my-form").on('submit',function(e){
+    e.preventDefault();
+        let formData = new FormData(this);
+        formData.append("post_by","<?php echo $_SESSION['username']; ?>")
+            $.ajax({
+            url : "process/add-post.php",
+            type : "POST",
+            data : formData,
+            contentType : false,
+            processData : false,
+            success : function(data)
+            {
+            loadProfileData();
+            $("#all-posts").html('');
+            $("#post-content").val('');
+            flag = 0;
+            getSpecificUserPost(flag);
+            removeImage();
+            }
+        });
+    });
+
+    //Edit post  edit-post
+    $(document).on('click',"#edit-post",function(e){
+    let request_from = $(this).data("user");
+    let post_id =$(this).data("postid");
+
+            $.ajax({
+            url : "process/edit-post.php",
+            type : "POST",
+            data : {request_from , post_id},
+            success : function(data)
+            {
+                $('.main-content').animate({scrollTop: '0px'}, 0);
+                $(".post").val('Update');
+                $(".select-image").html('Change Image');
+                $("#post-content").html(data);
+            }
+        });
+    });
 
     function viewAllFriends()
     {
@@ -315,7 +355,7 @@ if(conformation)
         }
     });
 }
-
+//Like a post
 $(document).on('click',"#like",function(e){
     let post_id = $(this).data("post");
     let user_id = "<?php echo getUserInfo("id",$_SESSION['username']); ?>";

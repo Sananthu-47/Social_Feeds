@@ -26,6 +26,7 @@
         <?php include "includes/say-something.php"; ?>
         <hr>
         <!-- Get all posts -->
+        <div id='all-posts'></div>
         <h3 class="loading text-center">Loading...</h3>
     </div>
     </div>
@@ -84,7 +85,7 @@ $(document).ready(function(e)
             success : function(data)
             {
                 $(".loading").hide();
-                $("#main-content").append(data);
+                $("#all-posts").append(data);
             }
         });
     }
@@ -102,6 +103,29 @@ function loadProfileData()
         }
     });
 }
+
+//Add post
+$("#my-form").on('submit',function(e){
+    e.preventDefault();
+        let formData = new FormData(this);
+        formData.append("post_by","<?php echo $_SESSION['username']; ?>")
+            $.ajax({
+            url : "process/add-post.php",
+            type : "POST",
+            data : formData,
+            contentType : false,
+            processData : false,
+            success : function(data)
+            {
+            loadProfileData();
+            $("#all-posts").html('');
+            $("#post-content").val('');
+            flag = 0;
+            getAllPosts(flag);
+            removeImage();
+            }
+        });
+    });
 
 $(document).on('click',"#like",function(e){
     let post_id = $(this).data("post");
