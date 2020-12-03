@@ -6,6 +6,7 @@
 if(!isset($_SESSION['username']))
     {
         header("Location: login.php");
+        die();
     }
     
     if(isset($_GET['profile_username']))
@@ -152,7 +153,9 @@ $(document).on('click',"#unfriend",function(e){
 
     <div class="card main-content bg-light col-12 col-md-6 p-0">
     <div class="content" id="main-content">
+    <div id="say-something">
         <?php include "includes/say-something.php"; ?>
+    </div>
         <!--- Mobile view of profile --->
         <div class="d-flex d-md-none flex-column text-center">
         <hr>
@@ -206,9 +209,8 @@ $(document).on('click',"#unfriend",function(e){
             <button class="btn btn-primary" id="friends">View All friends</button>
             </div>
         </div><!-- </mobile>  -->
-        <hr>
         <!--   Get all specific users  -->
-        <div id='all-posts'></div>
+        <div id='all-posts'><hr></div>
         <h3 class="loading text-center">Loading...</h3>
     </div>
     </div>
@@ -258,7 +260,8 @@ if(conformation)
             if(data == 1)
             {
             loadProfileData();
-            $("#all-posts").empty();
+            $("#all-posts").html('');
+            $("#all-posts").html('<hr>');
             flag = 0;
             getSpecificUserPost(flag);
             }else{
@@ -284,6 +287,7 @@ $("#my-form").on('submit',function(e){
             {
             loadProfileData();
             $("#all-posts").html('');
+            $("#all-posts").html('<hr>');
             $("#post-content").val('');
             flag = 0;
             getSpecificUserPost(flag);
@@ -292,24 +296,22 @@ $("#my-form").on('submit',function(e){
         });
     });
 
-    //Edit post  edit-post
+    //Edit post
     $(document).on('click',"#edit-post",function(e){
-    let request_from = $(this).data("user");
     let post_id =$(this).data("postid");
-
+        let output = "";
             $.ajax({
             url : "process/edit-post.php",
             type : "POST",
-            data : {request_from , post_id},
+            data : {post_id},
             success : function(data)
             {
-                $('.main-content').animate({scrollTop: '0px'}, 0);
-                $(".post").val('Update');
-                $(".select-image").html('Change Image');
-                $("#post-content").html(data);
+                let result = JSON.parse(data);
+                
             }
         });
     });
+
 
     function viewAllFriends()
     {

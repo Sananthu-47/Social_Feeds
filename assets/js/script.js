@@ -1,6 +1,7 @@
 function addPhotoPost()
 {
     document.getElementById('add-post').click();
+    document.querySelector('.select-image').innerText="Change image";
 }
 
 function previewImage(e) {
@@ -24,8 +25,8 @@ function previewImage(e) {
   function removeImage() {
     document.querySelector('.image-holder').classList.remove('d-block');
     document.querySelector('.image-holder').classList.add('d-none');
-    document.getElementById('add-post').value="";
-    document.getElementById('preview').src='';
+    document.getElementById('add-post').src="none";
+    document.querySelector('.select-image').innerText="Add image";
   }
 
   if(document.getElementById('friends'))

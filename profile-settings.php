@@ -1,6 +1,10 @@
 <?php include "includes/header.php"; ?>
 <?php include "includes/nav.php"; ?>
 <?php
+if(!isset($_SESSION['username']))
+{
+    header("Location: login.php");
+}
     $user_id = getUserInfo('id',$_SESSION['username']);
      if(isset($_POST['update']))
     {
