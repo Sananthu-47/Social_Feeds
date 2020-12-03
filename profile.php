@@ -244,6 +244,7 @@ $(document).ready(function(e)
 });
 
 
+
     //Delete specific post
 $(document).on('click',"#delete-post",function(e){
     let request_from = $(this).data("user");
@@ -295,23 +296,6 @@ $("#my-form").on('submit',function(e){
             }
         });
     });
-
-    //Edit post
-    $(document).on('click',"#edit-post",function(e){
-    let post_id =$(this).data("postid");
-        let output = "";
-            $.ajax({
-            url : "process/edit-post.php",
-            type : "POST",
-            data : {post_id},
-            success : function(data)
-            {
-                let result = JSON.parse(data);
-                
-            }
-        });
-    });
-
 
     function viewAllFriends()
     {

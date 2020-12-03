@@ -8,11 +8,20 @@ include "../global.php";
       $friends_array = array_filter(explode(',',$all_friends));
           foreach ($friends_array as $friend) {  
           $profile_image = getUserInfo('user_image',$friend);
+          $last_seen = getUserInfo("last_seen",$friend);
+          $time = time();
           $output.="<a href='$friend'><li class='list-group-item d-flex align-items-center'>
           <div class='image-preview'>
           <img src='assets/images/profiles/$profile_image' alt='image'>
           </div>
-          <span>$friend</span></li></a>";
+          <div class='d-flex flex-column ml-2'>
+          <span>$friend</span>";
+          if($last_seen >= $time)
+          {
+            $output.="<span class='text-success'>Online</span></div></li></a>";
+          }else{
+            $output.="<span class='text-danger'>Offline</span></div></li></a>";
+          }
           }  
           echo $output;  
 ?>

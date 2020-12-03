@@ -30,7 +30,15 @@
                     if($db_email === $user_email && password_verify($user_password,$db_password))
                     {
                         $_SESSION['username'] = $db_username;
+                        $time = time();
+                        $query = "UPDATE users SET last_seen = '{$time}' WHERE username = '{$db_username}'";
+                        $result = mysqli_query($connection,$query);
+                        if($result)
+                        {
                         header("Location: index.php");
+                        }else{
+                            die("Error".mysqli_error($connection));
+                        }
                     }else{
                         alert("alert-danger","Password or email is inncorrect");
                     }

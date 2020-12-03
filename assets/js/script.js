@@ -67,3 +67,5 @@ function selectFile()
                 reader.readAsDataURL(e.files[0]);
               }
             }
+
+            
