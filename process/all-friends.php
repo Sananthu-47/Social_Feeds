@@ -18,9 +18,9 @@ include "../global.php";
           <span>$friend</span>";
           if($last_seen >= $time)
           {
-            $output.="<span class='text-success'>Online</span></div></li></a>";
+            $output.="<div class='online'></div><span class='text-success'>Online</span></div></li></a>";
           }else{
-            $output.="<span class='text-danger'>Offline</span></div></li></a>";
+            $output.="<div class='offline'></div><span class='text-danger'>Offline</span></div></li></a>";
           }
           }  
           echo $output;  
