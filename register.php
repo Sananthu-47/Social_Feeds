@@ -132,7 +132,7 @@
 
                 <label class='badge badge-dark' for="reg-password-again">Confirm password</label>
                 <input type="password" disabled="true" name="reg-password-again" class="form-control border" id="reg-password-again" placeholder="confirm password" onKeyup="passwordMatch(this.value)">
-                <span class="d-none password-again-indicater text-danger">Password didnot match</span>
+                <span class="d-none password-again-indicater text-danger">Password did not match</span>
                 </br>
                 <div class="w-100 d-flex justify-content-between">
                 <input type="submit" name="register" class="btn btn-primary mr-2" id="register" value="Register" disabled='false'>
