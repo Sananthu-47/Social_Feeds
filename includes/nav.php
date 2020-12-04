@@ -9,7 +9,9 @@
         <a href="profile-settings.php"><i class="fa fa-cog mx-2 text-white"><span></span></i></a>
         <a href="includes/logout.php"><i class="fa fa-sign-out mx-2 text-white"><span></span></i><a>
         <div class="image-preview mx-1">
-        <a href="<?php echo $_SESSION['username']; ?>"><img src="assets/images/profiles/<?php echo getUserInfo('user_image',$_SESSION['username']); ?>" alt="image"></a>
+        <?php if (isset($_SESSION['username'])): ?>
+            <a href="<?php echo $_SESSION['username']; ?>"><img src="assets/images/profiles/<?php echo getUserInfo('user_image',$_SESSION['username']); ?>" alt="image"></a>
+        <?php endif; ?>
         </div>
     </div>
 </div>
