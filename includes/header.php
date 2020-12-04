@@ -17,7 +17,7 @@
     <title>Social_Feeds</title>
 </head>
 <body>
-
+<?php if (isset($_SESSION['username'])): ?>
 <script>
 function updateUserLastSeen()
             {
@@ -34,3 +34,4 @@ function updateUserLastSeen()
             }
             setInterval(updateUserLastSeen, 10000);
 </script>
+<?php endif; ?>
