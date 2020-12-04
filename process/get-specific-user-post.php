@@ -9,7 +9,7 @@
     if(getUserInfo('account_type',$user) === 'public' || isFriend($user,$logged_in_user) || $user == $logged_in_user)
     {
     global $connection;
-    $query = "SELECT * FROM posts WHERE posted_by = '{$user}' ORDER BY id DESC LIMIT $page , 5";
+    $query = "SELECT * FROM posts WHERE posted_by = '{$user}' OR post_to = '{$user}' ORDER BY id DESC LIMIT $page , 5";
     $result = mysqli_query($connection,$query);
     if(!$result)
     {
@@ -25,6 +25,7 @@
                 $post_image = $row['post_image'];
                 $post_user = $row['posted_by'];
                 $posted_at = $row['posted_at'];
+                $post_to = $row['post_to'];
                 $post_likes = $row['likes'];
                 $post_id = $row['id'];
                 $user_image = getUserInfo('user_image',$post_user);
@@ -42,7 +43,16 @@
                     <a href='$post_user'><img src='assets/images/profiles/$user_image' alt='image'></a>
                     </div>
                     <div class='d-flex flex-column'>
-                    <a href='$post_user'><span class='text-primary'>$post_user</span></a>
+                    <span class='d-flex user-post'>
+                    <a href='$post_user'><span class='text-primary'>$post_user</span></a> ";
+
+                    if($post_to !== "none")
+                    {
+                        echo "&nbsp;posted to&nbsp;<a href='$post_to'><span class='text-primary'> $post_to</span></a>";
+                    }
+
+                    echo "
+                    </span>
                     <span class='text-dark'>$time_message</span>
                     </div>";  
                     
@@ -96,5 +106,3 @@
   else{
       echo "<span class='text-center h4'>Account private</span>";
   }
-
-  // data-user='$logged_in_user' data-postId='$post_id'

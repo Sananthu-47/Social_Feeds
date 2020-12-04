@@ -17,21 +17,5 @@
     <title>Social_Feeds</title>
 </head>
 <body>
-<?php if (isset($_SESSION['username'])): ?>
-<script>
-function updateUserLastSeen()
-            {
-                let username = "<?php echo $_SESSION['username']; ?>";
-                    $.ajax({
-                    url : "process/update_last_seen.php",
-                    type : "POST",
-                    data : {username},
-                    success : function(data){
-                        
-                    }
-                });
                 
-            }
-            setInterval(updateUserLastSeen, 10000);
-</script>
-<?php endif; ?>
+

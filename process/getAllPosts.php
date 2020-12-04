@@ -20,6 +20,7 @@ $query = "SELECT * FROM posts ORDER BY id DESC LIMIT $page , 5";
                 $post_body = $row['post_body'];
                 $post_image = $row['post_image'];
                 $post_user = $row['posted_by'];
+                $post_to = $row['post_to'];
                 $posted_at = $row['posted_at'];
                 $post_likes = $row['likes'];
                 $user_image = getUserInfo('user_image',$post_user);
@@ -39,7 +40,16 @@ $query = "SELECT * FROM posts ORDER BY id DESC LIMIT $page , 5";
                     <a href='$post_user'><img src='assets/images/profiles/$user_image' alt='image'></a>
                     </div>
                     <div class='d-flex flex-column'>
-                    <a href='$post_user'><span class='text-primary'>$post_user</span></a>
+                    <span class='d-flex user-post'>
+                    <a href='$post_user'><span class='text-primary'>$post_user</span></a>";
+
+                    if($post_to !== "none")
+                    {
+                        echo "&nbsp;posted to&nbsp;<a href='$post_to'><span class='text-primary'>$post_to</span></a>";
+                    }
+
+                    echo "
+                    </span>
                     <span class='text-dark'>$time_message</span>
                     </div>
                     </div>";

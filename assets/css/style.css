@@ -255,6 +255,27 @@ hr
       cursor: pointer;
   }
 
+  .online
+  {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: rgb(49, 218, 49);
+      position: relative;
+      left: -20px;
+      top: 15px;
+  }
+
+  .offline
+  {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: red;
+      position: relative;
+      left: -20px;
+      top: 15px;
+  }
 
   @media screen and (max-width: 768px)
 {
@@ -302,5 +323,10 @@ hr
       position: fixed;
       top: 90px;
       overflow-y: hidden;
+  }
+
+  .user-post
+  {
+      font-size: 12px;
   }
 }

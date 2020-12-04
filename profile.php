@@ -234,6 +234,7 @@ $(document).ready(function(e)
     viewAllFriends();
     loadProfileData();
     getSpecificUserPost(flag);
+    updateUserLastSeen();
 
     $(".main-content").scroll(function(){
         if($(".main-content").scrollTop() >= $("#main-content").innerHeight() - $(document).innerHeight())
@@ -273,11 +274,28 @@ if(conformation)
 }
 });
 
+function updateUserLastSeen()
+            {
+                let username = "<?php echo $_SESSION['username']; ?>";
+                    $.ajax({
+                    url : "process/update_last_seen.php",
+                    type : "POST",
+                    data : {username},
+                    success : function(data){
+                        viewAllFriends();
+                    }
+                });
+                
+            }
+            setInterval(updateUserLastSeen, 10000);
+
 //Add post
 $("#my-form").on('submit',function(e){
     e.preventDefault();
         let formData = new FormData(this);
-        formData.append("post_by","<?php echo $_SESSION['username']; ?>")
+        formData.append("post_by","<?php echo $_SESSION['username']; ?>");
+        formData.append("post_to","<?php echo $_username ;?>");
+
             $.ajax({
             url : "process/add-post.php",
             type : "POST",
@@ -286,6 +304,10 @@ $("#my-form").on('submit',function(e){
             processData : false,
             success : function(data)
             {
+                if(data === 0)
+                {
+                    alert("Post cannot be empty");
+                }else{
             loadProfileData();
             $("#all-posts").html('');
             $("#all-posts").html('<hr>');
@@ -293,6 +315,7 @@ $("#my-form").on('submit',function(e){
             flag = 0;
             getSpecificUserPost(flag);
             removeImage();
+                }
             }
         });
     });
