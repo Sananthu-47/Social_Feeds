@@ -143,6 +143,7 @@ $("#my-form").on('submit',function(e){
         });
     });
 
+//Like post
 $(document).on('click',"#like",function(e){
     let post_id = $(this).data("post");
     let user_id = "<?php echo getUserInfo("id",$_SESSION['username']); ?>";
@@ -170,6 +171,27 @@ $(document).on('click',"#like",function(e){
     });
 });
 
+//Comment on post
+$(document).on('click',"#comment",function(e){
+    e.preventDefault();
+    let post_id = $(this).data("post");
+    let user_id = "<?php echo getUserInfo("id",$_SESSION['username']); ?>";
+    let commentCount = $("#comment"+post_id);
+    let comment_body = $("textarea#comment_field").val();
+    if(comment_body !== "")
+    {
+    $.ajax({
+        url : "process/comments.php",
+        type : "POST",
+        data : {post_id , user_id , comment_body},
+        success : function(data)
+        {
+            $("textarea#comment_field").val('');
+            commentCount.html(" " + data);
+        }
+    });
+    }
+});
     
 </script>
 

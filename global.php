@@ -39,6 +39,20 @@ function getPostInfo($getValue,$id)
         return $row[0];
 }
 
+function getCommentInfo($getValue,$id)
+{
+    global $connection;
+    $query = "SELECT $getValue FROM comments where id = '$id'";
+        $result = mysqli_query($connection,$query);
+
+        if(!$result)
+        {
+            die("Error".mysqli_error($connection));
+        }
+        $row = mysqli_fetch_array($result);
+        return $row[0];
+}
+
 function addPost($post_to,$post_data,$image)
 {
     global $connection;

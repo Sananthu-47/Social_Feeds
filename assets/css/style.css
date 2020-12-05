@@ -277,6 +277,12 @@ hr
       top: 15px;
   }
 
+  #comment
+  {
+      min-height: 30px;
+      border-radius: 5px;
+  }
+
   @media screen and (max-width: 768px)
 {
     .home-wrapper

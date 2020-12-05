@@ -34,6 +34,8 @@
                 $end_date = new DateTime($date_time_now);
                 $interval = $post_posted->diff($end_date);
                 $time_message = getDateFormat($interval);
+                $total_comments = mysqli_query($connection,"SELECT * FROM comments WHERE post_id = '$post_id'");
+                $total_comments = mysqli_num_rows($total_comments);
 
                 echo "
                 
@@ -94,9 +96,13 @@
                 }
                 echo "' id='like' data-post='$post_id'><span>Like</span> <i class='fa fa-thumbs-up fa-lg'></i></span>
                 </div>
-                <span>Comments <i class='fa fa-comments'>1</i></span>
+                <span>Comments <i class='fa fa-comments'></i><span id='comment".$post_id."'> $total_comments</span></span>
                 </div>
-                </div><br><hr>";
+                <div class='container d-flex mx-auto my-1 like-comment'>
+                    <div class='col-9'><textarea class='col-12' contenteditable placeholder='comment here..' name='comment_field' id='comment_field'></textarea></div>
+                    <div class='col-2'><input type='button' id='comment' data-post='$post_id' class='btn btn-secondary p-1' value='Comment' name='post_comment'></div>
+                </div>
+                </div><hr>";
         }//while end
     }//if end
     else{
