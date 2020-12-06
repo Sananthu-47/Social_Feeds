@@ -60,37 +60,6 @@ $(document).ready(function(e)
         });
 });
 
-function updateUserLastSeen()
-            {
-                let username = "<?php echo $_SESSION['username']; ?>";
-                    $.ajax({
-                    url : "process/update_last_seen.php",
-                    type : "POST",
-                    data : {username},
-                    success : function(data){
-                        viewAllFriends();
-                    }
-                });
-                
-            }
-            setInterval(updateUserLastSeen, 10000);
-
-    function viewAllFriends()
-    {
-        let request_to = "<?php echo $_username; ?>";
-        let request_from = "<?php echo $_SESSION['username']; ?>";
-
-        $.ajax({
-            url : "process/all-friends.php",
-            type : "POST",
-            data : {request_to , request_from},
-            success : function(data)
-            {
-                $("#all-friends").html(data);
-            }
-        });
-    }
-
     function getAllPosts(page)
     {
         let username = "<?php echo $_SESSION['username']; ?>";
@@ -188,10 +157,27 @@ $(document).on('click',"#comment",function(e){
         {
             $("textarea#comment_field").val('');
             commentCount.html(" " + data);
+            latestComment(post_id);
         }
     });
     }
 });
+
+//Latest comment
+function latestComment(post_id)
+{
+    $.ajax({
+        url : "process/latest-comment.php",
+        type : "POST",
+        data : {post_id},
+        success : function(data)
+        {
+            $("#comment-"+post_id).html('');
+            $("#comment-"+post_id).html(data);
+        }
+    });
+    }
+
     
 </script>
 

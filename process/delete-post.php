@@ -11,6 +11,8 @@
     chown("www-data:www-data","../assets/images/posts/".$post_image);
     $query = "UPDATE users SET posts = '$total_post' WHERE username = '$user'";
     $result = mysqli_query($connection,$query);
+    $query = "DELETE FROM comments WHERE post_id = '$post_id'";
+    $result = mysqli_query($connection,$query);
     $path = "../assets/images/posts/".$post_image;
     if($result)
     {

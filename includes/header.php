@@ -3,6 +3,15 @@
     include "global.php";
     ob_start();
     session_start();
+    if(isset($_SESSION['username']))
+    {
+    if(isset($_GET['profile_username']))
+    {
+        $_username = $_GET['profile_username'];
+    }else{
+        $_username = $_SESSION['username'];
+    }
+    }   
 ?>
 
 <!DOCTYPE html>
@@ -17,5 +26,40 @@
     <title>Social_Feeds</title>
 </head>
 <body>
+
+<script>
+
+function viewAllFriends()
+    {
+        let request_to = "<?php echo $_username; ?>";
+        let request_from = "<?php echo $_SESSION['username']; ?>";
+
+        $.ajax({
+            url : "process/all-friends.php",
+            type : "POST",
+            data : {request_to , request_from},
+            success : function(data)
+            {
+                $("#all-friends").html(data);
+            }
+        });
+    }
+
+function updateUserLastSeen()
+            {
+                let username = "<?php echo $_SESSION['username']; ?>";
+                    $.ajax({
+                    url : "process/update_last_seen.php",
+                    type : "POST",
+                    data : {username},
+                    success : function(data){
+                        viewAllFriends();
+                    }
+                });
+                
+            }
+            setInterval(updateUserLastSeen, 10000);
+
+</script>
                 
 
