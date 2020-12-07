@@ -29,6 +29,7 @@
                 $post_likes = $row['likes'];
                 $post_id = $row['id'];
                 $user_image = getUserInfo('user_image',$post_user);
+                date_default_timezone_set("Asia/Calcutta");
                 $date_time_now = date("Y-m-d H:i:s");
                 $post_posted = new DateTime($posted_at);
                 $end_date = new DateTime($date_time_now);

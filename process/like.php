@@ -8,7 +8,7 @@ $post_status = postLiked($post_id,$user_id);
 
 if(!$post_status)
 {
-    $query = "INSERT INTO likes (post_id , user_id , post_status) VALUES ('$post_id' , '$user_id' , 'liked')";
+    $query = "INSERT INTO likes (post_id , user_id , post_status , liked_at) VALUES ('$post_id' , '$user_id' , 'liked' , now())";
     $result = mysqli_query($connection,$query);
     $query = "UPDATE posts SET likes = '$post_likes' + 1 WHERE id = '$post_id'";
     $result = mysqli_query($connection,$query);

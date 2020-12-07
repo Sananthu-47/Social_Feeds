@@ -37,7 +37,8 @@ CREATE TABLE `likes` (
   `id` int(255) NOT NULL,
   `user_id` int(255) NOT NULL,
   `post_id` int(255) NOT NULL,
-  `post_status` varchar(10) DEFAULT NULL
+  `post_status` varchar(10) DEFAULT NULL,
+  `liked_at` datetime NOT NULL
 ) ;
 
 CREATE TABLE `comments` (

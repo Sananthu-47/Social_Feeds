@@ -17,6 +17,7 @@ if($total_comments > 0)
                     $comment_detail = mysqli_fetch_assoc($comment_detail);
                     $newest_comment = $comment_detail['comment'];
                     $commented_at = $comment_detail['comment_date'];
+                    date_default_timezone_set("Asia/Calcutta");
                     $time_now = date("Y-m-d H:i:s");
                     $comment_at = new DateTime($commented_at);
                     $end_date = new DateTime($time_now);
@@ -37,7 +38,7 @@ if($total_comments > 0)
                     <span class='d-flex user-post'>
                     <a href='$comment_username'><span class='text-primary small-text'>$comment_username</span></a>
                     </span>
-                    <span class='text-dark small-text'>$comment_time_message  $interval->i</span>
+                    <span class='text-dark small-text'>$comment_time_message</span>
                     </div>
                 
                     <div class='ml-3 '>
