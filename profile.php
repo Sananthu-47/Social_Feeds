@@ -316,6 +316,7 @@ $("#my-form").on('submit',function(e){
             success : function(data)
             {
                 $("#all-posts").append(data);
+                $(".loading").hide();
             }
         });
     }
