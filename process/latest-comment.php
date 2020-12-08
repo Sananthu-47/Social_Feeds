@@ -45,7 +45,7 @@ if($total_comments > 0)
                     <span class='lead wrap-comment'>$newest_comment</span>
                     </div>
                     </div>
-                    <div class='d-flex justify-content-end'><a href='#'>View all comments</a></div>";
+                    <div class='d-flex justify-content-end'><a href='view-all-comment.php?post_id=$post_id'>View all comments</a></div>";
                 }else{
                     echo "<span class='mx-3'>No comments yet</span>";
                 }

@@ -367,7 +367,7 @@ $(document).on('click',"#comment",function(e){
     let post_id = $(this).data("post");
     let user_id = "<?php echo getUserInfo("id",$_SESSION['username']); ?>";
     let commentCount = $("#comment"+post_id);
-    let comment_body = $("textarea#comment_field").val();
+    let comment_body = $("textarea#comment_field"+post_id).val();
     if(comment_body !== "")
     {
     $.ajax({
@@ -376,7 +376,7 @@ $(document).on('click',"#comment",function(e){
         data : {post_id , user_id , comment_body},
         success : function(data)
         {
-            $("textarea#comment_field").val('');
+            $("textarea#comment_field"+post_id).val('');
             commentCount.html(" " + data);
             latestComment(post_id);
         }

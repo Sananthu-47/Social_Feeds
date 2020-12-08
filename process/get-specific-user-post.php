@@ -67,7 +67,7 @@
                     <a href='update-post-form.php?post_id=$post_id' class='text-dark'><i class='fa fa-edit' id='edit-post'></i></a>
                     </div>";
                     }
-                echo "</div>";//d-flex and flex-column
+                echo "</div>";
                     if($post_image!=="none")
                     {
                         echo "
@@ -100,7 +100,7 @@
                 <span>Comments <i class='fa fa-comments'></i><span id='comment".$post_id."'> $total_comments</span></span>
                 </div>
                 <div class='container d-flex mx-auto my-1 like-comment'>
-                    <div class='col-9'><textarea class='col-12' contenteditable placeholder='comment here..' name='comment_field' id='comment_field'></textarea></div>
+                    <div class='col-9'><textarea class='col-12' contenteditable placeholder='comment here..' name='comment_field' id='comment_field".$post_id."'></textarea></div>
                     <div class='col-2'><input type='button' id='comment' data-post='$post_id' class='btn btn-secondary p-1' value='Comment' name='post_comment'></div>
                 </div>
 
