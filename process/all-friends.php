@@ -6,6 +6,8 @@ include "../global.php";
       $all_friends = getUserInfo('friends_list',$to); 
       $output = ''; 
       $friends_array = array_filter(explode(',',$all_friends));
+      if(isFriend($to , $from) || $from === $to)
+      {
           foreach ($friends_array as $friend) {  
           $profile_image = getUserInfo('user_image',$friend);
           $last_seen = getUserInfo("last_seen",$friend);
@@ -24,4 +26,8 @@ include "../global.php";
           }
           }  
           echo $output;  
+        }
+        else{
+          echo "<span class='d-flex justify-content-center align-items-center h5 mt-2'>Account private</span>";
+        }
 ?>
