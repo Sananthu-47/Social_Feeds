@@ -227,6 +227,7 @@ $(document).on('click',"#unfriend",function(e){
 
     <script>
     let flag = 0;
+  let over_alert = true;
     //Load all friends
 $(document).ready(function(e)
 {
@@ -237,9 +238,12 @@ $(document).ready(function(e)
     updateUserLastSeen();
 
     $(".main-content").scroll(function(){
-        if($(".main-content").scrollTop() >= $("#main-content").innerHeight() - $(document).innerHeight())
+        if($(".main-content").scrollTop() >= $("#main-content").height() - $(window).height())
         {
+            if(over_alert == true)
+            {
             getSpecificUserPost(flag+=5);
+            }
         }
         });
 });
@@ -313,8 +317,16 @@ $("#my-form").on('submit',function(e){
             url : "process/get-specific-user-post.php",
             type : "POST",
             data : {username,loggedInUser,page},
+            beforeSend : function(){
+            $(".loading").show();
+            },
             success : function(data)
             {
+                if(data === "No post!")
+                {
+                    $('.over-data').remove();
+                    over_alert = false;
+                }
                 $("#all-posts").append(data);
                 $(".loading").hide();
             }

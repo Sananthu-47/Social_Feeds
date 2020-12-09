@@ -12,7 +12,7 @@ $query = "SELECT * FROM posts ORDER BY id DESC LIMIT $page , 5";
         alert("alert-danger","Failed to fetch posts");
     }
 
-    if(mysqli_num_rows($result) > 0)
+    if(mysqli_num_rows($result) > 0 && mysqli_num_rows($result) <= mysqli_num_rows($result)+1)
     {
         while($row = mysqli_fetch_assoc($result))
         {
@@ -110,6 +110,6 @@ $query = "SELECT * FROM posts ORDER BY id DESC LIMIT $page , 5";
     }//if end
     else
     {
-        return "<div class='text-secondary text-center my-3'>No post!</div>"; 
+        echo "No more posts";
     }
 

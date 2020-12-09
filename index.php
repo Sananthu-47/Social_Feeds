@@ -42,6 +42,7 @@
 </div>
 <script>
   let flag = 0;  
+  let over_alert = true;
     //Load all friends
 $(document).ready(function(e)
 {
@@ -52,10 +53,12 @@ $(document).ready(function(e)
     updateUserLastSeen();
 
     $(".main-content").scroll(function(){
-        if($(".main-content").scrollTop() >= $("#main-content").innerHeight() - $(document).innerHeight())
+        if($(".main-content").scrollTop() >= $("#main-content").height() - $(window).height())
         {
-            $(".loading").show();
+            if(over_alert == true)
+            {
             getAllPosts(flag+=5);
+            }
         }
         });
 });
@@ -67,8 +70,18 @@ $(document).ready(function(e)
             url : "process/getAllPosts.php",
             type : "POST",
             data : {username,page},
+            beforeSend : function(){
+            $(".loading").show();
+            },
             success : function(data)
             {
+                if(data === "No more posts")
+                {
+                    $('.over-data').remove();
+                    over_alert = false;
+                    let output = "<div class='alert alert-danger text-center over-data'>"+data+"</div>"
+                    $("#all-posts").append(output);
+                }
                 $(".loading").hide();
                 $("#all-posts").append(data);
             }
