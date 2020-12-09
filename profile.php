@@ -154,7 +154,11 @@ $(document).on('click',"#unfriend",function(e){
     <div class="card main-content bg-light col-12 col-md-6 p-0">
     <div class="content" id="main-content">
     <div id="say-something">
-        <?php include "includes/say-something.php"; ?>
+        <?php 
+        if(isFriend($_username , $_SESSION['username']) || $_username == $_SESSION['username'])
+        {
+        include "includes/say-something.php";
+        } ?>
     </div>
         <!--- Mobile view of profile --->
         <div class="d-flex d-md-none flex-column text-center">
