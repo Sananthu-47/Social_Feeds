@@ -1,6 +1,5 @@
 <?php
 
-$page = 0;
 if(isset($_POST['post_id']))
 {
     include "../includes/db.php";
@@ -9,6 +8,8 @@ if(isset($_POST['post_id']))
     $page = $_POST['page'];
     $page = $page + 5;
     $_username = $_POST['username'];
+}else{
+    $page = 0;
 }
 
 $query = "SELECT * FROM comments WHERE post_id = '$post_id' ORDER BY id DESC LIMIT $page , 5";
@@ -18,6 +19,7 @@ $query = "SELECT * FROM comments WHERE post_id = '$post_id' ORDER BY id DESC LIM
                 {
                 while($row = mysqli_fetch_assoc($result))
                 {
+                    $comment_id = $row['id'];
                     $newest_comment = $row['comment'];
                     $commented_at = $row['comment_date'];
                     date_default_timezone_set("Asia/Calcutta");
@@ -28,10 +30,9 @@ $query = "SELECT * FROM comments WHERE post_id = '$post_id' ORDER BY id DESC LIM
                     $comment_time_message = getDateFormat($interval);
                     $comment_user_id = $row['comment_user_id'];
                     $comment_user_details = mysqli_query($connection,"SELECT * FROM users WHERE id = '$comment_user_id'");
-                    $comment_user_details = mysqli_fetch_assoc($comment_user_details);
-                    $comment_id = $comment_user_details['id'];
-                    $comment_username = $comment_user_details['username'];
-                    $comment_user_image = $comment_user_details['user_image'];
+                    $comment_user_data = mysqli_fetch_assoc($comment_user_details);
+                    $comment_username = $comment_user_data['username'];
+                    $comment_user_image = $comment_user_data['user_image'];
                     $post_by = getPostInfo("posted_by",$post_id);
 
                     echo "
@@ -55,8 +56,7 @@ $query = "SELECT * FROM comments WHERE post_id = '$post_id' ORDER BY id DESC LIM
                     {
                    echo " 
                     <div id='comment-details'>
-                    <i class='fa fa-trash mx-2' id='delete-post' data-user='$post_by' data-postId='$comment_id'></i>
-                    <a href='update-post-form.php?post_id=$comment_id' class='text-dark'><i class='fa fa-check' id='edit-post'></i></a>";
+                    <i class='fa fa-trash mx-2' id='delete-comment' data-id='$comment_id' data-postid='$post_id'></i>";
 
                     if($post_by === $_username)
                     {
@@ -69,7 +69,7 @@ $query = "SELECT * FROM comments WHERE post_id = '$post_id' ORDER BY id DESC LIM
                     {
                             echo " 
                         <div id='comment-details'>
-                        <i class='fa fa-trash mx-2' id='delete-post' data-user='$post_by' data-postId='$comment_id'></i>
+                        <i class='fa fa-trash mx-2' id='delete-comment' data-id='$comment_id' data-postid='$post_id'></i>
                         <a href='update-post-form.php?post_id=$comment_id' class='text-dark'><i class='fa fa-edit' id='edit-post'></i></a>
                         </div>";
                     }

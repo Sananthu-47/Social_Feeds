@@ -115,10 +115,12 @@ $(document).on('click',"#comment",function(e){
 //Latest comment
 function latestCommentAdded(post_id)
 {
+    let page = -5;
+    let username = "<?php echo $_username; ?>"; 
     $.ajax({
         url : "process/display-all-comments.php",
         type : "POST",
-        data : {post_id},
+        data : {post_id, page , username},
         success : function(data)
         {
             $("#comment-"+post_id).html('');
@@ -133,7 +135,13 @@ $(document).on('click',"#load-more",function(e){
     let page = $(this).data("page");
     let username = "<?php echo $_username; ?>";
     let post_id = $(this).data("id"); 
-        $.ajax({
+    loadMoreComments(post_id,page,username);
+});
+
+//Load more comments ajax function
+function loadMoreComments(post_id,page,username)
+{
+    $.ajax({
             url : "process/display-all-comments.php",
             type : "POST",
             data : {post_id,page,username},
@@ -152,6 +160,32 @@ $(document).on('click',"#load-more",function(e){
                     $("#load-more").removeClass('btn-info');
                     $("#load-more").addClass('btn-secondary disabled not-allowed');
                      $("#load-more").html('No more comments');
+                }
+            }
+        });
+}
+
+//Delete comment 
+$(document).on('click',"#delete-comment",function(e){
+    let comment_id = $(this).data("id");
+    let post_id = $(this).data("postid");
+        $.ajax({
+            url : "process/delete-comment.php",
+            type : "POST",
+            data : {comment_id,post_id},
+            beforeSend : function(){
+            $(".loading").show();
+            },
+            success : function(data)
+            {
+                if(data !== false)
+                {
+                let username = "<?php echo $_username; ?>";
+                $("#comment-"+post_id).html('');
+                loadMoreComments(post_id,-5,username); //-5 is to remove all comments and start from first
+                $("#comment"+post_id).html(data);
+                }else{
+                    alert("Comment was not deleted");
                 }
             }
         });
