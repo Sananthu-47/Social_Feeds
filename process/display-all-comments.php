@@ -1,14 +1,21 @@
 <?php
 
+$page = 0;
 if(isset($_POST['post_id']))
 {
     include "../includes/db.php";
     include "../global.php";
     $post_id = $_POST['post_id'];
+    $page = $_POST['page'];
+    $page = $page + 5;
+    $_username = $_POST['username'];
 }
-$query = "SELECT * FROM comments WHERE post_id = '$post_id' ORDER BY id DESC LIMIT 5";
+
+$query = "SELECT * FROM comments WHERE post_id = '$post_id' ORDER BY id DESC LIMIT $page , 5";
                 $result = mysqli_query($connection,$query);
 
+                if(mysqli_num_rows($result)>0)
+                {
                 while($row = mysqli_fetch_assoc($result))
                 {
                     $newest_comment = $row['comment'];
@@ -69,3 +76,11 @@ $query = "SELECT * FROM comments WHERE post_id = '$post_id' ORDER BY id DESC LIM
 
                     echo "</div>";
                 }
+
+                echo "
+                <div class='text-center m-2' id='loaded-comments'>
+                <hr>
+                <div class='btn btn-info' id='load-more' data-page='$page' data-id='$post_id'>Load more</div>
+                </div>";
+            }
+                

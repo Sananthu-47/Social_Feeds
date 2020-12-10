@@ -24,6 +24,7 @@
     <div class="card main-content bg-light col-12 col-md-6 p-0">
     <div class="content" id="main-content">
         <?php include "process/get-all-comments.php"; ?>
+        <h3 class="loading text-center">Loading...</h3>
     </div>
     </div>
 
@@ -124,8 +125,37 @@ function latestCommentAdded(post_id)
             $("#comment-"+post_id).html(data);
         }
     });
-    }
+}
 
+//Load more comments
+
+$(document).on('click',"#load-more",function(e){
+    let page = $(this).data("page");
+    let username = "<?php echo $_username; ?>";
+    let post_id = $(this).data("id"); 
+        $.ajax({
+            url : "process/display-all-comments.php",
+            type : "POST",
+            data : {post_id,page,username},
+            beforeSend : function(){
+            $(".loading").show();
+            },
+            success : function(data)
+            {
+                if(data)
+                {
+                $("#loaded-comments").remove();
+                $(".loading").hide();
+                $("#comment-"+post_id).append(data);
+                }else{
+                    $(".loading").remove();
+                    $("#load-more").removeClass('btn-info');
+                    $("#load-more").addClass('btn-secondary disabled not-allowed');
+                     $("#load-more").html('No more comments');
+                }
+            }
+        });
+});
     
 </script>
 
