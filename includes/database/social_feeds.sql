@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 04, 2020 at 09:18 AM
+-- Generation Time: Dec 10, 2020 at 07:49 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.2.33
 
@@ -24,6 +24,52 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `comments`
+--
+
+CREATE TABLE `comments` (
+  `id` int(255) NOT NULL,
+  `post_id` int(255) NOT NULL,
+  `comment_user_id` int(255) NOT NULL,
+  `comment` text NOT NULL,
+  `comment_date` datetime NOT NULL,
+  `comment_status` varchar(10) NOT NULL DEFAULT 'approved',
+  `notification_status` varchar(10) NOT NULL DEFAULT 'unseen'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `comments`
+--
+
+INSERT INTO `comments` (`id`, `post_id`, `comment_user_id`, `comment`, `comment_date`, `comment_status`, `notification_status`) VALUES
+(2, 133, 9, 'Ok cool', '2020-12-05 21:17:55', 'approved', 'unseen'),
+(3, 133, 9, 'Ok dude bye', '2020-12-05 21:18:48', 'approved', 'unseen'),
+(4, 133, 9, 'hgfghjk', '2020-12-05 21:19:39', 'approved', 'unseen'),
+(5, 133, 9, 'noice', '2020-12-05 21:22:02', 'approved', 'unseen'),
+(8, 133, 9, 'ok', '2020-12-06 16:06:17', 'approved', 'unseen'),
+(9, 133, 9, 'bye', '2020-12-06 16:07:45', 'approved', 'unseen'),
+(11, 133, 9, 'ok', '2020-12-07 00:44:59', 'approved', 'unseen'),
+(12, 133, 9, 'noice', '2020-12-07 00:46:18', 'approved', 'unseen'),
+(13, 133, 9, 'ok bye', '2020-12-07 00:47:46', 'approved', 'unseen'),
+(15, 133, 4, 'hi', '2020-12-07 01:02:14', 'approved', 'unseen'),
+(17, 133, 9, 'k', '2020-12-07 01:16:08', 'approved', 'unseen'),
+(20, 133, 9, 'ok', '2020-12-07 01:24:22', 'approved', 'unseen'),
+(21, 133, 9, 'hi', '2020-12-07 23:13:08', 'approved', 'unseen'),
+(29, 133, 9, 'Nice', '2020-12-08 01:16:27', 'approved', 'unseen'),
+(30, 133, 9, 'cool', '2020-12-08 22:52:06', 'approved', 'unseen'),
+(31, 133, 9, 'bye', '2020-12-08 22:54:23', 'approved', 'unseen'),
+(32, 133, 9, 'noice', '2020-12-08 22:55:32', 'approved', 'unseen'),
+(33, 133, 9, 'last', '2020-12-08 22:56:10', 'approved', 'unseen'),
+(34, 139, 9, 'Hi', '2020-12-08 23:08:10', 'approved', 'unseen'),
+(35, 139, 9, 'ok', '2020-12-08 23:16:44', 'approved', 'unseen'),
+(36, 139, 9, 'niii', '2020-12-08 23:26:35', 'approved', 'unseen'),
+(37, 139, 9, 'coool', '2020-12-08 23:31:24', 'approved', 'unseen'),
+(39, 85, 9, 'Hi', '2020-12-08 23:46:44', 'approved', 'unseen'),
+(40, 139, 4, 'Hi', '2020-12-09 00:05:36', 'approved', 'unseen');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `friend_requests`
 --
 
@@ -32,15 +78,16 @@ CREATE TABLE `friend_requests` (
   `request_to` varchar(50) NOT NULL,
   `request_by` varchar(50) NOT NULL,
   `request_time` datetime NOT NULL,
-  `request_status` varchar(10) NOT NULL
+  `request_status` varchar(10) NOT NULL,
+  `notification_status` varchar(10) NOT NULL DEFAULT 'unseen'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `friend_requests`
 --
 
-INSERT INTO `friend_requests` (`id`, `request_to`, `request_by`, `request_time`, `request_status`) VALUES
-(11, 'Star_Ananthu', 'Gabar_Singh', '2020-11-16 21:52:08', 'friends');
+INSERT INTO `friend_requests` (`id`, `request_to`, `request_by`, `request_time`, `request_status`, `notification_status`) VALUES
+(11, 'Star_Ananthu', 'Gabar_Singh', '2020-11-16 21:52:08', 'friends', 'unseen');
 
 -- --------------------------------------------------------
 
@@ -52,18 +99,22 @@ CREATE TABLE `likes` (
   `id` int(255) NOT NULL,
   `user_id` int(255) NOT NULL,
   `post_id` int(255) NOT NULL,
-  `post_status` varchar(10) DEFAULT NULL
+  `post_status` varchar(10) DEFAULT NULL,
+  `notification_status` varchar(10) NOT NULL DEFAULT 'unseen',
+  `liked_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `likes`
 --
 
-INSERT INTO `likes` (`id`, `user_id`, `post_id`, `post_status`) VALUES
-(6, 4, 4, 'liked'),
-(7, 4, 17, 'liked'),
-(8, 9, 17, 'liked'),
-(11, 9, 104, 'liked');
+INSERT INTO `likes` (`id`, `user_id`, `post_id`, `post_status`, `notification_status`, `liked_at`) VALUES
+(6, 4, 4, 'liked', 'unseen', '2020-12-08 00:15:18'),
+(7, 4, 17, 'liked', 'unseen', '2020-12-08 00:15:18'),
+(8, 9, 17, 'liked', 'unseen', '2020-12-08 00:15:18'),
+(11, 9, 104, 'liked', 'unseen', '2020-12-08 00:15:18'),
+(12, 9, 139, 'liked', 'unseen', '2020-12-08 00:15:18'),
+(13, 9, 133, 'liked', 'unseen', '2020-12-08 00:31:46');
 
 -- --------------------------------------------------------
 
@@ -119,7 +170,8 @@ INSERT INTO `posts` (`id`, `post_body`, `post_image`, `likes`, `post_to`, `poste
 (130, 'ok', 'none', 0, 'none', 'Gabar_Singh', '2020-12-03 09:09:52'),
 (131, 'Lol how are you', 'none', 0, 'Ananthu_Sv', 'Gabar_Singh', '2020-12-04 08:48:15'),
 (132, 'lol', 'none', 0, 'Ananthu_Sv', 'Gabar_Singh', '2020-12-04 08:50:55'),
-(133, 'lol', 'none', 0, 'Ananthu_Sv', 'Gabar_Singh', '2020-12-04 08:54:45');
+(133, 'lol', 'none', 1, 'Ananthu_Sv', 'Gabar_Singh', '2020-12-04 08:54:45'),
+(139, 'hi', 'none', 1, 'none', 'Gabar_Singh', '2020-12-08 00:07:12');
 
 -- --------------------------------------------------------
 
@@ -149,15 +201,22 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `username`, `password`, `joined`, `user_image`, `last_seen`, `account_type`, `posts`, `friends`, `friends_list`, `bio`) VALUES
-(4, 'Ananthu', 'Sv', 'sananthu47@gmail.com', 'Ananthu_Sv', '$2y$10$rp1Mp2fpZYffb.QpdDOwNODaeyIXt0OiJkOpcJHeC7KfNGIVe8Apa', '2020-10-26', '1604906411_1601758369_IMG_9994.JPG', 1607065766, 'private', 10, 3, ',Star_Ananthu,Kokila_Ben,Gabar_Singh,', ''),
+(4, 'Ananthu', 'Sv', 'sananthu47@gmail.com', 'Ananthu_Sv', '$2y$10$rp1Mp2fpZYffb.QpdDOwNODaeyIXt0OiJkOpcJHeC7KfNGIVe8Apa', '2020-10-26', '1604906411_1601758369_IMG_9994.JPG', 1607458221, 'private', 10, 3, ',Star_Ananthu,Kokila_Ben,Gabar_Singh,', ''),
 (5, 'Admin', '007', 'admin@gmail.com', 'Admin_007', '$2y$10$p91IB0EgG3Mcrqtna9mfv.YFRGQk.IMAb2ces1aepecG8Kiy8DFj6', '2020-10-26', '1604951272_profile.jpg', 0, 'public', 2, 1, ',Star_Ananthu,', ''),
 (6, 'Star', 'Ananthu', 'ananthu@gmail.com', 'Star_Ananthu', '$2y$10$veq6UcQNesOsijUOr1v2h.lfwXYFEzTYT2STgVExkN2HAluDaLHBe', '2020-10-26', '1604951382_1602359930_IMG-20180808-WA0011.jpg', 0, 'private', 4, 3, ',Ananthu_Sv,Admin_007,Gabar_Singh,', '#Pop\r\n#yoyo\r\nHi all!'),
 (8, 'Kokila', 'Ben', 'kokila@gmail.com', 'Kokila_Ben', '$2y$10$inoBTtaG2cEbeBevW.ezuOirsinKx0lMqsHJXae.2ROi8CQCLgtD6', '2020-11-08', 'profile.png', 0, 'private', 9, 2, ',Ananthu_Sv,Gabar_Singh,', ''),
-(9, 'Gabar', 'Singh', 'gabar@gmail.com', 'Gabar_Singh', '$2y$10$oCgHZM24b1jqyBuSPUYfu.SEyp2iHRf/q1hrwmcv6QvwH1iPpX6Vi', '2020-11-12', '1605119795_randomguy.jpg', 1607069924, 'private', 10, 3, ',Ananthu_Sv,Kokila_Ben,Star_Ananthu,', 'Hello all I am new here');
+(9, 'Gabar', 'Singh', 'gabar@gmail.com', 'Gabar_Singh', '$2y$10$oCgHZM24b1jqyBuSPUYfu.SEyp2iHRf/q1hrwmcv6QvwH1iPpX6Vi', '2020-11-12', '1605119795_randomguy.jpg', 1607626199, 'private', 11, 3, ',Ananthu_Sv,Kokila_Ben,Star_Ananthu,', 'Hello all I am new here'),
+(10, 'Unknown', 'Player', 'unknown@gmail.com', 'Unknown_Player', '$2y$10$zAnZ/7FymmrJlrrU50hy5eFuOFQrDb.2gw5S0MqMj0Nbqm5SSUPI6', '2020-12-10', 'profile.png', 1607539292, 'private', 0, 0, '', '');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `comments`
+--
+ALTER TABLE `comments`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `friend_requests`
@@ -188,6 +247,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `comments`
+--
+ALTER TABLE `comments`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+
+--
 -- AUTO_INCREMENT for table `friend_requests`
 --
 ALTER TABLE `friend_requests`
@@ -197,19 +262,19 @@ ALTER TABLE `friend_requests`
 -- AUTO_INCREMENT for table `likes`
 --
 ALTER TABLE `likes`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=147;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
