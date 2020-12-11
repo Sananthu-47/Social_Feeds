@@ -60,7 +60,7 @@ $query = "SELECT * FROM comments WHERE post_id = '$post_id' ORDER BY id DESC LIM
 
                     if($comment_username === $_username)
                     {
-                        echo "<a href='update-post-form.php?post_id=$comment_id' class='text-dark mx-2'><i class='fa fa-edit' id='edit-post'></i></a>";
+                        echo "<i class='fa fa-edit text-dark mx-2' id='edit-comment' data-postid='$post_id' data-commentid='$comment_id'></i>";
                     }
 
                     echo "</div>";
@@ -70,7 +70,7 @@ $query = "SELECT * FROM comments WHERE post_id = '$post_id' ORDER BY id DESC LIM
                             echo " 
                         <div id='comment-details'>
                         <i class='fa fa-trash mx-2' id='delete-comment' data-id='$comment_id' data-postid='$post_id'></i>
-                        <a href='update-post-form.php?post_id=$comment_id' class='text-dark'><i class='fa fa-edit' id='edit-post'></i></a>
+                        <i class='fa fa-edit text-dark mx-2' id='edit-comment' data-postid='$post_id' data-commentid='$comment_id'></i>
                         </div>";
                     }
 

@@ -304,12 +304,6 @@ hr
     cursor: pointer;
   }
 
-  #comment-details .fa-check:hover
-  {
-    color: rgb(0, 255, 85);
-    cursor: pointer;
-  }
-
   #like
   {
       cursor: pointer;

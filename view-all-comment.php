@@ -92,7 +92,7 @@ $(document).on('click',"#like",function(e){
 
 //Comment on post
 $(document).on('click',"#comment",function(e){
-    let post_id = $(this).data("post");
+    let post_id = $(this).data("postid");
     let user_id = "<?php echo getUserInfo("id",$_SESSION['username']); ?>";
     let commentCount = $("#comment"+post_id);
     let comment_body = $("textarea#comment_field").val();
@@ -110,6 +110,44 @@ $(document).on('click',"#comment",function(e){
         }
     });
     }
+});
+
+//Edit the comment
+$(document).on('click',"#edit-comment",function(e){
+    $(".main-content").animate({ scrollTop: 0 }, "fast");
+    let post_id = $(this).data("postid");
+    let comment_id = $(this).data("commentid");
+    $.ajax({
+        url : "process/edit-comment.php",
+        type : "POST",
+        data : {post_id , comment_id},
+        success : function(data)
+        {
+            let output = jQuery.parseJSON(data);
+            $("textarea#comment_field").val(output[0]);
+            $("#comment-btn").html('');
+            $("#comment-btn").html(output[1]);
+        }
+    });
+});
+
+//Update the comment
+$(document).on('click',"#update-comment",function(e){
+    let post_id = $(this).data("postid");
+    let comment_id = $(this).data("commentid");
+    let comment_body = $("textarea#comment_field").val();
+    $.ajax({
+        url : "process/update-comment.php",
+        type : "POST",
+        data : {post_id , comment_id , comment_body},
+        success : function(data)
+        {
+            $("textarea#comment_field").val('');
+            $("#comment-btn").html('');
+            $("#comment-btn").html(data);
+            latestCommentAdded(post_id);
+        }
+    });
 });
 
 //Latest comment

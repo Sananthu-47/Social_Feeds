@@ -84,7 +84,7 @@ $result = mysqli_query($connection,$query);
                 </div>
                 <div class='container d-flex mx-auto my-1 like-comment'>
                     <div class='col-9'><textarea class='col-12' contenteditable placeholder='comment here..' name='comment_field' id='comment_field'></textarea></div>
-                    <div class='col-2'><input type='button' id='comment' data-post='$post_id' class='btn btn-secondary p-1' value='Comment' name='post_comment'></div>
+                    <div class='col-2' id='comment-btn'><input type='button' id='comment' data-postid='$post_id' class='btn btn-secondary p-1' value='Comment' name='post_comment'></div>
                 </div>
                 
                 <span class='mx-3'>Comments</span>
