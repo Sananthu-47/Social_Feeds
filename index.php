@@ -17,7 +17,8 @@
     <div class="card bg-light d-none d-md-flex col-3 p-0">
     <div class="d-flex justify-content-center" id="profile-data">
         <!-- Here goes the data from the profile side ajax data -->
-        <h3 class="loading text-center">Loading...</h3>
+        <i class="fa fa-refresh fa-spin fa-3x fa-fw loading"></i>
+        <span class="sr-only">Loading...</span>
     </div>
     </div>
 
@@ -27,7 +28,8 @@
         <hr>
         <!-- Get all posts -->
         <div id='all-posts'></div>
-        <h3 class="loading text-center">Loading...</h3>
+        <i class="fa fa-refresh fa-spin fa-3x fa-fw loading"></i>
+        <span class="sr-only">Loading...</span>
     </div>
     </div>
 
@@ -36,7 +38,8 @@
                         <span class="text-dark h4"><?php echo "<span class='text-primary h3'>".$_username."</span>"; ?> Friends List</span>
                         </div>
                     <ul class="list-group" id="all-friends">
-                    <h3 class="loading text-center">Loading...</h3>
+                        <i class="fa fa-refresh fa-spin fa-3x fa-fw loading"></i>
+                        <span class="sr-only">Loading...</span>
                     </ul>
             </div>
 </div>
