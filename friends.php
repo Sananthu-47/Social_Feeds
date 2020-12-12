@@ -8,51 +8,66 @@ if(!isset($_SESSION['username']))
 ?>
 
 <div class="container d-flex justify-content-center p-1 col-12 col-md-6 col-lg-4">
-    <input type="text" placeholder='Search friends' class='form-control form-control-lg'>
-    <input type="submit" class='btn btn-primary mx-2' value='Search'>
+    <input type="text" placeholder='Search friends' id='find-friends' autofocus class='form-control form-control-lg'>
+    <input type="submit" class='btn btn-primary mx-2' id="search" value='Search'>
 </div>
 
-<div class="container-fluid d-flex flex-column justify-content-center text-center text-content-center p-1 col-12 col-md-6 col-lg-4 mt-2" id="all-friends">
-        <div class="d-flex justify-content-center">
-                <i class="fa fa-refresh fa-spin fa-3x fa-fw loading"></i>
-                <span class="sr-only">Loading...</span>
-        </div>    
+<div id="show-my-friends" class="col-12 col-md-6 col-lg-4 m-auto">
+    <span class="btn btn-dark m-2 disabled">My friends</span>
+        <div class="container-fluid d-flex flex-column justify-content-center text-center text-content-center p-1 col-12 mt-2" id="all-friends">
+                <div class="d-flex justify-content-center">
+                        <i class="fa fa-refresh fa-spin fa-3x fa-fw loading"></i>
+                        <span class="sr-only">Loading...</span>
+                </div>    
+        </div>
+</div>
+
+<div id="search-results" class="col-12 col-md-6 col-lg-4 m-auto">
+    <span class="btn btn-primary m-2 disabled">Searched result for <span id='find-field'></span></span>
+        <div class="container-fluid d-flex flex-column justify-content-center text-center text-content-center p-1 col-12 mt-2" id="searched-output">
+                <div class="d-flex justify-content-center">
+                        <i class="fa fa-refresh fa-spin fa-3x fa-fw loading"></i>
+                        <span class="sr-only">Loading...</span>
+                </div>    
+        </div>
 </div>
 
 <?php include "includes/footer.php"; ?>
 
 <script>
 
-function viewAllFriends()
-    {
-        let request_to = "<?php echo $_username; ?>";
-        let request_from = "<?php echo $_SESSION['username']; ?>";
+$("#search-results").hide();
 
-        $.ajax({
-            url : "process/all-friends.php",
-            type : "POST",
-            data : {request_to , request_from},
-            success : function(data)
-            {
-                $("#all-friends").html(data);
-            }
-        });
-    }
+$("#find-friends").on('keyup',function(e){
+    searchedFriends();
+});
 
-function updateUserLastSeen()
-    {
-        let username = "<?php echo $_SESSION['username']; ?>";
-            $.ajax({
-            url : "process/update_last_seen.php",
+$("#search").on('keyup',function(e){
+    searchedFriends();
+});
+
+function searchedFriends()
+{
+    let friend_name = $("#find-friends").val();
+if(friend_name !== '')
+{
+    $.ajax({
+            url : "process/search-friends.php",
             type : "POST",
-            data : {username},
+            data : {friend_name},
             success : function(data){
-                viewAllFriends();
+                $("#find-field").html("'"+ friend_name +"'");
+                $("#show-my-friends").hide();
+                $("#search-results").show();
+                $("#searched-output").html(data);
             }
         });
-    }
+}else{
+    $("#show-my-friends").show();
+    $("#search-results").hide();
+}
+}
 
         viewAllFriends();
-        setInterval(updateUserLastSeen, 10000);
 
 </script>
