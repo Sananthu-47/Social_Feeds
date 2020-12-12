@@ -211,7 +211,7 @@ $(document).on('click',"#unfriend",function(e){
     </div> <!-- This is end of request buttons -->
 
             <div class="d-flex justify-content-center">
-            <button class="btn btn-primary" id="friends">View All friends</button>
+            <a href='friends.php'><button class="btn btn-primary" id="friends">View All friends</button></a>
             </div>
         </div><!-- </mobile>  -->
         <!--   Get all specific users  -->

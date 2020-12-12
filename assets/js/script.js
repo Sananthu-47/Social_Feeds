@@ -29,24 +29,6 @@ function previewImage(e) {
     document.querySelector('.select-image').innerText="Add image";
   }
 
-  if(document.getElementById('friends'))
-  {
-  document.getElementById('friends').addEventListener('click',()=>
-  {
-    document.querySelector('.main-content').style.display="none";
-    document.querySelector('.friends-list').classList.remove('d-none');
-  });
-}
-
-if(document.getElementById('close'))
-  {
-  document.getElementById('close').addEventListener('click',()=>
-  {
-    document.querySelector('.main-content').style.display="flex";
-    document.querySelector('.friends-list').classList.add('d-none');
-  });
-}
-
 function selectFile()
             {
                 document.getElementById('profile-image').click();
