@@ -337,6 +337,31 @@ hr
       border-radius: 5px;
   }
 
+  #notification-dropdown
+  {
+      position: absolute;
+      top: 60px;
+      right: 5%;
+      z-index: 10;
+      width: 400px;
+      height: 520px;
+      background-color: rgb(240, 243, 247);
+      overflow-y: scroll;
+  }
+
+  #notification-dropdown ul li
+  {
+      width: 100%;
+      height: 60px;
+      border: 0.5px solid  rgb(122, 121, 121);
+      list-style: none;
+  }
+
+  .bg-not-seen
+  {
+      background-color: rgba(92, 90, 90, 0.2);
+  }
+
   @media screen and (max-width: 768px)
 {
     .home-wrapper
@@ -346,6 +371,15 @@ hr
       overflow-y: hidden;
   }
 
+  #notification-dropdown
+  {
+      position: absolute;
+      top: 100px;
+      left: 0;
+      z-index: 10;
+      width: 100%;
+      height: 100%;
+  }
 }
 
 @media screen and (max-width: 600px)
@@ -389,4 +423,15 @@ hr
   {
       font-size: 12px;
   }
+
+  #notification-dropdown
+  {
+      position: absolute;
+      top: 95px;
+      left: 0;
+      z-index: 10;
+      width: 100%;
+      height: 100%;
+  }
+
 }

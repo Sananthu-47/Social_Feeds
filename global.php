@@ -25,6 +25,20 @@ function getUserInfo($getValue,$username)
         return $row[0];
 }
 
+function getUserInfoById($getValue,$id)
+{
+    global $connection;
+    $query = "SELECT $getValue FROM users where id = '$id'";
+        $result = mysqli_query($connection,$query);
+
+        if(!$result)
+        {
+            die("Error".mysqli_error($connection));
+        }
+        $row = mysqli_fetch_array($result);
+        return $row[0];
+}
+
 function getPostInfo($getValue,$id)
 {
     global $connection;
@@ -134,6 +148,18 @@ function isAcceptRequest($friendToAccept)
     }else{
         return false;
     }
+    }
+}
+
+function isPostMine($post_id)
+{
+    global $connection;
+    $query = "SELECT id FROM posts WHERE id = '$post_id'";
+    $result = mysqli_query($connection,$query);
+
+    if($result)
+    {
+        return true;
     }
 }
 
