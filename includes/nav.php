@@ -15,10 +15,16 @@
         </div>
     </div>
 </div>
-<div id="notification-dropdown" class="">
+<div id="notification-dropdown" style="display:none;">
             <ul class="list-group">
                 
             <?php include "notification.php"; ?>
 
             </ul>
         </div>
+
+        <script>
+$("#notification").on('click',function(){
+    $("#notification-dropdown").toggle('display');
+});
+        </script>
