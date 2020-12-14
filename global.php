@@ -151,13 +151,14 @@ function isAcceptRequest($friendToAccept)
     }
 }
 
-function isPostMine($post_id)
+function isPostMine($post_id,$post_by)
 {
     global $connection;
-    $query = "SELECT id FROM posts WHERE id = '$post_id'";
+    $query = "SELECT * FROM posts WHERE id = '$post_id'";
     $result = mysqli_query($connection,$query);
+    $posted_by = mysqli_fetch_assoc($result);
 
-    if($result)
+    if($posted_by['posted_by'] === $post_by)
     {
         return true;
     }

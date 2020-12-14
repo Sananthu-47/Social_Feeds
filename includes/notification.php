@@ -4,12 +4,11 @@ include "db.php";
 $query = "SELECT * FROM likes";
 $result = mysqli_query($connection,$query);
 
-if(mysqli_num_rows($result)>0)
-{
+
     while($row = mysqli_fetch_assoc($result))
     {
         $post_id = $row['post_id'];
-            if(isPostMine($post_id))
+            if(isPostMine($post_id,$_SESSION['username']))
             {
                 $user_id = $row['user_id'];
                 $user_image = getUserInfoById("user_image",$user_id);
@@ -29,4 +28,3 @@ if(mysqli_num_rows($result)>0)
                 echo $output;
             }
     }
-}
