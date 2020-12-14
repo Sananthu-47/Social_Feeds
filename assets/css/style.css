@@ -362,6 +362,11 @@ hr
       background-color: rgba(92, 90, 90, 0.2);
   }
 
+  .notification-time
+  {
+      font-size: 10px !important;
+  }
+
   @media screen and (max-width: 768px)
 {
     .home-wrapper
