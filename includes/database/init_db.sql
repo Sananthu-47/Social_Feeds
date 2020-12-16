@@ -27,7 +27,6 @@ CREATE TABLE `posts` (
   `id` int(11) NOT NULL,
   `post_body` text NOT NULL,
   `post_image` text NOT NULL,
-  `likes` int(10) NOT NULL DEFAULT 0,
   `post_to` varchar(100) NOT NULL DEFAULT 'none',
   `posted_by` varchar(100) NOT NULL,
   `posted_at` datetime NOT NULL
@@ -49,4 +48,15 @@ CREATE TABLE `comments` (
   `comment_date` datetime NOT NULL,
   `comment_status` varchar(10) NOT NULL DEFAULT 'approved',
   `notification_status` varchar(10) NOT NULL DEFAULT 'unseen'
+) ;
+
+CREATE TABLE `notifications` (
+  `id` int(11) NOT NULL,
+  `type` varchar(20) NOT NULL,
+  `notified_at` datetime NOT NULL,
+  `notification_status` varchar(10) NOT NULL,
+  `notification_to` int(255) NOT NULL,
+  `notification_from` int(255) NOT NULL,
+  `post_id` int(255) NOT NULL,
+  `comment_message` text NOT NULL
 ) ;

@@ -29,7 +29,8 @@
                 $post_user = $row['posted_by'];
                 $posted_at = $row['posted_at'];
                 $post_to = $row['post_to'];
-                $post_likes = $row['likes'];
+                $total_likes = mysqli_query($connection,"SELECT * FROM likes WHERE post_id = '$post_id'");
+                $total_likes = mysqli_num_rows($total_likes);
                 $post_id = $row['id'];
                 $user_image = getUserInfo('user_image',$post_user);
                 date_default_timezone_set("Asia/Calcutta");
@@ -90,7 +91,7 @@
 
                 echo " 
                 <div class='container my-2 mx-auto like-comment bg-white d-flex justify-content-between align-items-center'>
-                <div class='d-block'><span class='badge badge-primary mr-1' id='post".$post_id."'>$post_likes</span>
+                <div class='d-block'><span class='badge badge-primary mr-1' id='post".$post_id."'>$total_likes</span>
                 <span class='badge badge-";
                 if(postLiked($post_id,getUserInfo('id',$logged_in_user)))
                 {

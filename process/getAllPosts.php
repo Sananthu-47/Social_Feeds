@@ -22,7 +22,8 @@ $query = "SELECT * FROM posts ORDER BY id DESC LIMIT $page , 5";
                 $post_user = $row['posted_by'];
                 $post_to = $row['post_to'];
                 $posted_at = $row['posted_at'];
-                $post_likes = $row['likes'];
+                $total_likes = mysqli_query($connection,"SELECT * FROM likes WHERE post_id = '$post_id'");
+                $total_likes = mysqli_num_rows($total_likes);
                 $user_image = getUserInfo('user_image',$post_user);
                 date_default_timezone_set("Asia/Calcutta");
                 $date_time_now = date("Y-m-d H:i:s");
@@ -76,7 +77,7 @@ $query = "SELECT * FROM posts ORDER BY id DESC LIMIT $page , 5";
 
                 echo " 
                 <div class='container my-2  like-comment bg-white d-flex justify-content-between align-items-center'>
-                <div class='d-block'><span class='badge badge-primary mr-1' id='post".$post_id."'>$post_likes</span>
+                <div class='d-block'><span class='badge badge-primary mr-1' id='post".$post_id."'>$total_likes</span>
                 <span class='badge badge-";
                 if(postLiked($post_id,getUserInfo('id',$username)))
                 {
