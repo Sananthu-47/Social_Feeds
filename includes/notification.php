@@ -3,7 +3,12 @@ include "db.php";
 
 $query = "SELECT * FROM notifications ORDER BY notified_at DESC";
 $result = mysqli_query($connection,$query);
+$logged_in_user_id = getUserInfo("id",$_SESSION['username']);
+$total_notification = mysqli_query($connection,"SELECT notification_to FROM notifications WHERE notification_to = '$logged_in_user_id'");
+$total_notification = mysqli_num_rows($total_notification);
 
+if($total_notification > 0)
+{
     while($row = mysqli_fetch_assoc($result))
     {
         if($row['type'] === 'like')
@@ -80,4 +85,7 @@ $result = mysqli_query($connection,$query);
                 }
             }
     }
+}else{
+    echo "<li class='list-group-item d-flex align-items-center bg-danger text-white'>No notifications recieved yet!</li>";
+}
 

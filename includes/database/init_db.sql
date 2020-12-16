@@ -58,5 +58,6 @@ CREATE TABLE `notifications` (
   `notification_to` int(255) NOT NULL,
   `notification_from` int(255) NOT NULL,
   `post_id` int(255) NOT NULL,
-  `comment_message` text NOT NULL
+  `comment_message` text NOT NULL,
+  `comment_id` int(255) NOT NULL
 ) ;

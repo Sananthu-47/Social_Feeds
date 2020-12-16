@@ -5,6 +5,8 @@
     $post_id = $_POST['post_id'];
     $query = "DELETE FROM comments WHERE id = '$comment_id'";
     $result = mysqli_query($connection,$query);
+    $query = "DELETE FROM notifications WHERE comment_id = '$comment_id'";
+    $result = mysqli_query($connection,$query);
     
     if($result)
     {

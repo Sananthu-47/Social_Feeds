@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 16, 2020 at 07:01 PM
+-- Generation Time: Dec 16, 2020 at 08:10 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.2.33
 
@@ -41,15 +41,8 @@ CREATE TABLE `comments` (
 --
 
 INSERT INTO `comments` (`id`, `post_id`, `comment_user_id`, `comment`, `comment_date`, `comment_status`) VALUES
-(8, 133, 9, 'Yup alll good', '2020-12-06 16:06:17', 'approved'),
-(9, 133, 9, 'bye', '2020-12-06 16:07:45', 'approved'),
-(11, 133, 9, 'ok', '2020-12-07 00:44:59', 'approved'),
-(12, 133, 9, 'noice', '2020-12-07 00:46:18', 'approved'),
-(13, 133, 9, 'ok bye', '2020-12-07 00:47:46', 'approved'),
-(15, 133, 4, 'hi', '2020-12-07 01:02:14', 'approved'),
-(17, 133, 9, 'k', '2020-12-07 01:16:08', 'approved'),
-(20, 133, 9, 'ok', '2020-12-07 01:24:22', 'approved'),
-(21, 133, 9, 'hi', '2020-12-07 23:13:08', 'approved');
+(1, 139, 8, 'Hey boi', '2020-12-17 00:39:12', 'approved'),
+(2, 147, 9, 'Hello all', '2020-12-17 00:39:24', 'approved');
 
 -- --------------------------------------------------------
 
@@ -94,14 +87,11 @@ CREATE TABLE `likes` (
 --
 
 INSERT INTO `likes` (`id`, `user_id`, `post_id`, `post_status`, `liked_at`) VALUES
-(6, 4, 4, 'liked', '2020-12-08 00:15:18'),
-(7, 4, 17, 'liked', '2020-12-08 00:15:20'),
-(8, 9, 17, 'liked', '2020-12-08 00:15:23'),
-(11, 9, 104, 'liked', '2020-12-08 00:15:24'),
-(12, 9, 139, 'liked', '2020-12-08 00:15:25'),
-(13, 9, 133, 'liked', '2020-12-08 00:31:46'),
-(14, 9, 85, 'liked', '2020-12-14 23:58:40'),
-(15, 9, 147, 'liked', '2020-12-15 23:14:29');
+(2, 8, 147, 'liked', '2020-12-17 00:37:07'),
+(3, 9, 147, 'liked', '2020-12-17 00:37:49'),
+(4, 9, 85, 'liked', '2020-12-17 00:40:17'),
+(5, 9, 84, 'liked', '2020-12-17 00:40:18'),
+(6, 9, 71, 'liked', '2020-12-17 00:40:21');
 
 -- --------------------------------------------------------
 
@@ -117,31 +107,22 @@ CREATE TABLE `notifications` (
   `notification_to` int(255) NOT NULL,
   `notification_from` int(255) NOT NULL,
   `post_id` int(255) NOT NULL,
-  `comment_message` text NOT NULL
+  `comment_message` text NOT NULL,
+  `comment_id` int(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `notifications`
 --
 
-INSERT INTO `notifications` (`id`, `type`, `notified_at`, `notification_status`, `notification_to`, `notification_from`, `post_id`, `comment_message`) VALUES
-(1, 'comment', '2020-12-06 16:06:17', 'seen', 9, 9, 133, 'Yup alll good'),
-(2, 'comment', '2020-12-06 16:07:45', 'unseen', 9, 9, 133, 'bye'),
-(3, 'comment', '2020-12-07 00:44:59', 'unseen', 9, 9, 133, 'ok'),
-(4, 'comment', '2020-12-07 00:46:18', 'unseen', 9, 9, 133, 'noice'),
-(5, 'comment', '2020-12-07 00:47:46', 'unseen', 9, 9, 133, 'ok bye'),
-(6, 'comment', '2020-12-07 01:02:14', 'unseen', 9, 4, 133, 'hi'),
-(7, 'comment', '2020-12-07 01:16:08', 'unseen', 9, 9, 133, 'k'),
-(8, 'comment', '2020-12-07 01:24:22', 'unseen', 9, 9, 133, 'ok'),
-(9, 'comment', '2020-12-07 23:13:08', 'seen', 9, 9, 133, 'hi'),
-(10, 'like', '2020-12-06 16:06:17', 'seen', 4, 4, 4, 'none'),
-(11, 'like', '2020-12-06 16:07:45', 'seen', 9, 4, 17, 'none'),
-(12, 'like', '2020-12-07 00:44:59', 'unseen', 9, 9, 17, 'none'),
-(13, 'like', '2020-12-07 00:46:18', 'unseen', 9, 9, 104, 'none'),
-(14, 'like', '2020-12-07 00:47:46', 'unseen', 9, 9, 139, 'none'),
-(15, 'like', '2020-12-07 01:02:14', 'unseen', 9, 4, 133, 'none'),
-(16, 'like', '2020-12-07 01:16:08', 'unseen', 8, 9, 85, 'none'),
-(17, 'like', '2020-12-07 01:24:22', 'unseen', 9, 9, 147, 'none');
+INSERT INTO `notifications` (`id`, `type`, `notified_at`, `notification_status`, `notification_to`, `notification_from`, `post_id`, `comment_message`, `comment_id`) VALUES
+(2, 'like', '2020-12-17 00:37:07', 'unseen', 9, 8, 147, 'none', 0),
+(3, 'like', '2020-12-17 00:37:49', 'unseen', 9, 9, 147, 'none', 0),
+(4, 'comment', '2020-12-17 00:39:12', 'unseen', 9, 8, 139, 'Hey boi', 1),
+(5, 'comment', '2020-12-17 00:39:24', 'unseen', 9, 9, 147, 'Hello all', 2),
+(6, 'like', '2020-12-17 00:40:17', 'unseen', 8, 9, 85, 'none', 0),
+(7, 'like', '2020-12-17 00:40:19', 'unseen', 8, 9, 84, 'none', 0),
+(8, 'like', '2020-12-17 00:40:21', 'unseen', 8, 9, 71, 'none', 0);
 
 -- --------------------------------------------------------
 
@@ -231,8 +212,8 @@ INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `username`, `pass
 (4, 'Ananthu', 'Sv', 'sananthu47@gmail.com', 'Ananthu_Sv', '$2y$10$rp1Mp2fpZYffb.QpdDOwNODaeyIXt0OiJkOpcJHeC7KfNGIVe8Apa', '2020-10-26', '1604906411_1601758369_IMG_9994.JPG', 1607458221, 'private', 10, 3, ',Star_Ananthu,Kokila_Ben,Gabar_Singh,', ''),
 (5, 'Admin', '007', 'admin@gmail.com', 'Admin_007', '$2y$10$p91IB0EgG3Mcrqtna9mfv.YFRGQk.IMAb2ces1aepecG8Kiy8DFj6', '2020-10-26', '1604951272_profile.jpg', 1608005141, 'public', 2, 2, ',Star_Ananthu,Gabar_Singh,', ''),
 (6, 'Star', 'Ananthu', 'ananthu@gmail.com', 'Star_Ananthu', '$2y$10$veq6UcQNesOsijUOr1v2h.lfwXYFEzTYT2STgVExkN2HAluDaLHBe', '2020-10-26', '1604951382_1602359930_IMG-20180808-WA0011.jpg', 1607802829, 'private', 4, 3, ',Ananthu_Sv,Admin_007,Gabar_Singh,', '#Pop\r\n#yoyo\r\nHi all!'),
-(8, 'Kokila', 'Ben', 'kokila@gmail.com', 'Kokila_Ben', '$2y$10$inoBTtaG2cEbeBevW.ezuOirsinKx0lMqsHJXae.2ROi8CQCLgtD6', '2020-11-08', 'profile.png', 1608141726, 'private', 9, 2, ',Ananthu_Sv,Gabar_Singh,', ''),
-(9, 'Gabar', 'Singh', 'gabar@gmail.com', 'Gabar_Singh', '$2y$10$oCgHZM24b1jqyBuSPUYfu.SEyp2iHRf/q1hrwmcv6QvwH1iPpX6Vi', '2020-11-12', '1605119795_randomguy.jpg', 1608141723, 'private', 12, 5, ',Ananthu_Sv,Kokila_Ben,Star_Ananthu,Unknown_Player,Admin_007,', 'Hello all I am new here'),
+(8, 'Kokila', 'Ben', 'kokila@gmail.com', 'Kokila_Ben', '$2y$10$inoBTtaG2cEbeBevW.ezuOirsinKx0lMqsHJXae.2ROi8CQCLgtD6', '2020-11-08', 'profile.png', 1608145858, 'private', 9, 2, ',Ananthu_Sv,Gabar_Singh,', ''),
+(9, 'Gabar', 'Singh', 'gabar@gmail.com', 'Gabar_Singh', '$2y$10$oCgHZM24b1jqyBuSPUYfu.SEyp2iHRf/q1hrwmcv6QvwH1iPpX6Vi', '2020-11-12', '1605119795_randomguy.jpg', 1608145856, 'private', 12, 5, ',Ananthu_Sv,Kokila_Ben,Star_Ananthu,Unknown_Player,Admin_007,', 'Hello all I am new here'),
 (10, 'Unknown', 'Player', 'unknown@gmail.com', 'Unknown_Player', '$2y$10$zAnZ/7FymmrJlrrU50hy5eFuOFQrDb.2gw5S0MqMj0Nbqm5SSUPI6', '2020-12-10', 'profile.png', 1608005015, 'private', 0, 1, 'Gabar_Singh,', '');
 
 --
@@ -283,7 +264,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `friend_requests`
@@ -295,13 +276,13 @@ ALTER TABLE `friend_requests`
 -- AUTO_INCREMENT for table `likes`
 --
 ALTER TABLE `likes`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `posts`
