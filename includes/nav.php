@@ -16,15 +16,54 @@
     </div>
 </div>
 <div id="notification-dropdown" style="display:none;">
-            <ul class="list-group">
+            <ul class="list-group" id="all-notifications">
                 
             <?php include "notification.php"; ?>
 
             </ul>
+            <i class='fa fa-refresh fa-spin fa-3x fa-fw loading'></i>
+            <span class='sr-only'>Loading...</span>
         </div>
 
         <script>
 $("#notification").on('click',function(){
     $("#notification-dropdown").toggle('display');
 });
+
+    //Load more notification
+
+    $(document).on('click',"#load-more-notifications",function(e){
+    let page = $(this).data("page");
+    let userId = $(this).data("id");
+    loadMoreComments(page,userId);
+});
+
+//Load more comments ajax function
+function loadMoreComments(page,userId)
+{
+    $.ajax({
+            url : "includes/notification.php",
+            type : "POST",
+            data : {page,userId},
+            beforeSend : function(){
+            $(".loading").show();
+            },
+            success : function(data)
+            {
+                if(data !== "<li class='list-group-item d-flex align-items-center bg-danger text-white'>No notifications</li>")
+                {
+                $("#loaded-notification").remove();
+                $(".loading").hide();
+                $("#all-notifications").append(data);
+                $(".loading").remove();
+                }else{
+                    // $("#load-more-notifications").removeClass('btn-info');
+                    // $("#load-more-notifications").addClass('btn-secondary disabled not-allowed');
+                    $("#load-more-notifications").remove();
+                    // let output = "<li class='list-group-item d-flex align-items-center bg-danger text-white'>No notifications</li>";
+                    $("#all-notifications").append(data);
+                }
+            }
+        });
+}
         </script>
