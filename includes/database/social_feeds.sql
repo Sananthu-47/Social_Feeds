@@ -2,10 +2,10 @@
 -- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Dec 16, 2020 at 08:10 PM
--- Server version: 10.4.14-MariaDB
--- PHP Version: 7.2.33
+-- Host: localhost
+-- Generation Time: Dec 17, 2020 at 08:12 AM
+-- Server version: 10.4.13-MariaDB
+-- PHP Version: 7.2.32
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -196,12 +196,12 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL,
   `joined` date NOT NULL,
   `user_image` text NOT NULL,
-  `last_seen` bigint(20) NOT NULL,
+  `last_seen` bigint(20) DEFAULT NULL,
   `account_type` varchar(15) NOT NULL DEFAULT 'private',
   `posts` int(10) NOT NULL DEFAULT 0,
   `friends` int(10) NOT NULL DEFAULT 0,
-  `friends_list` text NOT NULL,
-  `bio` text NOT NULL
+  `friends_list` text DEFAULT NULL,
+  `bio` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --

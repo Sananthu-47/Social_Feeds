@@ -73,7 +73,7 @@
                
                         if(!$result)
                         {
-                            die("Error".mysqli_error($result));
+                            die("Error".mysqli_error($connection));
                         }else{
                             header("Location: login.php");
                         }
