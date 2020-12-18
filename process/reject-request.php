@@ -10,7 +10,7 @@ include "../global.php";
             $query = "DELETE FROM friend_requests WHERE request_by = '$to' AND request_to = '$from'";
             $result = mysqli_query($connection,$query);
 
-            //Update the friends_request table with friends status to notify
+            //Update the notifications table by deletinf the data
             $query = "DELETE FROM notifications WHERE notification_to = '$notification_to' AND notification_from = '$notification_by' AND type = 'friend_req'";
             $result = mysqli_query($connection,$query);
 
