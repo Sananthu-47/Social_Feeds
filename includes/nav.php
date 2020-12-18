@@ -53,14 +53,10 @@ function loadMoreComments(page,userId)
                 if(data !== "<li class='list-group-item d-flex align-items-center bg-danger text-white'>No notifications</li>")
                 {
                 $("#loaded-notification").remove();
-                $(".loading").hide();
-                $("#all-notifications").append(data);
                 $(".loading").remove();
+                $("#all-notifications").append(data);
                 }else{
-                    // $("#load-more-notifications").removeClass('btn-info');
-                    // $("#load-more-notifications").addClass('btn-secondary disabled not-allowed');
                     $("#load-more-notifications").remove();
-                    // let output = "<li class='list-group-item d-flex align-items-center bg-danger text-white'>No notifications</li>";
                     $("#all-notifications").append(data);
                 }
             }
