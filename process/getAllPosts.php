@@ -94,7 +94,7 @@ $query = "SELECT * FROM posts ORDER BY id DESC LIMIT $page , 5";
                     <div class='col-2'><input type='button' id='comment' data-post='$post_id' class='btn btn-secondary p-1' value='Comment' name='post_comment'></div>
                 </div>
                 
-                <span class='mx-3'>Comments</span>
+                <div class='d-flex justify-content-start'><span class='mx-3 badge badge-dark text-light'>Comments</span></div>
                 <div id='comment-$post_id'>";
 
                 if($total_comments > 0)

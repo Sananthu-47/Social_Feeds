@@ -4,6 +4,8 @@ include "../includes/db.php";
 include "../global.php";
     $to = $_POST['request_to'];
     $from = $_POST['request_from'];
+    $notification_to = getUserInfo('id',$to);
+    $notification_by = getUserInfo('id',$from);
     $my_friend_list = getUserInfo('friends_list',$from) . $to . ',' ;//My friends list
     $accepted_friend_list = getUserInfo('friends_list',$to) . $from . ',' ;//The new friends friend list
     $status = "friends";
@@ -17,6 +19,9 @@ include "../global.php";
     $result = mysqli_query($connection,$query);
     //Update the friends users list with my name
     $query = "UPDATE users SET friends_list = '$accepted_friend_list' , friends = '$new_friend_total_friends' WHERE username = '$to'";
+    $result = mysqli_query($connection,$query);
+    //Notification for friend request accept
+    $query = "INSERT INTO notifications (type , notified_at , notification_status , notification_to , notification_from , comment_message) VALUES ('friend_req_accept' , now() , 'unseen' , '$notification_to' , '$notification_by' , 'none')";
     $result = mysqli_query($connection,$query);
 
     if(!$result)

@@ -60,6 +60,131 @@ function updateUserLastSeen()
             }
             setInterval(updateUserLastSeen, 10000);
 
+//Add friend ajax function
+$(document).on('click',"#add-friend",function(e){
+    e.preventDefault();
+    let request_to = $(this).data("reqto");
+    let request_from =$(this).data("reqfrom");
+    
+    $.ajax({
+        url : "process/add-friend.php",
+        type : "POST",
+        data : {request_to , request_from},
+        success : function(data)
+        {
+            $("#friend-form").html(data);
+            $("#friend-form-mobile").html(data);
+        }
+    });
+});
+//Cancel friend request using ajax
+$(document).on('click','#cancel-request',function(e){
+    e.preventDefault();
+    let request_to = $(this).data("reqto");
+    let request_from =$(this).data("reqfrom");
+    
+    $.ajax({
+        url : "process/cancel-friend-request.php",
+        type : "POST",
+        data : {request_to , request_from},
+        success : function(data)
+        {
+            $("#friend-form").html(data);
+            $("#friend-form-mobile").html(data);
+        }
+    });
+});
+//Accept friend request
+$(document).on('click','#accept-request',function(e){
+    e.preventDefault();
+    let request_to = $(this).data("reqto");
+    let request_from =$(this).data("reqfrom");
+
+    $.ajax({
+        url : "process/accept-request.php",
+        type : "POST",
+        data : {request_to , request_from},
+        success : function(data)
+        {
+            $("#friend-form").html(data);
+            $("#friend-form-mobile").html(data);
+            viewAllFriends();
+            loadProfileData();
+        }
+    });
+});
+//Reject friend request
+$(document).on('click','#reject-request',function(e){
+    e.preventDefault();
+    let request_to = $(this).data("reqto");
+    let request_from =$(this).data("reqfrom");
+    let notification_from = "<?php echo getUserInfo('id',$_SESSION['username']); ?>";
+    $.ajax({
+        url : "process/reject-request.php",
+        type : "POST",
+        data : {request_to , request_from},
+        success : function(data)
+        {
+            $("#friend-form").html(data);
+            $("#friend-form-mobile").html(data);
+            $("#all-notifications").html('');
+            loadMoreNotifications(-10,notification_from);//-10 -> To remove previews data
+        }
+    });
+});
+//Unfriend the following friend
+$(document).on('click',"#unfriend",function(e){
+    e.preventDefault();
+    let request_to = $(this).data("reqto");
+    let request_from =$(this).data("reqfrom");
+
+    $.ajax({
+        url : "process/unfriend.php",
+        type : "POST",
+        data : {request_to , request_from},
+        success : function(data)
+        {
+            $("#friend-form").html(data);
+            $("#friend-form-mobile").html(data);
+            viewAllFriends();
+            loadProfileData();
+        }
+    });
+});
+
+    //Load more notification
+
+    $(document).on('click',"#load-more-notifications",function(e){
+    let page = $(this).data("page");
+    let userId = $(this).data("id");
+    loadMoreNotifications(page,userId);
+});
+
+//Load more comments ajax function
+function loadMoreNotifications(page,userId)
+{
+    $.ajax({
+            url : "includes/notification.php",
+            type : "POST",
+            data : {page,userId},
+            beforeSend : function(){
+            $(".loading").show();
+            },
+            success : function(data)
+            {
+                if(data !== "<li class='list-group-item d-flex align-items-center bg-danger text-white'>No notifications</li>")
+                {
+                $("#loaded-notification").remove();
+                $(".loading").remove();
+                $("#all-notifications").append(data);
+                }else{
+                    $("#load-more-notifications").remove();
+                    $("#all-notifications").append(data);
+                }
+            }
+        });
+}
+
 </script>
                 
 

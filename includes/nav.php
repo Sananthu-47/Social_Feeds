@@ -26,40 +26,7 @@
         </div>
 
         <script>
-$("#notification").on('click',function(){
+        $("#notification").on('click',function(){
     $("#notification-dropdown").toggle('display');
-});
-
-    //Load more notification
-
-    $(document).on('click',"#load-more-notifications",function(e){
-    let page = $(this).data("page");
-    let userId = $(this).data("id");
-    loadMoreComments(page,userId);
-});
-
-//Load more comments ajax function
-function loadMoreComments(page,userId)
-{
-    $.ajax({
-            url : "includes/notification.php",
-            type : "POST",
-            data : {page,userId},
-            beforeSend : function(){
-            $(".loading").show();
-            },
-            success : function(data)
-            {
-                if(data !== "<li class='list-group-item d-flex align-items-center bg-danger text-white'>No notifications</li>")
-                {
-                $("#loaded-notification").remove();
-                $(".loading").remove();
-                $("#all-notifications").append(data);
-                }else{
-                    $("#load-more-notifications").remove();
-                    $("#all-notifications").append(data);
-                }
-            }
         });
-}
         </script>

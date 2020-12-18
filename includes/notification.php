@@ -155,6 +155,36 @@ $total_notification = mysqli_num_rows($result);
                         </div>";
 
                     $output.= "</li>";
+                }else
+                if($row['type'] === 'friend_req_accept')
+                {
+                    $request_by = getUserInfoById("username",$user_id);
+                    $request_date = $row['notified_at'];
+                    $request_added = new DateTime($request_date);
+                    $interval = $request_added->diff($end_date);
+                    $time_message = getDateFormat($interval);
+                    if($time_message !== 'Just now')
+                    {
+                    $time_array = (explode(" ",$time_message));
+                    $time_message = $time_array[0] . ' ' . $time_array[1][0];
+                    }
+                    $output .= "<li class='list-group-item d-flex align-items-center p-0";
+                    if($notification_status == "unseen")
+                    {
+                        $output.=" bg-not-seen";
+                    }else{
+                        $output.=" bg-light";
+                    }
+                    $output.= "'><div class='my-2 col-2 p-1'><a href='$request_by'><div class='notification-user-preview'><img src='assets/images/profiles/$user_image'alt='image'></a></div></div>";
+                    $output.="<div class='d-flex flex-column col-7'><a href='$request_by'><span class='text-primary'>$request_by</span></a>";
+                    $output.="<span class='text-dark'> has sent you a friend request<sub class='mx-2 text-secondary notification-time text-nowrap'>$time_message</sub></span></div>";
+                
+                        $output.="<div class='d-flex flex-column my-2 col-3 p-0'>
+                        <input type='submit' data-reqto='{$request_by}' data-reqfrom='{$_SESSION['username']}' id='accept-request' class='btn btn-success p-0 my-1' value='Accept'>
+                        <input type='submit' data-reqto='{$request_by}' data-reqfrom='{$_SESSION['username']}' id='reject-request' class='btn btn-danger p-0 my-1' value='Reject'>
+                        </div>";
+
+                    $output.= "</li>";
                 }
         }
     $output.="<div class='text-center m-2' id='loaded-notification'>
