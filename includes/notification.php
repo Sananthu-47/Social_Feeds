@@ -56,7 +56,7 @@ $total_notification = mysqli_num_rows($result);
                         }else{
                             $output.="primary'>".$liked_by." ";
                         }
-                        $output.="</span><span class='text-dark'> liked your post </span><sub class='mx-2 text-secondary notification-time text-nowrap'>$time_message</sub></a></div>";
+                        $output.="</span><span class='text-dark'> liked your post<sub class='mx-2 text-secondary notification-time text-nowrap'>$time_message</sub></span></a></div>";
                         if($post_image !== 'none')
                         {
                             $output.="<div class='post-notification-image my-2 col-2 p-0'><a href='view-all-comment.php?post_id=$post_id'><img src='assets/images/posts/$post_image'alt='image'></a></div>";
@@ -91,7 +91,7 @@ $total_notification = mysqli_num_rows($result);
                     }else{
                         $output.="primary'>".$commented_by." ";
                     }
-                    $output.="</span><span class='text-dark'> commented on your post : '$comment'</span><sub class='mx-2 text-secondary notification-time text-nowrap'>$time_message</sub></a></div>";
+                    $output.="</span><span class='text-dark'> commented on your post : '$comment'<sub class='mx-2 text-secondary notification-time text-nowrap'>$time_message</sub></span></a></div>";
                     if($post_image !== 'none')
                     {
                         $output.="<div class='post-notification-image my-2 col-2 p-0'><a href='view-all-comment.php?post_id=$post_id'><img src='assets/images/posts/$post_image'alt='image'></a></div>";
@@ -118,17 +118,42 @@ $total_notification = mysqli_num_rows($result);
                         $output.=" bg-light";
                     }
                     $output.= "'><div class='my-2 col-2 p-1'><a href='$posted_by'><div class='notification-user-preview'><img src='assets/images/profiles/$user_image'alt='image'></a></div></div>";
-                    $output.="<div class='d-flex flex-column col-8'><a href='view-all-comment.php?post_id=$post_id'><span class='text-";
-                    if($posted_by === $username){
-                        $output.="dark'> You";
-                    }else{
-                        $output.="primary'>".$posted_by." ";
-                    }
-                    $output.="</span><span class='text-dark'> shared a post to your profile</span><sub class='mx-2 text-secondary notification-time text-nowrap'>$time_message</sub></a></div>";
+                    $output.="<div class='d-flex flex-column col-8'><a href='view-all-comment.php?post_id=$post_id'><span class='text-primary'>$posted_by</span>";
+                    $output.="<span class='text-dark'> shared a post to your profile<sub class='mx-2 text-secondary notification-time text-nowrap'>$time_message</sub></span></a></div>";
                     if($post_image !== 'none')
                     {
                         $output.="<div class='post-notification-image my-2 col-2 p-0'><a href='view-all-comment.php?post_id=$post_id'><img src='assets/images/posts/$post_image'alt='image'></a></div>";
                     }
+                    $output.= "</li>";
+                }else
+                if($row['type'] === 'friend_req')
+                {
+                    $request_by = getUserInfoById("username",$user_id);
+                    $request_date = $row['notified_at'];
+                    $request_added = new DateTime($request_date);
+                    $interval = $request_added->diff($end_date);
+                    $time_message = getDateFormat($interval);
+                    if($time_message !== 'Just now')
+                    {
+                    $time_array = (explode(" ",$time_message));
+                    $time_message = $time_array[0] . ' ' . $time_array[1][0];
+                    }
+                    $output .= "<li class='list-group-item d-flex align-items-center p-0";
+                    if($notification_status == "unseen")
+                    {
+                        $output.=" bg-not-seen";
+                    }else{
+                        $output.=" bg-light";
+                    }
+                    $output.= "'><div class='my-2 col-2 p-1'><a href='$request_by'><div class='notification-user-preview'><img src='assets/images/profiles/$user_image'alt='image'></a></div></div>";
+                    $output.="<div class='d-flex flex-column col-7'><a href='$request_by'><span class='text-primary'>$request_by</span></a>";
+                    $output.="<span class='text-dark'> has sent you a friend request<sub class='mx-2 text-secondary notification-time text-nowrap'>$time_message</sub></span></div>";
+                
+                        $output.="<div class='d-flex flex-column my-2 col-3 p-0'>
+                        <input type='submit' data-reqto='{$request_by}' data-reqfrom='{$_SESSION['username']}' id='accept-request' class='btn btn-success p-0 my-1' value='Accept'>
+                        <input type='submit' data-reqto='{$request_by}' data-reqfrom='{$_SESSION['username']}' id='reject-request' class='btn btn-danger p-0 my-1' value='Reject'>
+                        </div>";
+
                     $output.= "</li>";
                 }
         }
