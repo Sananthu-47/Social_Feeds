@@ -20,19 +20,20 @@ $total_notification = mysqli_num_rows($result);
    {
        while($row = mysqli_fetch_assoc($result))
         {
-                if($row['type'] === 'like')
-                    {
                         $post_id = $row['post_id'];
                         $user_id = $row['notification_from'];
                         $user_image = getUserInfoById("user_image",$user_id);
-                        $liked_by = getUserInfoById("username",$user_id);
                         $notification_status = $row['notification_status'];
-                        $liked_at = $row['notified_at'];
                         $post_image = getPostInfo("post_image",$post_id);
                         date_default_timezone_set("Asia/Calcutta");
                         $date_time_now = date("Y-m-d H:i:s");
-                        $post_liked = new DateTime($liked_at);
                         $end_date = new DateTime($date_time_now);
+
+                if($row['type'] === 'like')
+                    {
+                        $liked_by = getUserInfoById("username",$user_id);
+                        $liked_at = $row['notified_at'];
+                        $post_liked = new DateTime($liked_at);
                         $interval = $post_liked->diff($end_date);
                         $time_message = getDateFormat($interval);
                         if($time_message !== 'Just now')
@@ -65,18 +66,10 @@ $total_notification = mysqli_num_rows($result);
               else
                 if($row['type'] === 'comment')
                 {
-                    $post_id = $row['post_id'];
-                    $user_id = $row['notification_from'];
-                    $user_image = getUserInfoById("user_image",$user_id);
                     $commented_by = getUserInfoById("username",$user_id);
-                    $notification_status = $row['notification_status'];
                     $comment = $row['comment_message'];
                     $comment_date = $row['notified_at'];
-                    $post_image = getPostInfo("post_image",$post_id);
-                    date_default_timezone_set("Asia/Calcutta");
-                    $date_time_now = date("Y-m-d H:i:s");
                     $post_commented = new DateTime($comment_date);
-                    $end_date = new DateTime($date_time_now);
                     $interval = $post_commented->diff($end_date);
                     $time_message = getDateFormat($interval);
                     if($time_message !== 'Just now')
