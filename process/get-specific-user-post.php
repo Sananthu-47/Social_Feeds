@@ -129,5 +129,5 @@
   }
   }//End of the accoutn_type
   else{
-      echo "<span class='d-flex justify-content-center align-items-center h5'>Account private</span>";
+      echo "Account private";
   }

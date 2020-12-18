@@ -240,6 +240,12 @@ $("#my-form").on('submit',function(e){
                 {
                     $('.over-data').remove();
                     over_alert = false;
+                }else
+                if(data === "Account private")
+                {
+                    data = "<span class='d-flex justify-content-center align-items-center h5'>"+data+"</span>";
+                    $('.over-data').remove();
+                    over_alert = false;
                 }
                 $("#all-posts").append(data);
                 $(".loading").hide();
