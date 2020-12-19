@@ -68,7 +68,7 @@
                             $username = $username . '_' . $unique;
                         }
                         
-                        $query = "INSERT INTO users (username , first_name , last_name , user_image , email , password , joined) VALUES ('{$username}','{$first_name}','{$last_name}','{$user_image}','{$email}' , '{$hashed_password}' , now())";
+                        $query = "INSERT INTO users (username , first_name , last_name , user_image , email , password , joined , friends_list) VALUES ('{$username}','{$first_name}','{$last_name}','{$user_image}','{$email}' , '{$hashed_password}' , now() , ',')";
                         $result = mysqli_query($connection,$query);
                
                         if(!$result)

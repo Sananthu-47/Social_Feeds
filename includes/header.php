@@ -99,6 +99,7 @@ $(document).on('click','#accept-request',function(e){
     e.preventDefault();
     let request_to = $(this).data("reqto");
     let request_from =$(this).data("reqfrom");
+    let notification_from = "<?php echo getUserInfo('id',$_SESSION['username']); ?>";
 
     $.ajax({
         url : "process/accept-request.php",
@@ -110,6 +111,8 @@ $(document).on('click','#accept-request',function(e){
             $("#friend-form-mobile").html(data);
             viewAllFriends();
             loadProfileData();
+            $("#all-notifications").html('');
+            loadMoreNotifications(-10,notification_from);//-10 -> To remove previews data
         }
     });
 });
@@ -175,10 +178,11 @@ function loadMoreNotifications(page,userId)
                 if(data !== "<li class='list-group-item d-flex align-items-center bg-danger text-white'>No notifications</li>")
                 {
                 $("#loaded-notification").remove();
-                $(".loading").remove();
+                $(".loading").hide();
                 $("#all-notifications").append(data);
                 }else{
                     $("#load-more-notifications").remove();
+                    $(".loading").hide();
                     $("#all-notifications").append(data);
                 }
             }

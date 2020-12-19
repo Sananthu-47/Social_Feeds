@@ -150,8 +150,8 @@ $total_notification = mysqli_num_rows($result);
                     $output.="<span class='text-dark'> has sent you a friend request<sub class='mx-2 text-secondary notification-time text-nowrap'>$time_message</sub></span></div>";
                 
                         $output.="<div class='d-flex flex-column my-2 col-3 p-0'>
-                        <input type='submit' data-reqto='{$request_by}' data-reqfrom='{$_SESSION['username']}' id='accept-request' class='btn btn-success p-0 my-1' value='Accept'>
-                        <input type='submit' data-reqto='{$request_by}' data-reqfrom='{$_SESSION['username']}' id='reject-request' class='btn btn-danger p-0 my-1' value='Reject'>
+                        <input type='submit' data-reqto='{$request_by}' data-reqfrom='$username' id='accept-request' class='btn btn-success p-0 my-1' value='Accept'>
+                        <input type='submit' data-reqto='{$request_by}' data-reqfrom='$username' id='reject-request' class='btn btn-danger p-0 my-1' value='Reject'>
                         </div>";
 
                     $output.= "</li>";
@@ -176,13 +176,8 @@ $total_notification = mysqli_num_rows($result);
                         $output.=" bg-light";
                     }
                     $output.= "'><div class='my-2 col-2 p-1'><a href='$request_by'><div class='notification-user-preview'><img src='assets/images/profiles/$user_image'alt='image'></a></div></div>";
-                    $output.="<div class='d-flex flex-column col-7'><a href='$request_by'><span class='text-primary'>$request_by</span></a>";
-                    $output.="<span class='text-dark'> has sent you a friend request<sub class='mx-2 text-secondary notification-time text-nowrap'>$time_message</sub></span></div>";
-                
-                        $output.="<div class='d-flex flex-column my-2 col-3 p-0'>
-                        <input type='submit' data-reqto='{$request_by}' data-reqfrom='{$_SESSION['username']}' id='accept-request' class='btn btn-success p-0 my-1' value='Accept'>
-                        <input type='submit' data-reqto='{$request_by}' data-reqfrom='{$_SESSION['username']}' id='reject-request' class='btn btn-danger p-0 my-1' value='Reject'>
-                        </div>";
+                    $output.="<div class='d-flex flex-column col-10'><a href='$request_by'><span class='text-primary'>$request_by</span></a>";
+                    $output.="<span class='text-dark'> has accepted your friend request<sub class='mx-2 text-secondary notification-time text-nowrap'>$time_message</sub></span></div>";
 
                     $output.= "</li>";
                 }
