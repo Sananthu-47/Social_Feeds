@@ -223,6 +223,7 @@ $("#my-form").on('submit',function(e){
         });
     });
 
+//Get specific user post
     function getSpecificUserPost(page)
     {
         let username = "<?php echo $_username; ?>";

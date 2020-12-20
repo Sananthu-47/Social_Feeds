@@ -48,8 +48,14 @@ $query = "SELECT * FROM comments WHERE post_id = '$post_id' ORDER BY id DESC LIM
                     <span class='text-dark small-text'>$comment_time_message</span>
                     </div>
                 
-                    <div class='ml-3 '>
+                    <div class='ml-3 d-flex flex-column'>
                     <span class='lead wrap-comment'>$newest_comment</span>
+                    <div class='d-flex align-items-center'>
+                    <span class='mr-1 notification-time text-primary'>0</span>
+                    <i class='fa fa-heart fa-sm text-secondary' role='button' id='comment-like'></i>
+                    <span class='text-info notification-time ml-3'>Reply</span>
+                    </div>
+
                     </div>";
 
                     if($post_by === $_username)
@@ -83,4 +89,3 @@ $query = "SELECT * FROM comments WHERE post_id = '$post_id' ORDER BY id DESC LIM
                 <div class='btn btn-info' id='load-more' data-page='$page' data-id='$post_id'>Load more</div>
                 </div>";
             }
-                
