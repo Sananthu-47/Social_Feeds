@@ -7,6 +7,8 @@ include "../global.php";
             $accepted_friend_list = str_replace(","."$from","",getUserInfo('friends_list',$to));//The new friends friend list
             $my_total_friends = getUserInfo('friends',$from) - 1;
             $new_friend_total_friends = getUserInfo('friends',$to) - 1;
+            $notification_to = getUserInfo('id',$to);
+            $notification_from = getUserInfo('id',$from);
        
             //Update the friends_request table with friends status to notify
             $query = "DELETE FROM friend_requests WHERE (request_by = ('$from' OR '$to')) AND (request_to = ('$to' OR '$from'))";
@@ -17,7 +19,11 @@ include "../global.php";
             //Update the friends users list with my name
             $query = "UPDATE users SET friends_list = '$accepted_friend_list' , friends = '$new_friend_total_friends' WHERE username = '$to'";
             $result = mysqli_query($connection,$query);
-
+            //Delete from notifications table the request notification
+            //Use IN to use ex:- (notification_from = $notification_from OR notification_from = $notification_to); => compares the multiper data
+            $query = "DELETE FROM notifications WHERE (notification_from IN($notification_from,$notification_to)) AND (notification_to IN($notification_from,$notification_to)) AND type = 'friend_req_accept'";
+            $result = mysqli_query($connection,$query);
+        
             if(!$result)
             {
                 alert('alert-danger',"Something went wrong!");
