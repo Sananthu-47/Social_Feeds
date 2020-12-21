@@ -11,7 +11,7 @@ $notification_to = getUserInfo('id',$notification_to);
 
 if(!$post_status)
 {
-    $query = "INSERT INTO likes (post_id , user_id , post_status , liked_at) VALUES ('$post_id' , '$user_id' , 'liked' , now())";
+    $query = "INSERT INTO likes (post_id , user_id  , liked_at) VALUES ('$post_id' , '$user_id' , now())";
     $result = mysqli_query($connection,$query);
     $query = "INSERT INTO notifications (type , notified_at , notification_status , notification_to , notification_from , post_id , comment_message) VALUES ('like' , now() , 'unseen' , '$notification_to' , '$user_id' , '$post_id' , 'none')";
     $result = mysqli_query($connection,$query);

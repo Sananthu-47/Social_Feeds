@@ -240,9 +240,9 @@ function getFreindRequestInfo($getValue,$username)
 function postLiked($post_id,$user_id)
 {
     global $connection;
-    $query = "SELECT post_status FROM likes WHERE post_id = '$post_id' AND user_id = '$user_id'";
+    $query = "SELECT * FROM likes WHERE post_id = '$post_id' AND user_id = '$user_id'";
     $result = mysqli_query($connection,$query); 
-    if(mysqli_fetch_array($result)['post_status'] == "liked")
+    if(mysqli_num_rows($result) > 0)
     {
         return true;
     }else{
