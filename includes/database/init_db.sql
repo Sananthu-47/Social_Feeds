@@ -21,7 +21,7 @@ CREATE TABLE `friend_requests` (
   `request_by` varchar(50) NOT NULL,
   `request_time` datetime NOT NULL,
   `request_status` varchar(10) NOT NULL
-);
+) ;
 
 CREATE TABLE `posts` (
   `id` int(11) NOT NULL,
@@ -30,7 +30,7 @@ CREATE TABLE `posts` (
   `post_to` varchar(100) NOT NULL DEFAULT 'none',
   `posted_by` varchar(100) NOT NULL,
   `posted_at` datetime NOT NULL
-);
+) ;
 
 CREATE TABLE `likes` (
   `id` int(255) NOT NULL,
@@ -45,8 +45,7 @@ CREATE TABLE `comments` (
   `comment_user_id` int(255) NOT NULL,
   `comment` text NOT NULL,
   `comment_date` datetime NOT NULL,
-  `comment_status` varchar(10) NOT NULL DEFAULT 'approved',
-  `notification_status` varchar(10) NOT NULL DEFAULT 'unseen'
+  `comment_status` varchar(10) NOT NULL DEFAULT 'approved'
 ) ;
 
 CREATE TABLE `notifications` (
@@ -59,4 +58,13 @@ CREATE TABLE `notifications` (
   `post_id` int(255) NOT NULL,
   `comment_message` text NOT NULL,
   `comment_id` int(255) NOT NULL
+) ;
+
+CREATE TABLE `comment_likes` (
+  `id` int(255) NOT NULL,
+  `post_id` int(255) NOT NULL,
+  `comment_id` int(255) NOT NULL,
+  `reply_comment_id` int(255) NOT NULL,
+  `user_id` int(255) NOT NULL,
+  `liked_at` datetime NOT NULL
 ) ;
