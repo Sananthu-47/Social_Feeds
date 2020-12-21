@@ -93,6 +93,35 @@ $(document).on('click',"#like",function(e){
     });
 });
 
+//Comment like 
+$(document).on('click',"#comment-like",function(e){
+    let post_id = $(this).data("post-id");
+    let comment_id = $(this).data("comment-id");
+    let user_id = "<?php echo getUserInfo("id",$_SESSION['username']); ?>";
+    let likeCount = $("#like-count-"+comment_id);
+    let likeBtn = this;
+    $.ajax({
+        url : "process/comment-like.php",
+        type : "POST",
+        data : {post_id , user_id , comment_id},
+        success : function(data)
+        {
+            let result = JSON.parse(data);
+            
+            if(result.status == "add-like")
+            {
+            likeBtn.classList.remove("text-secondary");
+            likeBtn.classList.add("text-danger");
+            likeCount.html(result.like);
+            }else{
+            likeBtn.classList.add("text-secondary");
+            likeBtn.classList.remove("text-danger");
+            likeCount.html(result.like);
+            }
+        }
+    });
+});
+
 //Comment on post
 $(document).on('click',"#comment",function(e){
     let post_id = $(this).data("postid");

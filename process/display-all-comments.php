@@ -31,6 +31,8 @@ $query = "SELECT * FROM comments WHERE post_id = '$post_id' ORDER BY id DESC LIM
                     $comment_user_id = $row['comment_user_id'];
                     $comment_user_details = mysqli_query($connection,"SELECT * FROM users WHERE id = '$comment_user_id'");
                     $comment_user_data = mysqli_fetch_assoc($comment_user_details);
+                    $comment_total_likes = mysqli_query($connection,"SELECT * FROM comment_likes WHERE comment_id = '$comment_id'");
+                    $comment_total_likes = mysqli_num_rows($comment_total_likes);
                     $comment_username = $comment_user_data['username'];
                     $comment_user_image = $comment_user_data['user_image'];
                     $post_by = getPostInfo("posted_by",$post_id);
@@ -51,9 +53,17 @@ $query = "SELECT * FROM comments WHERE post_id = '$post_id' ORDER BY id DESC LIM
                     <div class='ml-3 d-flex flex-column'>
                     <span class='lead wrap-comment'>$newest_comment</span>
                     <div class='d-flex align-items-center'>
-                    <span class='mr-1 notification-time text-primary'>0</span>
-                    <i class='fa fa-heart fa-sm text-secondary' role='button' id='comment-like'></i>
-                    <span class='text-info notification-time ml-3'>Reply</span>
+                    <span class='mr-1 notification-time text-primary' id='like-count-".$comment_id."'>$comment_total_likes</span>
+                    <i class='fa fa-heart fa-sm text-";
+                    if(commentLiked($comment_id,getUserInfo('id',$username)))
+                    {
+                        echo "danger";
+                    }else{
+                        echo "secondary";
+                    }
+
+                    echo "' role='button' id='comment-like' data-comment-id='$comment_id' data-post-id='$post_id'></i>
+                    <span class='text-info notification-time ml-3' role='button' data-comment-id='$comment_id' data-post-id='$post_id'>Reply</span>
                     </div>
 
                     </div>";

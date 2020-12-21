@@ -249,3 +249,16 @@ function postLiked($post_id,$user_id)
         return false;
     }
 }
+
+function commentLiked($comment_id,$user_id)
+{
+    global $connection;
+    $query = "SELECT * FROM comment_likes WHERE comment_id = '$comment_id' AND user_id = '$user_id'";
+    $result = mysqli_query($connection,$query); 
+    if(mysqli_num_rows($result) > 0)
+    {
+        return true;
+    }else{
+        return false;
+    }
+}
