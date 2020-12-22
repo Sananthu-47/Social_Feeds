@@ -65,7 +65,6 @@ $query = "SELECT * FROM comments WHERE post_id = '$post_id' ORDER BY id DESC LIM
                     echo "' role='button' id='comment-like' data-comment-id='$comment_id' data-post-id='$post_id'></i>
                     <span class='text-info notification-time ml-3' role='button' data-comment-id='$comment_id' data-post-id='$post_id'>Reply</span>
                     </div>
-
                     </div>";
 
                     if($post_by === $_username)
@@ -90,7 +89,9 @@ $query = "SELECT * FROM comments WHERE post_id = '$post_id' ORDER BY id DESC LIM
                         </div>";
                     }
 
-                    echo "</div>";
+                    echo "
+                    </div>
+                    <div class='m-1 d-none' id='reply-comment'><input type='text' placeholder='Reply to this comment' class='form-control d-flex'><input type='submit' class='btn btn-primary mx-1' value='Reply'></div>";
                 }
 
                 echo "
