@@ -260,6 +260,11 @@ $(document).on('click',"#delete-comment",function(e){
             }
         });
 });
+
+//Reply for comment reply-comment
+$(document).on('click',".reply-button",function(e){
+    $('.reply-comment').removeClass('d-none');
+});
     
 </script>
 
