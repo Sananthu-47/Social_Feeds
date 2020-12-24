@@ -263,7 +263,18 @@ $(document).on('click',"#delete-comment",function(e){
 
 //Reply for comment reply-comment
 $(document).on('click',".reply-button",function(e){
-    $('.reply-comment').removeClass('d-none');
+    let user_to_reply = $(this).data('comment-username');
+    $('#reply-comment').removeClass('d-none');
+    $('#reply-comment').addClass('d-flex');
+    let mentioned_data = "@"+user_to_reply+"<i class='fa fa-times ml-2' id='cancel-mention'></i>";
+    $('#mention').html(mentioned_data);
+    $('#reply-field').attr('placeholder','Reply to '+user_to_reply)
+    $('#reply-field').focus();
+});
+
+$(document).on('click',"#cancel-mention",(e)=>{
+    $('#reply-comment').addClass('d-none');
+    $('#reply-comment').removeClass('d-flex');
 });
     
 </script>
