@@ -264,17 +264,63 @@ $(document).on('click',"#delete-comment",function(e){
 //Reply for comment reply-comment
 $(document).on('click',".reply-button",function(e){
     let user_to_reply = $(this).data('comment-username');
+    let reply_to = $(this).data('comment-user-id');
+    let current_user = "<?php echo $_SESSION['username']; ?>";
+    let post_id = $(this).data('post-id');
+    let comment_id = $(this).data('comment-id');
     $('#reply-comment').removeClass('d-none');
-    $('#reply-comment').addClass('d-flex');
+    $('#reply-comment').addClass('d-block d-md-flex');
     let mentioned_data = "@"+user_to_reply+"<i class='fa fa-times ml-2' id='cancel-mention'></i>";
     $('#mention').html(mentioned_data);
-    $('#reply-field').attr('placeholder','Reply to '+user_to_reply)
+    $('#reply-field').attr('placeholder','Reply to '+user_to_reply);
     $('#reply-field').focus();
+    $("#comment-reply").data("reply-to",reply_to);
+    $("#comment-reply").data("reply-from",current_user);
+    $("#comment-reply").data("post-id",post_id);
+    $("#comment-reply").data("comment-id",comment_id);
 });
 
+//Cancel the reply
 $(document).on('click',"#cancel-mention",(e)=>{
+    closeReply();
+});
+
+function closeReply()
+{
+    $('#reply-field').val('');
     $('#reply-comment').addClass('d-none');
-    $('#reply-comment').removeClass('d-flex');
+    $('#reply-comment').removeClass('d-block d-md-flex');
+}
+
+//Reply to certain comment button
+$(document).on('click','#comment-reply',(e)=>{
+    e.preventDefault();
+    
+    let reply_to = $("#comment-reply").data('reply-to'); 
+    let reply_from = $("#comment-reply").data('reply-from');
+    let post_id = $("#comment-reply").data('post-id');
+    let comment_id = $("#comment-reply").data('comment-id');
+    let reply_message = $('#reply-field').val();
+
+if(reply_message !== '')
+{
+    $.ajax({
+            url : "process/reply_to_comment.php",
+            type : "POST",
+            data : {reply_to,reply_from,post_id,comment_id,reply_message},
+            success : function(data)
+            {
+                if(data == 1)
+                {
+                closeReply();
+                }else{
+                    alert("Comment couldn't add");
+                }
+            }
+        });
+}else{
+    alert('Cannot send empty reply');
+}
 });
     
 </script>
