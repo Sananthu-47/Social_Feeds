@@ -33,11 +33,15 @@ $query = "SELECT * FROM comments WHERE post_id = '$post_id' ORDER BY id DESC LIM
                     $comment_user_data = mysqli_fetch_assoc($comment_user_details);
                     $comment_total_likes = mysqli_query($connection,"SELECT * FROM comment_likes WHERE comment_id = '$comment_id'");
                     $comment_total_likes = mysqli_num_rows($comment_total_likes);
+                    $replied_comment_total = mysqli_query($connection,"SELECT * FROM comment_replies WHERE comment_id = '$comment_id'");
+                    $replied_comment_total = mysqli_num_rows($replied_comment_total);
                     $comment_username = $comment_user_data['username'];
                     $comment_user_image = $comment_user_data['user_image'];
                     $post_by = getPostInfo("posted_by",$post_id);
 
                     echo "
+                    <div class='d-flex flex-column'>
+
                     <div class='comment-details mx-2 d-flex'>
                     <div class='comment-preview my-2 mx-1'>
                     <a href='$comment_username'><img src='assets/images/profiles/$comment_user_image' alt='image'></a>
@@ -63,7 +67,7 @@ $query = "SELECT * FROM comments WHERE post_id = '$post_id' ORDER BY id DESC LIM
                     }
 
                     echo "' role='button' id='comment-like' data-comment-id='$comment_id' data-post-id='$post_id'></i>
-                    <span class='text-info notification-time ml-3 reply-button' id='reply-button' role='button' data-comment-id='$comment_id' data-post-id='$post_id' data-comment-username='$comment_username' data-comment-user-id='$comment_user_id''>Reply</span>
+                    <span class='text-info notification-time ml-3 reply-button' id='reply-button' role='button' data-comment-id='$comment_id' data-post-id='$post_id' data-comment-username='$comment_username' data-comment-user-id='$comment_user_id''><span class='text-dark'>$replied_comment_total</span> Reply</span>
                     </div>
                     </div>";
 
@@ -89,7 +93,13 @@ $query = "SELECT * FROM comments WHERE post_id = '$post_id' ORDER BY id DESC LIM
                         </div>";
                     }
 
-                    echo " </div>";
+                    echo " </div>
+                    
+                    <div class='replied-comments d-flex justify-content-center'>
+                    </div>
+
+                    </div>
+                    ";
                 }
 
                 
