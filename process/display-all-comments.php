@@ -59,7 +59,7 @@ $query = "SELECT * FROM comments WHERE post_id = '$post_id' ORDER BY id DESC LIM
                     <div class='d-flex align-items-center'>
                     <span class='mr-1 notification-time text-primary' id='like-count-".$comment_id."'>$comment_total_likes</span>
                     <i class='fa fa-heart fa-sm text-";
-                    if(commentLiked($comment_id,getUserInfo('id',$username)))
+                    if(commentLiked($comment_id,getUserInfo('id',$_username)))
                     {
                         echo "danger";
                     }else{
@@ -67,7 +67,7 @@ $query = "SELECT * FROM comments WHERE post_id = '$post_id' ORDER BY id DESC LIM
                     }
 
                     echo "' role='button' id='comment-like' data-comment-id='$comment_id' data-post-id='$post_id'></i>
-                    <span class='text-info notification-time ml-3 reply-button' id='reply-button' role='button' data-comment-id='$comment_id' data-post-id='$post_id' data-comment-username='$comment_username' data-comment-user-id='$comment_user_id''><span class='text-dark'>$replied_comment_total</span> Reply</span>
+                    <span class='text-info notification-time ml-3 reply-button' id='reply-button' role='button' data-comment-id='$comment_id' data-post-id='$post_id' data-comment-username='$comment_username' data-comment-user-id='$comment_user_id''> Reply</span>
                     </div>
                     </div>";
 
@@ -95,8 +95,20 @@ $query = "SELECT * FROM comments WHERE post_id = '$post_id' ORDER BY id DESC LIM
 
                     echo " </div>
                     
-                    <div class='replied-comments d-flex justify-content-center'>
-                    </div>
+                    <div class='d-flex justify-content-center w-75' id='replied-comments'>";
+                
+                    if($replied_comment_total > 0)
+                    {
+                        echo "<div id='load-more-replies' class='text-primary'>$replied_comment_total";
+                        if($replied_comment_total==1)
+                        {
+                            echo " Reply";
+                        }else{
+                            echo " Replies";
+                        }
+                        echo"</div>";
+                    }
+                   echo "</div>
 
                     </div>
                     ";
@@ -111,3 +123,5 @@ $query = "SELECT * FROM comments WHERE post_id = '$post_id' ORDER BY id DESC LIM
                 <div class='btn btn-info' id='load-more' data-page='$page' data-id='$post_id'>Load more</div>
                 </div>";
             }
+
+            

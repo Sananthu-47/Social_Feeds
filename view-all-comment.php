@@ -322,7 +322,25 @@ if(reply_message !== '')
     alert('Cannot send empty reply');
 }
 });
-    
+
+//load-more-replies
+$(document).on('click','#load-more-replies',(e)=>{
+    $.ajax({
+            url : "process/get-all-replies.php",
+            type : "POST",
+            data : {reply_to,reply_from,post_id,comment_id,reply_message},
+            success : function(data)
+            {
+                if(data == 1)
+                {
+                closeReply();
+                }else{
+                    alert("Comment couldn't add");
+                }
+            }
+        });
+});
+
 </script>
 
 <?php require "includes/footer.php"; ?>

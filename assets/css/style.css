@@ -304,7 +304,7 @@ hr
     cursor: pointer;
   }
 
-  #like
+  #like , #replied-comments
   {
       cursor: pointer;
   }
