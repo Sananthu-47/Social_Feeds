@@ -8,10 +8,11 @@ if(isset($_POST['post_id']))
     $page = $_POST['page'];
     $page = $page + 5;
     $_username = $_POST['username'];
+    $reply_page = 0;
 }else{
     $page = 0;
 }
-
+$reply_page = -5;
 $query = "SELECT * FROM comments WHERE post_id = '$post_id' ORDER BY id DESC LIMIT $page , 5";
                 $result = mysqli_query($connection,$query);
 
@@ -95,11 +96,11 @@ $query = "SELECT * FROM comments WHERE post_id = '$post_id' ORDER BY id DESC LIM
 
                     echo " </div>
                     
-                    <div class='d-flex justify-content-center w-75' id='replied-comments'>";
+                    <div class='reply-to-comment w-75' id='replied-comments-$comment_id'>";
                 
                     if($replied_comment_total > 0)
                     {
-                        echo "<div id='load-more-replies' class='text-primary'>$replied_comment_total";
+                        echo "<div id='load-more-replies' data-comment-id='$comment_id' data-reply-page='$reply_page' class='text-primary'>$replied_comment_total";
                         if($replied_comment_total==1)
                         {
                             echo " Reply";

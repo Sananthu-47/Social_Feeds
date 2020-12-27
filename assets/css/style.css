@@ -304,9 +304,15 @@ hr
     cursor: pointer;
   }
 
-  #like , #replied-comments
+  #like , #load-more-replies
   {
       cursor: pointer;
+  }
+
+  .reply-to-comment
+  {
+      position: relative;
+      left: 25%;
   }
 
   .online
@@ -405,6 +411,11 @@ hr
       width: fit-content;
       height: 25px;
       border-radius: 5px;
+  }
+
+  .fa-r-xs
+  {
+      font-size: 14px;
   }
 
   @media screen and (max-width: 768px)

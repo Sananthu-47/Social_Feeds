@@ -323,20 +323,25 @@ if(reply_message !== '')
 }
 });
 
-//load-more-replies
-$(document).on('click','#load-more-replies',(e)=>{
+//Load more replies
+$(document).on('click','#load-more-replies', function(e){
+    let comment_id = $(this).data('comment-id');
+    let reply_page = $(this).data('reply-page');
+    let username = "<?php echo $_SESSION['username']; ?>";
     $.ajax({
             url : "process/get-all-replies.php",
             type : "POST",
-            data : {reply_to,reply_from,post_id,comment_id,reply_message},
+            data : {comment_id,reply_page,username},
             success : function(data)
             {
-                if(data == 1)
+                if(data)
                 {
-                closeReply();
+                $('#replied-comments-'+comment_id).append(data);
+                $("#load-more-replies").remove();
                 }else{
-                    alert("Comment couldn't add");
+                    $("#load-more-replies").remove();
                 }
+                
             }
         });
 });
