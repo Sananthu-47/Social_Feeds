@@ -262,3 +262,17 @@ function commentLiked($comment_id,$user_id)
         return false;
     }
 }
+
+function getRepliedCommentInfo($getValue,$id)
+{
+    global $connection;
+    $query = "SELECT $getValue FROM comment_replies where id = '$id'";
+        $result = mysqli_query($connection,$query);
+
+        if(!$result)
+        {
+            die("Error".mysqli_error($connection));
+        }
+        $row = mysqli_fetch_array($result);
+        return $row[0];
+}

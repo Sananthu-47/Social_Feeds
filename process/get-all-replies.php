@@ -13,6 +13,9 @@ $replied_comment_total = mysqli_num_rows($replied_comment_total) - $reply_page -
 
 while($row = mysqli_fetch_assoc($result))
 {
+    $reply_id = $row['id'];
+    $post_id = $row['post_id'];
+    $post_by = getPostInfo('posted_by',$post_id);
     $replied_message = $row['replied_message'];
     $replied_from = $row['replied_from'];
     $replied_to = $row['replied_to'];
@@ -53,7 +56,32 @@ while($row = mysqli_fetch_assoc($result))
                     <span class='text-info notification-time ml-2 reply-button small-text' id='reply-button' role='button'> Reply</span>
                     </div>
 
-                    </div> 
+                    </div> ";
+
+                    if($post_by === $_username)
+                    {
+                   echo " 
+                    <div id='comment-details'>
+                    <i class='fa fa-trash mx-2' id='delete-comment' data-id='$reply_id' data-postid='$post_id'></i>";
+
+                    if($replied_from === $_username)
+                    {
+                        echo "<i class='fa fa-edit text-dark mx-2' id='edit-comment-replied' data-postid='$post_id' data-commentid='$reply_id'></i>";
+                    }
+
+                    echo "</div>";
+                    }else
+                    if($replied_from === $_username)
+                    {
+                            echo " 
+                        <div id='comment-details'>
+                        <i class='fa fa-trash mx-2' id='delete-comment' data-id='$reply_id' data-postid='$post_id'></i>
+                        <i class='fa fa-edit text-dark mx-2' id='edit-comment-replied' data-postid='$post_id' data-commentid='$reply_id'></i>
+                        </div>";
+                    }
+
+                    echo " </div>
+
                     </div>";
 }
 

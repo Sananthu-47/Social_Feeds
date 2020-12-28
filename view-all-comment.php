@@ -156,6 +156,7 @@ $(document).on('click',"#edit-comment",function(e){
         success : function(data)
         {
             let output = jQuery.parseJSON(data);
+            $("textarea#comment_field").focus();
             $("textarea#comment_field").val(output[0]);
             $("#comment-btn").html('');
             $("#comment-btn").html(output[1]);
@@ -345,6 +346,45 @@ $(document).on('click','#load-more-replies', function(e){
                 
             }
         });
+});
+
+//Edit the replied comment
+$(document).on('click',"#edit-comment-replied",function(e){
+    $(".main-content").animate({ scrollTop: 0 }, "fast");
+    let post_id = $(this).data("postid");
+    let comment_id = $(this).data("commentid");
+    $.ajax({
+        url : "process/edit-replied-comment.php",
+        type : "POST",
+        data : {post_id , comment_id},
+        success : function(data)
+        {
+            let output = jQuery.parseJSON(data);
+            $("textarea#comment_field").focus();
+            $("textarea#comment_field").val(output[0]);
+            $("#comment-btn").html('');
+            $("#comment-btn").html(output[1]);
+        }
+    });
+});
+
+//Update the comment replied
+$(document).on('click',"#update-comment",function(e){
+    let post_id = $(this).data("postid");
+    let comment_id = $(this).data("commentid");
+    let comment_body = $("textarea#comment_field").val();
+    $.ajax({
+        url : "process/update-replied-comment.php",
+        type : "POST",
+        data : {post_id , comment_id , comment_body},
+        success : function(data)
+        {
+            $("textarea#comment_field").val('');
+            $("#comment-btn").html('');
+            $("#comment-btn").html(data);
+            latestCommentAdded(post_id);
+        }
+    });
 });
 
 </script>
