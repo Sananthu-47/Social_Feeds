@@ -327,6 +327,7 @@ if(reply_message !== '')
 $(document).on('click','#load-more-replies', function(e){
     let comment_id = $(this).data('comment-id');
     let reply_page = $(this).data('reply-page');
+    let load_more_replies = this;
     let username = "<?php echo $_SESSION['username']; ?>";
     $.ajax({
             url : "process/get-all-replies.php",
@@ -337,9 +338,9 @@ $(document).on('click','#load-more-replies', function(e){
                 if(data)
                 {
                 $('#replied-comments-'+comment_id).append(data);
-                $("#load-more-replies").remove();
+                load_more_replies.remove();
                 }else{
-                    $("#load-more-replies").remove();
+                    load_more_replies.remove();
                 }
                 
             }
