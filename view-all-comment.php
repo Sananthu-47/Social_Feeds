@@ -387,6 +387,29 @@ $(document).on('click',"#update-comment",function(e){
     });
 });
 
+//Delete replied comment 
+$(document).on('click',"#delete-replied-comment",function(e){
+    let reply_id = $(this).data("id");
+    let post_id = $(this).data("postid");
+    let username = "<?php echo $_username; ?>";
+        $.ajax({
+            url : "process/delete-replied-comment.php",
+            type : "POST",
+            data : {reply_id,post_id},
+            success : function(data)
+            {
+                if(data !== false)
+                {
+                $("#comment-"+post_id).html('');
+                loadMoreComments(post_id,-5,username); //-5 is to remove all comments and start from first
+                $("#comment"+post_id).html(data);
+                }else{
+                    alert("Comment was not deleted");
+                }
+            }
+        });
+});
+
 </script>
 
 <?php require "includes/footer.php"; ?>

@@ -62,7 +62,7 @@ while($row = mysqli_fetch_assoc($result))
                     {
                    echo " 
                     <div id='comment-details'>
-                    <i class='fa fa-trash mx-2' id='delete-comment' data-id='$reply_id' data-postid='$post_id'></i>";
+                    <i class='fa fa-trash mx-2' id='delete-replied-comment' data-id='$reply_id' data-postid='$post_id'></i>";
 
                     if($replied_from === $_username)
                     {
@@ -75,7 +75,7 @@ while($row = mysqli_fetch_assoc($result))
                     {
                             echo " 
                         <div id='comment-details'>
-                        <i class='fa fa-trash mx-2' id='delete-comment' data-id='$reply_id' data-postid='$post_id'></i>
+                        <i class='fa fa-trash mx-2' id='delete-replied-comment' data-id='$reply_id' data-postid='$post_id'></i>
                         <i class='fa fa-edit text-dark mx-2' id='edit-comment-replied' data-postid='$post_id' data-commentid='$reply_id'></i>
                         </div>";
                     }

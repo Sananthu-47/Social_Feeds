@@ -12,9 +12,10 @@ $reply_message = charecterParse(strip_tags($_POST['reply_message']));
 //Insert the replied comment messages to the table comment_replies
 $query = "INSERT INTO comment_replies (post_id , comment_id , replied_to, replied_from , replied_at , replied_message) VALUES ('{$post_id}' , '{$comment_id}' , '{$reply_to}' , '{$reply_from}' , now() , '{$reply_message}')";
 $result = mysqli_query($connection,$query);
+$replied_comment_id = mysqli_insert_id($connection);
 
 //Insert notification to the particular person mentioned
-$query = "INSERT INTO notifications (type , notified_at , notification_status , notification_to , notification_from , comment_message , post_id , comment_id) VALUES ('comment_reply' , now() , 'unseen' , '$reply_to' , '$reply_from' , '$reply_message' , '$post_id' , '$comment_id')";
+$query = "INSERT INTO notifications (type , notified_at , notification_status , notification_to , notification_from , comment_message , post_id , comment_id , replied_comment_id) VALUES ('comment_reply' , now() , 'unseen' , '$reply_to' , '$reply_from' , '$reply_message' , '$post_id' , '$comment_id' , '$replied_comment_id')";
 $result = mysqli_query($connection,$query);
 
 if(!$result)
