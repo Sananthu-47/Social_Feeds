@@ -6,7 +6,7 @@ $comment_id =  $_POST['comment_id'];
 $reply_page =  $_POST['reply_page'];
 $_username = $_POST['username'];
 $reply_page +=5;
-$query = "SELECT * FROM comment_replies WHERE comment_id = '$comment_id' LIMIT $reply_page , 5";
+$query = "SELECT * FROM comment_replies WHERE comment_id = '$comment_id' ORDER BY id DESC LIMIT $reply_page , 5";
 $result = mysqli_query($connection,$query);
 $replied_comment_total = mysqli_query($connection,"SELECT * FROM comment_replies WHERE comment_id = '$comment_id'");
 $replied_comment_total = mysqli_num_rows($replied_comment_total) - $reply_page - 5;
@@ -31,10 +31,12 @@ while($row = mysqli_fetch_assoc($result))
     $reply_user_image = getUserInfo('user_image',$replied_from);
 
     echo "
+    <div id='comments-holder'>
+
                     <div class='d-flex flex-column'>
 
                     <div class='comment-details mx-2 d-flex'>
-                    <div class='comment-preview my-2 mx-1'>
+                    <div class='comment-preview my-2 mx-1' id='all-replies'>
                     <a href='$replied_from'><img src='assets/images/profiles/$reply_user_image' alt='image'></a>
                     </div>
                 
@@ -82,6 +84,7 @@ while($row = mysqli_fetch_assoc($result))
 
                     echo " </div>
 
+                    </div>
                     </div>";
 }
 

@@ -283,10 +283,11 @@ $(document).on('click',".reply-button",function(e){
 
 //Cancel the reply
 $(document).on('click',"#cancel-mention",(e)=>{
-    closeReply();
+    let comment_id = $(this).data('comment-id');
+    closeReply(comment_id);
 });
 
-function closeReply()
+function closeReply(comment_id)
 {
     $('#reply-field').val('');
     $('#reply-comment').addClass('d-none');
@@ -314,6 +315,8 @@ if(reply_message !== '')
                 if(data == 1)
                 {
                 closeReply();
+                $('#replied-comments-'+comment_id).html('');
+                loadMoreReplies(comment_id,-5,load_more_replies,username);
                 }else{
                     alert("Comment couldn't add");
                 }
@@ -330,6 +333,12 @@ $(document).on('click','#load-more-replies', function(e){
     let reply_page = $(this).data('reply-page');
     let load_more_replies = this;
     let username = "<?php echo $_SESSION['username']; ?>";
+    loadMoreReplies(comment_id,reply_page,load_more_replies,username);
+});
+
+//load all replies function
+function loadMoreReplies(comment_id,reply_page,load_more_replies,username)
+{
     $.ajax({
             url : "process/get-all-replies.php",
             type : "POST",
@@ -346,7 +355,7 @@ $(document).on('click','#load-more-replies', function(e){
                 
             }
         });
-});
+}
 
 //Edit the replied comment
 $(document).on('click',"#edit-comment-replied",function(e){
