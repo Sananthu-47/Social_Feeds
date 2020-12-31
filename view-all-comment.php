@@ -303,6 +303,8 @@ $(document).on('click','#comment-reply',(e)=>{
     let post_id = $("#comment-reply").data('post-id');
     let comment_id = $("#comment-reply").data('comment-id');
     let reply_message = $('#reply-field').val();
+    let load_more_replies = $('#load-more-replies');
+    let username = "<?php echo $_SESSION['username']; ?>";
 
 if(reply_message !== '')
 {
