@@ -29,6 +29,8 @@ while($row = mysqli_fetch_assoc($result))
     $replied_from = getUserInfoById('username',$replied_from_id);
     $replied_to = getUserInfoById('username',$replied_to_id);
     $reply_user_image = getUserInfo('user_image',$replied_from);
+    $comment_total_likes = mysqli_query($connection,"SELECT * FROM comment_likes WHERE reply_comment_id = '$reply_id'");
+    $comment_total_likes = mysqli_num_rows($comment_total_likes);
 
     echo "
     <div id='comments-holder'>
@@ -53,8 +55,16 @@ while($row = mysqli_fetch_assoc($result))
                     $replied_message</span>
 
                     <div class='d-flex align-items-center my-1'>
-                    <span class='mr-1 notification-time small-text text-primary'>0</span>
-                    <i class='fa fa-heart fa-r-xs text-secondary' role='button' id='comment-like'></i>
+                    <span class='mr-1 notification-time small-text text-primary' id='like-count-$reply_id'>$comment_total_likes</span>
+                    <i class='fa fa-heart fa-r-xs text-";
+                    if(commentReplyLiked($reply_id,getUserInfo('id',$_username)))
+                    {
+                        echo "danger";
+                    }else{
+                        echo "secondary";
+                    }
+
+                    echo "' role='button' id='comment-reply-like' data-comment-id='$comment_id' data-reply-comment-id='$reply_id' data-post-id='$post_id'></i>
                     <span class='text-info notification-time ml-2 comment-reply-button small-text' role='button' data-comment-id='$comment_id' data-comment-replied-id='$reply_id' data-post-id='$post_id' data-comment-username='$replied_from' data-comment-user-id='$replied_from_id'> Reply</span>
                     </div>
 

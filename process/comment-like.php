@@ -4,19 +4,23 @@ include "../global.php";
 $post_id = $_POST['post_id'];
 $user_id = $_POST['user_id'];
 $comment_id = $_POST['comment_id'];
+$reply_comment_id = $_POST['reply_id'];
+$type = $_POST['type'];
 
-if(isset($_POST['reply_comment_id']))
-{
-    $reply_comment_id = $_POST['reply_comment_id'];
-}else{
-    $reply_comment_id = 0;
-}
-
-$comment_message = getCommentInfo('comment',$comment_id);
-$total_likes = mysqli_query($connection,"SELECT * FROM comment_likes WHERE comment_id = '$comment_id'");
-$total_likes = mysqli_num_rows($total_likes);
-$comment_status = commentLiked($comment_id,$user_id);
-$notification_to = getCommentInfo('comment_user_id',$comment_id);
+    if($type === 'comment')
+    {
+    $comment_message = getCommentInfo('comment',$comment_id);
+    $total_likes = mysqli_query($connection,"SELECT * FROM comment_likes WHERE comment_id = '$comment_id'");
+    $total_likes = mysqli_num_rows($total_likes);
+    $comment_status = commentLiked($comment_id,$user_id);
+    $notification_to = getCommentInfo('comment_user_id',$comment_id);
+    }else{
+    $comment_message = getRepliedCommentInfo('replied_message',$reply_comment_id);
+    $total_likes = mysqli_query($connection,"SELECT * FROM comment_likes WHERE reply_comment_id = '$reply_comment_id'");
+    $total_likes = mysqli_num_rows($total_likes);
+    $comment_status = commentReplyLiked($reply_comment_id,$user_id);
+    $notification_to = getRepliedCommentInfo('replied_from',$reply_comment_id);
+    }
 
 if(!$comment_status)
 {

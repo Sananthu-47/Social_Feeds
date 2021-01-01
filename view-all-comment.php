@@ -94,16 +94,12 @@ $(document).on('click',"#like",function(e){
 });
 
 //Comment like 
-$(document).on('click',"#comment-like",function(e){
-    let post_id = $(this).data("post-id");
-    let comment_id = $(this).data("comment-id");
-    let user_id = "<?php echo getUserInfo("id",$_SESSION['username']); ?>";
-    let likeCount = $("#like-count-"+comment_id);
-    let likeBtn = this;
+function likeComment(post_id , user_id , comment_id , reply_id , likeCount , likeBtn , type)
+{
     $.ajax({
         url : "process/comment-like.php",
         type : "POST",
-        data : {post_id , user_id , comment_id},
+        data : {post_id , user_id , comment_id , reply_id , type},
         success : function(data)
         {
             let result = JSON.parse(data);
@@ -120,6 +116,27 @@ $(document).on('click',"#comment-like",function(e){
             }
         }
     });
+}
+
+//Like the comment of the post
+$(document).on('click',"#comment-like",function(e){
+    let post_id = $(this).data("post-id");
+    let comment_id = $(this).data("comment-id");
+    let user_id = "<?php echo getUserInfo("id",$_SESSION['username']); ?>";
+    let likeCount = $("#like-count-"+comment_id);
+    let likeBtn = this;
+    likeComment(post_id , user_id , comment_id , 0 , likeCount , likeBtn , 'comment');
+});
+
+//Like the comment of the replied comment of the post
+$(document).on('click',"#comment-reply-like",function(e){
+    let post_id = $(this).data("post-id");
+    let comment_id = $(this).data("comment-id");
+    let reply_id = $(this).data('reply-comment-id');
+    let user_id = "<?php echo getUserInfo("id",$_SESSION['username']); ?>";
+    let likeCount = $("#like-count-"+reply_id);
+    let likeBtn = this;
+    likeComment(post_id , user_id , comment_id , reply_id , likeCount , likeBtn , 'reply');
 });
 
 //Comment on post
@@ -270,10 +287,6 @@ function addCommentFieldInfo(data)
     let current_user = "<?php echo $_SESSION['username']; ?>";
     let post_id = $(data).data('post-id');
     let comment_id = $(data).data('comment-id');
-    // if(replied_id !== 'none')
-    // {
-    //     $("#comment-reply").data("reply-id",replied_id); 
-    // }
     $('#reply-comment').removeClass('d-none');
     $('#reply-comment').addClass('d-block d-md-flex');
     let mentioned_data = "@"+user_to_reply+"<i class='fa fa-times ml-2' id='cancel-mention'></i>";
@@ -293,7 +306,6 @@ $(document).on('click',".reply-button",function(e){
 
 //replied-comment-id
 $(document).on('click','.comment-reply-button',function(e){
-    //let replied_id = $(this).data('comment-replied-id');
     addCommentFieldInfo(this);
 });
 

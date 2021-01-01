@@ -263,6 +263,19 @@ function commentLiked($comment_id,$user_id)
     }
 }
 
+function commentReplyLiked($reply_id,$user_id)
+{
+    global $connection;
+    $query = "SELECT * FROM comment_likes WHERE reply_comment_id = '$reply_id' AND user_id = '$user_id'";
+    $result = mysqli_query($connection,$query); 
+    if(mysqli_num_rows($result) > 0)
+    {
+        return true;
+    }else{
+        return false;
+    }
+}
+
 function getRepliedCommentInfo($getValue,$id)
 {
     global $connection;
