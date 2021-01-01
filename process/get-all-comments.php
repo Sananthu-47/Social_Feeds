@@ -95,6 +95,9 @@ $result = mysqli_query($connection,$query);
 
                 echo "
                 </div>
+
+                <div class='mx-1 my-3 d-none align-items-center' id='reply-comment'><input placeholder='Reply to' class='form-control d-flex' id='reply-field'><div id='mention' class='px-1 d-flex justify-content-center align-items-center'></div><input type='submit' class='btn btn-primary mx-1' id='comment-reply' value='Reply'></div>
+
                 </div>";
 
 }

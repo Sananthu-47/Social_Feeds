@@ -17,8 +17,8 @@ while($row = mysqli_fetch_assoc($result))
     $post_id = $row['post_id'];
     $post_by = getPostInfo('posted_by',$post_id);
     $replied_message = $row['replied_message'];
-    $replied_from = $row['replied_from'];
-    $replied_to = $row['replied_to'];
+    $replied_from_id = $row['replied_from'];
+    $replied_to_id = $row['replied_to'];
     $replied_at = $row['replied_at'];
     date_default_timezone_set("Asia/Calcutta");
     $time_now = date("Y-m-d H:i:s");
@@ -26,8 +26,8 @@ while($row = mysqli_fetch_assoc($result))
     $end_date = new DateTime($time_now);
     $interval = $replied_at->diff($end_date);
     $comment_time_message = getDateFormat($interval);
-    $replied_from = getUserInfoById('username',$replied_from);
-    $replied_to = getUserInfoById('username',$replied_to);
+    $replied_from = getUserInfoById('username',$replied_from_id);
+    $replied_to = getUserInfoById('username',$replied_to_id);
     $reply_user_image = getUserInfo('user_image',$replied_from);
 
     echo "
@@ -55,7 +55,7 @@ while($row = mysqli_fetch_assoc($result))
                     <div class='d-flex align-items-center my-1'>
                     <span class='mr-1 notification-time small-text text-primary'>0</span>
                     <i class='fa fa-heart fa-r-xs text-secondary' role='button' id='comment-like'></i>
-                    <span class='text-info notification-time ml-2 reply-button small-text' id='reply-button' role='button'> Reply</span>
+                    <span class='text-info notification-time ml-2 comment-reply-button small-text' role='button' data-comment-id='$comment_id' data-comment-replied-id='$reply_id' data-post-id='$post_id' data-comment-username='$replied_from' data-comment-user-id='$replied_from_id'> Reply</span>
                     </div>
 
                     </div> ";

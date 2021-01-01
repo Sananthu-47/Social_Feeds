@@ -262,13 +262,18 @@ $(document).on('click',"#delete-comment",function(e){
         });
 });
 
-//Reply for comment reply-comment
-$(document).on('click',".reply-button",function(e){
-    let user_to_reply = $(this).data('comment-username');
-    let reply_to = $(this).data('comment-user-id');
+//function to set alll comment field details
+function addCommentFieldInfo(data)
+{
+    let user_to_reply = $(data).data('comment-username');
+    let reply_to = $(data).data('comment-user-id');
     let current_user = "<?php echo $_SESSION['username']; ?>";
-    let post_id = $(this).data('post-id');
-    let comment_id = $(this).data('comment-id');
+    let post_id = $(data).data('post-id');
+    let comment_id = $(data).data('comment-id');
+    // if(replied_id !== 'none')
+    // {
+    //     $("#comment-reply").data("reply-id",replied_id); 
+    // }
     $('#reply-comment').removeClass('d-none');
     $('#reply-comment').addClass('d-block d-md-flex');
     let mentioned_data = "@"+user_to_reply+"<i class='fa fa-times ml-2' id='cancel-mention'></i>";
@@ -279,7 +284,19 @@ $(document).on('click',".reply-button",function(e){
     $("#comment-reply").data("reply-from",current_user);
     $("#comment-reply").data("post-id",post_id);
     $("#comment-reply").data("comment-id",comment_id);
+}
+
+//Reply for comment reply-comment
+$(document).on('click',".reply-button",function(e){
+    addCommentFieldInfo(this);
 });
+
+//replied-comment-id
+$(document).on('click','.comment-reply-button',function(e){
+    //let replied_id = $(this).data('comment-replied-id');
+    addCommentFieldInfo(this);
+});
+
 
 //Cancel the reply
 $(document).on('click',"#cancel-mention",(e)=>{

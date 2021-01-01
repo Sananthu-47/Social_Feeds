@@ -68,7 +68,7 @@ $query = "SELECT * FROM comments WHERE post_id = '$post_id' ORDER BY id DESC LIM
                     }
 
                     echo "' role='button' id='comment-like' data-comment-id='$comment_id' data-post-id='$post_id'></i>
-                    <span class='text-info notification-time ml-3 reply-button' id='reply-button' role='button' data-comment-id='$comment_id' data-post-id='$post_id' data-comment-username='$comment_username' data-comment-user-id='$comment_user_id''> Reply</span>
+                    <span class='text-info notification-time ml-3 reply-button' role='button' data-comment-id='$comment_id' data-post-id='$post_id' data-comment-username='$comment_username' data-comment-user-id='$comment_user_id'> Reply</span>
                     </div>
                     </div>";
 
@@ -114,9 +114,6 @@ $query = "SELECT * FROM comments WHERE post_id = '$post_id' ORDER BY id DESC LIM
                     </div>
                     ";
                 }
-
-                
-                echo "<div class='mx-1 my-2 d-none align-items-center' id='reply-comment'><input placeholder='Reply to' class='form-control d-flex' id='reply-field'><div id='mention' class='px-1 d-flex justify-content-center align-items-center'></div><input type='submit' class='btn btn-primary mx-1' id='comment-reply' value='Reply'></div>";
 
                 echo "
                 <div class='text-center m-2' id='loaded-comments'>
