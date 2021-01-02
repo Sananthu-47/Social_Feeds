@@ -189,6 +189,24 @@ function loadMoreNotifications(page,userId)
         });
 }
 
+//Make the notification seen
+$(document).on('click','#notification-seen',function(e){
+    let notification_id = $(this).data('notification-id');
+    let status = $(this).data('status');
+    if(status !== 'seen')
+    {
+    $.ajax({
+            url : "process/notification-seen.php",
+            type : "POST",
+            data : {notification_id},
+            success : function(data)
+            {
+                status.data('status','seen');
+            }
+        });   
+    }
+});
+
 </script>
                 
 

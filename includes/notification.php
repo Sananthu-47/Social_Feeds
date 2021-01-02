@@ -20,6 +20,7 @@ $total_notification = mysqli_num_rows($result);
    {
        while($row = mysqli_fetch_assoc($result))
         {
+            $notification_id = $row['id'];
                         $post_id = $row['post_id'];
                         $user_id = $row['notification_from'];
                         $user_image = getUserInfoById("user_image",$user_id);
@@ -28,6 +29,7 @@ $total_notification = mysqli_num_rows($result);
                         date_default_timezone_set("Asia/Calcutta");
                         $date_time_now = date("Y-m-d H:i:s");
                         $end_date = new DateTime($date_time_now);
+                        $notification_status = $row['notification_status'];
 
                 if($row['type'] === 'like')
                     {
@@ -48,7 +50,7 @@ $total_notification = mysqli_num_rows($result);
                         }else{
                             $output.=" bg-light";
                         }
-                        $output.= "'><div class='my-2 col-2 p-1'><div class='notification-user-preview'><a href='$liked_by'><img src='assets/images/profiles/$user_image'alt='image'></a></div></div>";
+                        $output.= "' id='notification-seen' data-notification-id='$notification_id' data-status='$notification_status'><div class='my-2 col-2 p-1'><div class='notification-user-preview'><a href='$liked_by'><img src='assets/images/profiles/$user_image'alt='image'></a></div></div>";
                         $output.="<div class='d-flex flex-column col-8'><a href='view-all-comment.php?post_id=$post_id'><span class='text-";
                         if($liked_by === $username)
                         {
@@ -84,7 +86,7 @@ $total_notification = mysqli_num_rows($result);
                     }else{
                         $output.=" bg-light";
                     }
-                    $output.= "'><div class='my-2 col-2 p-1'><a href='$commented_by'><div class='notification-user-preview'><img src='assets/images/profiles/$user_image'alt='image'></a></div></div>";
+                    $output.= "' id='notification-seen' data-notification-id='$notification_id' data-status='$notification_status'><div class='my-2 col-2 p-1'><a href='$commented_by'><div class='notification-user-preview'><img src='assets/images/profiles/$user_image'alt='image'></a></div></div>";
                     $output.="<div class='d-flex flex-column col-8'><a href='view-all-comment.php?post_id=$post_id'><span class='text-";
                     if($commented_by === $username){
                         $output.="dark'> You";
@@ -117,7 +119,7 @@ $total_notification = mysqli_num_rows($result);
                     }else{
                         $output.=" bg-light";
                     }
-                    $output.= "'><div class='my-2 col-2 p-1'><a href='$posted_by'><div class='notification-user-preview'><img src='assets/images/profiles/$user_image'alt='image'></a></div></div>";
+                    $output.= "' id='notification-seen' data-notification-id='$notification_id' data-status='$notification_status'><div class='my-2 col-2 p-1'><a href='$posted_by'><div class='notification-user-preview'><img src='assets/images/profiles/$user_image'alt='image'></a></div></div>";
                     $output.="<div class='d-flex flex-column col-8'><a href='view-all-comment.php?post_id=$post_id'><span class='text-primary'>$posted_by</span>";
                     $output.="<span class='text-dark'> shared a post to your profile<sub class='mx-2 text-secondary notification-time text-nowrap'>$time_message</sub></span></a></div>";
                     if($post_image !== 'none')
@@ -145,7 +147,7 @@ $total_notification = mysqli_num_rows($result);
                     }else{
                         $output.=" bg-light";
                     }
-                    $output.= "'><div class='my-2 col-2 p-1'><a href='$request_by'><div class='notification-user-preview'><img src='assets/images/profiles/$user_image'alt='image'></a></div></div>";
+                    $output.= "' id='notification-seen' data-notification-id='$notification_id' data-status='$notification_status'><div class='my-2 col-2 p-1'><a href='$request_by'><div class='notification-user-preview'><img src='assets/images/profiles/$user_image'alt='image'></a></div></div>";
                     $output.="<div class='d-flex flex-column col-7'><a href='$request_by'><span class='text-primary'>$request_by</span></a>";
                     $output.="<span class='text-dark'> has sent you a friend request<sub class='mx-2 text-secondary notification-time text-nowrap'>$time_message</sub></span></div>";
                 
@@ -175,7 +177,7 @@ $total_notification = mysqli_num_rows($result);
                     }else{
                         $output.=" bg-light";
                     }
-                    $output.= "'><div class='my-2 col-2 p-1'><a href='$request_by'><div class='notification-user-preview'><img src='assets/images/profiles/$user_image'alt='image'></a></div></div>";
+                    $output.= "' id='notification-seen' data-notification-id='$notification_id' data-status='$notification_status'><div class='my-2 col-2 p-1'><a href='$request_by'><div class='notification-user-preview'><img src='assets/images/profiles/$user_image'alt='image'></a></div></div>";
                     $output.="<div class='d-flex flex-column col-10'><a href='$request_by'><span class='text-primary'>$request_by</span></a>";
                     $output.="<span class='text-dark'> has accepted your friend request<sub class='mx-2 text-secondary notification-time text-nowrap'>$time_message</sub></span></div>";
 
@@ -201,7 +203,7 @@ $total_notification = mysqli_num_rows($result);
                         }else{
                             $output.=" bg-light";
                         }
-                        $output.= "'><div class='my-2 col-2 p-1'><div class='notification-user-preview'><a href='$liked_by'><img src='assets/images/profiles/$user_image'alt='image'></a></div></div>";
+                        $output.= "' id='notification-seen' data-notification-id='$notification_id' data-status='$notification_status'><div class='my-2 col-2 p-1'><div class='notification-user-preview'><a href='$liked_by'><img src='assets/images/profiles/$user_image'alt='image'></a></div></div>";
                         $output.="<div class='d-flex flex-column col-8'><a href='view-all-comment.php?post_id=$post_id'><span class='text-";
                         if($liked_by === $username)
                         {
@@ -238,7 +240,7 @@ $total_notification = mysqli_num_rows($result);
                             }else{
                                 $output.=" bg-light";
                             }
-                            $output.= "'><div class='my-2 col-2 p-1'><div class='notification-user-preview'><a href='$reply_from'><img src='assets/images/profiles/$user_image'alt='image'></a></div></div>";
+                            $output.= "' id='notification-seen' data-notification-id='$notification_id' data-status='$notification_status'><div class='my-2 col-2 p-1'><div class='notification-user-preview'><a href='$reply_from'><img src='assets/images/profiles/$user_image'alt='image'></a></div></div>";
                             $output.="<div class='d-flex flex-column col-8'><a href='view-all-comment.php?post_id=$post_id'><span class='text-";
                             if($reply_from === $username)
                             {
@@ -273,7 +275,7 @@ $total_notification = mysqli_num_rows($result);
                         }else{
                             $output.=" bg-light";
                         }
-                            $output.= "'><div class='my-2 col-2 p-1'><div class='notification-user-preview'><a href='$liked_by'><img src='assets/images/profiles/$user_image'alt='image'></a></div></div>";
+                            $output.= "' id='notification-seen' data-notification-id='$notification_id' data-status='$notification_status'><div class='my-2 col-2 p-1'><div class='notification-user-preview'><a href='$liked_by'><img src='assets/images/profiles/$user_image'alt='image'></a></div></div>";
                             $output.="<div class='d-flex flex-column col-8'><a href='view-all-comment.php?post_id=$post_id'><span class='text-";
                             if($liked_by === $username)
                             {
