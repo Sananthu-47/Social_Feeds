@@ -134,7 +134,7 @@ $(document).on('click',"#comment-reply-like",function(e){
     let comment_id = $(this).data("comment-id");
     let reply_id = $(this).data('reply-comment-id');
     let user_id = "<?php echo getUserInfo("id",$_SESSION['username']); ?>";
-    let likeCount = $("#like-count-"+reply_id);
+    let likeCount = $("#reply-like-count-"+reply_id);
     let likeBtn = this;
     likeComment(post_id , user_id , comment_id , reply_id , likeCount , likeBtn , 'reply');
 });

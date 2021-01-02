@@ -36,7 +36,7 @@ if(!$comment_status)
     echo json_encode($response);
 }
 else{
-    $query = "DELETE FROM comment_likes WHERE post_id = '$post_id' AND user_id = '$user_id' AND comment_id = '$comment_id'";
+    $query = "DELETE FROM comment_likes WHERE post_id = '$post_id' AND user_id = '$user_id' AND comment_id = '$comment_id' AND reply_comment_id = '$reply_comment_id'";
     $result = mysqli_query($connection,$query);
     $query = "DELETE FROM notifications WHERE type = '$notification_type' AND post_id = '$post_id' AND comment_id = '$comment_id' AND replied_comment_id = '$reply_comment_id' AND notification_to = '$notification_to'";
     $result = mysqli_query($connection,$query);

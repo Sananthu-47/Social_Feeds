@@ -55,7 +55,7 @@ while($row = mysqli_fetch_assoc($result))
                     $replied_message</span>
 
                     <div class='d-flex align-items-center my-1'>
-                    <span class='mr-1 notification-time small-text text-primary' id='like-count-$reply_id'>$comment_total_likes</span>
+                    <span class='mr-1 notification-time small-text text-primary' id='reply-like-count-$reply_id'>$comment_total_likes</span>
                     <i class='fa fa-heart fa-r-xs text-";
                     if(commentReplyLiked($reply_id,getUserInfo('id',$_username)))
                     {
