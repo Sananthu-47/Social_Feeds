@@ -80,13 +80,13 @@
                         </div>
 
                         <div class='post-image m-auto d-flex justify-content-center'>
-                        <img class='w-100' src='assets/images/posts/$post_image' alt='image'>
+                        <a href='view-all-comment.php?post_id=$post_id'><img class='w-100' src='assets/images/posts/$post_image' alt='image'></a>
                         </div>";
                     }else{
-                        echo "
+                        echo "<a href='view-all-comment.php?post_id=$post_id'>
                         <div class='post-body m-2'>
-                        <span class='h4 px-3'>$post_body</span>
-                        </div> ";
+                        <span class='text-dark h4 px-3'>$post_body</span>
+                        </div></a>";
                     }
 
                 echo " 
