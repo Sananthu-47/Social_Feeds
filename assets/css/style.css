@@ -433,6 +433,17 @@ hr
       align-items: center;
   }
 
+  #chats
+  {
+      overflow-y: auto;
+  }
+
+  .all-chats
+  {
+      overflow-y: scroll;
+  }
+
+
   @media screen and (max-width: 768px)
 {
     .home-wrapper

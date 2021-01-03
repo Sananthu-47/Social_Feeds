@@ -22,7 +22,7 @@
         ?>
         </div>
         <a href="friends.php"><i class="fa fa-users mx-2 text-white"><span></span></i></a>
-        <i class="fa fa-envelope mx-2"><span></span></i>
+        <a href='chats.php'><i class="fa fa-envelope mx-2 text-white"><span></span></i></a>
         <a href="profile-settings.php"><i class="fa fa-cog mx-2 text-white"><span></span></i></a>
         <a href="includes/logout.php"><i class="fa fa-sign-out mx-2 text-white"><span></span></i><a>
         <div class="image-preview mx-1">
