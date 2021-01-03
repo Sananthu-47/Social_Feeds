@@ -13,9 +13,9 @@
             {
                 if($total > 10)
                 {
-                    echo "<div id='notification-number'>10+</div>";
+                    echo "<div id='notification-number' data-user-id='$user_id'>10+</div>";
                 }else{
-                    echo "<div id='notification-number'>".$total."</div>";
+                    echo "<div id='notification-number' data-user-id='$user_id'>".$total."</div>";
                 }
             }
         ?>
@@ -42,6 +42,15 @@
 
         <script>
         $("#notification").on('click',function(){
-    $("#notification-dropdown").toggle('display');
+         $("#notification-dropdown").toggle('display');
+            let user_id = $('#notification-number').data('user-id');
+            $.ajax({
+                    url : 'process/check-notifications.php',
+                    type : "POST",
+                    data : {user_id},
+                    success : function(e){
+                        $('#notification-number').remove();
+                    }
+            });
         });
         </script>
