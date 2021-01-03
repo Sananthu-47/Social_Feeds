@@ -26,6 +26,11 @@ $total_notification = mysqli_num_rows($result);
                         $user_image = getUserInfoById("user_image",$user_id);
                         $notification_status = $row['notification_status'];
                         $post_image = getPostInfo("post_image",$post_id);
+                        $post_body = getPostInfo('post_body',$post_id);
+                        if(strlen($post_body) > 20)
+                        {
+                            $post_body = substr($post_body,0,20).'...';
+                        }
                         date_default_timezone_set("Asia/Calcutta");
                         $date_time_now = date("Y-m-d H:i:s");
                         $end_date = new DateTime($date_time_now);
@@ -62,6 +67,8 @@ $total_notification = mysqli_num_rows($result);
                         if($post_image !== 'none')
                         {
                             $output.="<div class='post-notification-image my-2 col-2 p-0'><a href='view-all-comment.php?post_id=$post_id'><img src='assets/images/posts/$post_image'alt='image'></a></div>";
+                        }else{
+                            $output.="<a href='view-all-comment.php?post_id=$post_id'><span class='text-dark'>$post_body</span></a>";
                         }
                         $output.= "</li>";
                     }

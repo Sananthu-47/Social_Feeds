@@ -418,6 +418,21 @@ hr
       font-size: 14px;
   }
 
+  #notification-number
+  {
+      position: relative;
+      top: 10px;
+      left: -20px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background-color: red;
+      font-size: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+
   @media screen and (max-width: 768px)
 {
     .home-wrapper

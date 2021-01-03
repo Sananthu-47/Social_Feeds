@@ -4,6 +4,21 @@
     </span></a>
     <div class="d-flex justify-content-between align-items-center text-white menu col-12 col-md-auto">
         <i class="fa fa-bell mx-2" id="notification"><span></span></i>
+        <?php 
+        $user_id = getUserInfo('id',$_SESSION['username']);
+            $query = "SELECT notification_number FROM notifications WHERE notification_to = '$user_id' AND notification_number = 'not-checked'";
+            $result = mysqli_query($connection,$query);
+            $total = mysqli_num_rows($result);
+            if($total > 0)
+            {
+                if($total > 10)
+                {
+                    echo "<div id='notification-number'>10+</div>";
+                }else{
+                    echo "<div id='notification-number'>".$total."</div>";
+                }
+            }
+        ?>
         <a href="friends.php"><i class="fa fa-users mx-2 text-white"><span></span></i></a>
         <i class="fa fa-envelope mx-2"><span></span></i>
         <a href="profile-settings.php"><i class="fa fa-cog mx-2 text-white"><span></span></i></a>
