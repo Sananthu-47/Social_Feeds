@@ -420,9 +420,9 @@ hr
 
   #notification-number
   {
-      position: relative;
-      top: 10px;
-      left: -20px;
+      position: absolute;
+      top: 25px;
+      left: 40px;
       width: 22px;
       height: 22px;
       border-radius: 50%;
@@ -503,6 +503,13 @@ hr
       width: 100%;
       height: 100%;
       overflow: scroll;
+  }
+
+  #notification-number
+  {
+      position: absolute;
+      left: 25px;
+      top: 20px;
   }
 
 }

@@ -3,6 +3,7 @@
         Social_Feeds
     </span></a>
     <div class="d-flex justify-content-between align-items-center text-white menu col-12 col-md-auto">
+        <div class='d-flex'>
         <i class="fa fa-bell mx-2" id="notification"><span></span></i>
         <?php 
         $user_id = getUserInfo('id',$_SESSION['username']);
@@ -19,6 +20,7 @@
                 }
             }
         ?>
+        </div>
         <a href="friends.php"><i class="fa fa-users mx-2 text-white"><span></span></i></a>
         <i class="fa fa-envelope mx-2"><span></span></i>
         <a href="profile-settings.php"><i class="fa fa-cog mx-2 text-white"><span></span></i></a>
