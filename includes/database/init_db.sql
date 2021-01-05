@@ -57,7 +57,9 @@ CREATE TABLE `notifications` (
   `notification_from` int(255) NOT NULL,
   `post_id` int(255) NOT NULL,
   `comment_message` text NOT NULL,
-  `comment_id` int(255) NOT NULL
+  `comment_id` int(255) NOT NULL,
+  `replied_comment_id` int(255) NOT NULL,
+  `notification_number` varchar(50) NOT NULL DEFAULT 'not-checked'
 ) ;
 
 CREATE TABLE `comment_likes` (
@@ -67,4 +69,23 @@ CREATE TABLE `comment_likes` (
   `reply_comment_id` int(255) NOT NULL,
   `user_id` int(255) NOT NULL,
   `liked_at` datetime NOT NULL
+) ;
+
+CREATE TABLE `comment_replies` (
+  `id` int(255) NOT NULL,
+  `post_id` int(255) NOT NULL,
+  `comment_id` int(255) NOT NULL,
+  `replied_to` int(255) NOT NULL,
+  `replied_from` int(255) NOT NULL,
+  `replied_at` datetime NOT NULL,
+  `replied_message` varchar(255) NOT NULL
+) ;
+
+CREATE TABLE `messages` (
+  `id` int(255) NOT NULL,
+  `message_from` int(255) NOT NULL,
+  `message_to` int(255) NOT NULL,
+  `message` text NOT NULL,
+  `sent_at` datetime NOT NULL,
+  `seen_status` varchar(50) NOT NULL DEFAULT 'not seen'
 ) ;
