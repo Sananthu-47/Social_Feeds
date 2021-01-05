@@ -325,6 +325,13 @@ hr
       position: relative;
       left: -20px;
       top: 15px;
+      border: 1px solid white;
+  }
+
+  .online-chat , .offline-chat
+  {
+    position: relative;
+    top: -15px !important;
   }
 
   .offline
@@ -335,6 +342,7 @@ hr
       background-color: red;
       position: relative;
       left: -20px;
+      border: 1px solid white;
       top: 15px;
   }
 

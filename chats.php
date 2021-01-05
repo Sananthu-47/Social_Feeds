@@ -9,58 +9,16 @@
             <div class='w-100'><input type='text' class='form-control my-1 border border-secondary' placeholder='Search..'/></div>
             <!-- all cahts persons --->
                 <div id='all-chats-wrapper' class='all-chats d-flex flex-column w-100'>
-                    <!--- Loop here to display all chats --->
-                    <div class='d-flex border border-secondary alert alert-secondary m-0'>
-                        <div class='image-preview'>
-                            <img src='assets/images/profiles/profile.png' class='profile-image-tag' />
-                        </div>
-                        <div class='chat-preview ml-2 w-100'>
-                            <div class='d-flex w-100'>
-                                <span class='h5 col-10 p-0'>Ananthu</span>
-                                <span class='col-2 p-0'>10:45pm</span>
-                            </div>
-                            <p>Good to see you</p>
-                        </div>
-                    </div><!--- Loop ends of displaying all chats--->
+                <i class="fa fa-refresh fa-spin fa-3x fa-fw loading m-auto text-white"></i>
+                <span class="sr-only">Loading...</span>
                 </div><!--</all-chats>-->
             </div>
 
             <!--- Show chats -->
             <div id='chating-messages' class='col-md-7 col-lg-5 border border-dark chats lg-d-flex flex-column p-0 m-0'>
-                <!--- Menu bar for chats --->
-                <div class='d-flex m-0 p-1 w-100 custom-header'>
-                    <div class='image-preview'>
-                    <img src='assets/images/profiles/profile.png' class='profile-image-tag' />
-                    </div>
-                    <div class='d-flex flex-column col-8 p-0 text-light ml-2'>
-                        <span>Ananthu</span>
-                        <span class='small-text'>Last seen 10:45 pm</span>
-                    </div>
-                    <div class='d-flex w-25 p-1 d-flex justify-content-center align-items-center'>
-                        <i class='fa fa-search text-light mr-3'></i>
-                        <i class="fa fa-ellipsis-v text-light ml-3"></i>
-                    </div>
-                </div><!--  </custom-header>  --->
-
-                <!---Display chatting messages --->
-                <div class='d-flex flex-column' id="display-messages">
-
-                    <div class='flex-row border border-dark' id="display-all-messages">
-                        <div class="message my-message">Hi</div>
-                        <div class="message friend-message">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis sint nemo magni expedita fuga asperiores vel! Ut veritatis perspiciatis, debitis sapiente impedit voluptate distinctio, necessitatibus architecto cum, ratione officiis natus.</div>
-                        <div class="message my-message">Hi</div>
-                        <div class="message friend-message">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis sint nemo magni expedita fuga asperiores vel! Ut veritatis</div>
-                        <div class="message my-message">Lorem ipsum dolor sit amet consectetur adipisicing elit. Et commodi nisi sint in quis, quibusdam labore minus dignissimos ullam nostrum alias deserunt officiis impedit illum molestias ratione laudantium. Sit, ut!</div>
-                        <div class="message friend-message">Lorpiciatis, debitis sapiente impedit voluptate distinctio, necessitatibus architecto cum, ratione officiis natus.</div>
-                        <div class="message my-message">Hi</div>
-                        <div class="message friend-message">Lorem ipsum dolor sis, debitiss.</div>
-                        <div class="message my-message"> sapiente impedit voluptate distinctio, necessitatibus architecto cum, ratione officiis natu</div>
-                        <div class="message friend-message">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis sint nemo magni expedita fuga asperiores vel! Ut veritatis perspiciatis, debitis sapiente impedit voluptate distinctio, necessitatibus architecto cum, ratione officiis natus.</div>
-                        <div class="message my-message">Hi</div>
-                        <div class="message friend-message">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis sint nemo magni expedita fuga asperiores vel! Ut veritatis perspiciatis, debitis sapiente impedit voluptate distinctio, necessitatibus architecto cum, ratione officiis natus.</div>
-                    </div>
-
-                    <div class='d-flex border border-dark' id='user-input-field'></div>
+                
+                <div class='d-flex justify-content-center align-items-center bg-white h-100'>
+                    <span class='h4'>Keep chatting</span>
                 </div>
 
             </div>
@@ -68,5 +26,30 @@
        </div><!-- Ends holding -->
     </div> <!-- wrapper -->
 
+<script>
+// $(document).ready(()=>{
+
+    //document.querySelector('#display-all-messages').scrollTop = document.querySelector('#display-all-messages').scrollHeight ;
+//})
+
+function viewAllFriendsToChat()
+    {
+        let request_to = "<?php echo $_username; ?>";
+        let request_from = "<?php echo $_SESSION['username']; ?>";
+
+        $.ajax({
+            url : "process/show-friends-to-chat.php",
+            type : "POST",
+            data : {request_from},
+            success : function(data)
+            {
+                $("#all-chats-wrapper").html(data);
+            }
+        });
+    }
+
+    viewAllFriendsToChat();
+
+</script>
 
 <?php include "includes/footer.php"; ?>

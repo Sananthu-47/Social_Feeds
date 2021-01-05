@@ -289,3 +289,65 @@ function getRepliedCommentInfo($getValue,$id)
         $row = mysqli_fetch_array($result);
         return $row[0];
 }
+
+function userMessagedOrNot($userLogged_in)
+{
+    global $connection;
+    $friends_array = [];
+    $query = "SELECT message_to , message_from , id FROM messages WHERE message_from = '$userLogged_in' OR message_to = '$userLogged_in' ORDER BY id DESC";
+        $result = mysqli_query($connection,$query);
+
+            while($row = mysqli_fetch_assoc($result))
+            {
+                $message_to = $row['message_to'];
+                $message_from = $row['message_from'];
+                $id = $row['id'];
+                
+                
+                if($message_to !== $userLogged_in)
+                {
+                    if(checkInArray($message_to,$friends_array))
+                    {
+                    array_push($friends_array, (object)[
+                        'id' => $id ,
+                        'friend' => $message_to
+                    ]);
+                    }
+                }else{
+                    if(checkInArray($message_to,$friends_array))
+                    {
+                        array_push($friends_array, (object)[
+                            'id' => $id ,
+                            'friend' => $message_from
+                        ]);
+                    }
+                }
+            }
+        
+        return $friends_array;
+}
+
+function checkInArray($search,$array)
+{
+    for($i=0;$i<count($array);$i++)
+    {
+        if($array[$i]->friend === $search)
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+function getLastMessageByFriend($id)
+{
+    global $connection;
+    $query = "SELECT message FROM messages WHERE id = '$id'";
+    $result = mysqli_query($connection,$query);
+    if(!$result)
+        {
+            die("Error".mysqli_error($connection));
+        }
+        $row = mysqli_fetch_array($result);
+        return $row[0];
+}
