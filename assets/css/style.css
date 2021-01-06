@@ -305,9 +305,14 @@ hr
     cursor: pointer;
   }
 
-  #like , #load-more-replies
+  #like , #load-more-replies , #chat-list
   {
       cursor: pointer;
+  }
+
+  #chat-list:hover
+  {
+      background-color: #d6d6d6;
   }
 
   .reply-to-comment
