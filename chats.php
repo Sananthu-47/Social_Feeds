@@ -27,10 +27,6 @@
     </div> <!-- wrapper -->
 
 <script>
-// $(document).ready(()=>{
-
-    //document.querySelector('#display-all-messages').scrollTop = document.querySelector('#display-all-messages').scrollHeight ;
-//})
 
 function viewAllFriendsToChat()
     {
@@ -49,6 +45,23 @@ function viewAllFriendsToChat()
     }
 
     viewAllFriendsToChat();
+
+$(document).on('click','#chat-list',function(e){
+    let message_from = $(this).data('message-from');
+    let message_to = $(this).data('message-to');
+    let current_user = '<?php echo $_username; ?>';
+
+        $.ajax({
+            url : "process/show-chattings.php",
+            type : "POST",
+            data : {message_from,message_to,current_user},
+            success : function(data)
+            {
+                $("#chating-messages").html(data);
+                document.querySelector('#display-all-messages').scrollTop = document.querySelector('#display-all-messages').scrollHeight ;
+            }
+        });
+    });
 
 </script>
 

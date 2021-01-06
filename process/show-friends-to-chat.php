@@ -15,7 +15,7 @@ include "../global.php";
                 $friend_name = getUserInfoById('username',$friend_id);
                 $latest_message = getLastMessageByFriend($message_id);
                 $time = time();
-                $output.="<li class='list-group-item d-flex align-items-center p-2'>
+                $output.="<li class='list-group-item d-flex align-items-center p-2' id='chat-list' data-message-from='$userLogged_in' data-message-to='$friend_id'>
                 <div class='image-preview'>
                 <img src='assets/images/profiles/$profile_image' alt='image'>
                 </div>

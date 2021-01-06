@@ -314,7 +314,7 @@ function userMessagedOrNot($userLogged_in)
                     ]);
                     }
                 }else{
-                    if(checkInArray($message_to,$friends_array))
+                    if(checkInArray($message_from,$friends_array))
                     {
                         array_push($friends_array, (object)[
                             'id' => $id ,
@@ -350,4 +350,16 @@ function getLastMessageByFriend($id)
         }
         $row = mysqli_fetch_array($result);
         return $row[0];
+}
+
+function getAllMessages($message_from,$message_to)
+{
+    global $connection;
+    $query = "SELECT * FROM messages WHERE (message_from = '$message_from' OR message_from = '$message_to') AND (message_to = '$message_to' OR message_to = '$message_from')";
+    $result = mysqli_query($connection,$query);
+    if(!$result)
+        {
+            die("Error".mysqli_error($connection));
+        }
+        return $result;
 }
