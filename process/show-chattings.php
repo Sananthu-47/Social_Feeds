@@ -74,16 +74,24 @@ if($message_to !== $current_user)
                         $message_sent = date_format($message_sent,'g:ia');
                         $msg_from = $row['message_from'];
                         $msg_to = $row['message_to'];
+                        $msg_status = $row['seen_status'];
                         $message_class = '';
+                        $seen_or_not = '';
                         //Set my message to right and friend as left
                         if($msg_from !== $current_message_user)
                         {
                             $message_class = 'my-message';
+                            if($msg_status === 'seen')
+                            {
+                            $seen_or_not = 'fa fa-check-circle text-primary';
+                            }else{
+                            $seen_or_not = 'fa fa-check-circle-o';
+                            }
                         }else{
                             $message_class = 'friend-message'; 
                         }
 
-                        $output.="<div class='d-flex flex-column message $message_class'>$message<span class='text-right p-0 small-text text-secondary'>$message_sent</span></div>";
+                        $output.="<div class='d-flex flex-column message $message_class'>$message<span class='text-right p-0 small-text text-secondary'>$message_sent <i class='mx-1 $seen_or_not'></i> </span></div>";
                     }
 
                     $output.="</div>

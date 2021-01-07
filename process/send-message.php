@@ -15,6 +15,6 @@ $result = mysqli_query($connection,$query);
 
 if($result)
 {
-    echo "<div class='d-flex flex-column message my-message'>$message<span class='text-right p-0 small-text text-secondary'>$message_sent</span></div>";
+    echo "<div class='d-flex flex-column message my-message'>$message<span class='text-right p-0 small-text text-secondary'>$message_sent <i class='mx-1 fa fa-check-circle-o'></i> </span></div>";
 }
 

@@ -339,10 +339,10 @@ function checkInArray($search,$array)
     return true;
 }
 
-function getLastMessageByFriend($id)
+function getLastMessageByFriend($getValue,$id)
 {
     global $connection;
-    $query = "SELECT message FROM messages WHERE id = '$id'";
+    $query = "SELECT $getValue FROM messages WHERE id = '$id'";
     $result = mysqli_query($connection,$query);
     if(!$result)
         {
