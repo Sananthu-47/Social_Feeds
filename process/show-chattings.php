@@ -90,7 +90,7 @@ if($message_to !== $current_user)
 
                     <div class='d-flex border border-dark w-100 d-flex align-items-center' id='user-input-field'>
                         <input type='text' id='user-input-message' class='mx-3 form-control' placeholder='Type your message here...'>
-                        <button type='submit' class='btn btn-primary'>send</button>
+                        <button type='submit' class='btn btn-primary' id='send-message' data-message-to='$current_message_user'>send</button>
                     </div>
                 </div>";
 

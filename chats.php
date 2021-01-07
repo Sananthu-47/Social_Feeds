@@ -46,7 +46,8 @@ function viewAllFriendsToChat()
 
     viewAllFriendsToChat();
 
-$(document).on('click','#chat-list',function(e){
+//Show the private chattings of the people to whom user clicks
+    $(document).on('click','#chat-list',function(e){
     let message_from = $(this).data('message-from');
     let message_to = $(this).data('message-to');
     let current_user = '<?php echo $_username; ?>';
@@ -61,6 +62,29 @@ $(document).on('click','#chat-list',function(e){
                 document.querySelector('#display-all-messages').scrollTop = document.querySelector('#display-all-messages').scrollHeight ;
             }
         });
+    });
+
+//Send message to the person
+    $(document).on('click','#send-message',function(e){
+    let message = $('#user-input-message').val();
+    let message_to = $(this).data('message-to');
+    let current_user = '<?php echo $_username; ?>';
+
+if(message !== '')
+{
+        $.ajax({
+            url : "process/send-message.php",
+            type : "POST",
+            data : {message,message_to,current_user},
+            success : function(data)
+            {
+                $('#user-input-message').val('');
+                $("#display-all-messages").append(data);
+                document.querySelector('#display-all-messages').scrollTop = document.querySelector('#display-all-messages').scrollHeight ;
+                viewAllFriendsToChat();
+            }
+        });
+}
     });
 
 </script>
