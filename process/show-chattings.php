@@ -96,9 +96,11 @@ if($message_to !== $current_user)
 
                     $output.="</div>
 
-                    <div class='d-flex border border-dark w-100 d-flex align-items-center' id='user-input-field'>
+                    <div class='d-flex border border-dark w-100' id='user-input-field'>
+                    <form class='d-flex align-items-center w-100'>
                         <input type='text' id='user-input-message' class='mx-3 form-control' placeholder='Type your message here...'>
                         <button type='submit' class='btn btn-primary' id='send-message' data-message-to='$current_message_user'>send</button>
+                    </form>
                     </div>
                 </div>";
 

@@ -19,6 +19,10 @@ include "../global.php";
                 $time = time();
                 $seen_or_not = '';
 
+                $query = "SELECT seen_status FROM messages WHERE message_from = '$friend_id' AND message_to = '$userLogged_in' AND seen_status = 'not seen'";
+                $result = mysqli_query($connection,$query);
+                $total_unseen_msg = mysqli_num_rows($result);
+
                 //Set my message to right and friend as left
                 if($userLogged_in !== $friend_id)
                 {
@@ -39,10 +43,15 @@ include "../global.php";
                 <span class='mx-2'>$latest_message<i class='mx-1 small-text $seen_or_not'></i> </span>";
                 if($last_seen >= $time)
                 {
-                    $output.="<div class='online online-chat'></div></div></li>";
+                    $output.="<div class='online online-chat'></div></div>";
                 }else{
-                    $output.="<div class='offline offline-chat'></div></div></li>";
+                    $output.="<div class='offline offline-chat'></div></div>";
                 }
+                if($total_unseen_msg > 0)
+                {
+                $output.="<div class='show-total-unseen'> $total_unseen_msg </div>";
+                }
+                $output.="</li>";
               }
           
           echo $output;  

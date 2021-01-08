@@ -541,6 +541,23 @@ hr
       background-color: rgb(255, 177, 181);
   }
 
+  .show-total-unseen
+  {
+      position: absolute;
+      bottom: 5px;
+      left: 95%;
+      transform: translateX(-95%);
+      background-color: rgb(36 , 132 , 214);
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      text-align: center;
+      font-size: 14px;
+      color: #eee4eb;
+  }
+
+
+
   @media screen and (max-width: 768px)
 {
     .home-wrapper

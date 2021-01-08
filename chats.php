@@ -60,32 +60,57 @@ function viewAllFriendsToChat()
             {
                 $("#chating-messages").html(data);
                 document.querySelector('#display-all-messages').scrollTop = document.querySelector('#display-all-messages').scrollHeight ;
+                $('#user-input-message').focus();
+                makeMsgSeen(message_from,message_to);
             }
         });
     });
 
+    //makeMsgSeen
+
+    function makeMsgSeen(message_from,message_to)
+    {
+        $.ajax({
+            url : "process/make-msg-seen.php",
+            type : "POST",
+            data : {message_from,message_to},
+            success : function(data)
+            {
+                
+            }
+        });
+    }
+
 //Send message to the person
-    $(document).on('click','#send-message',function(e){
+    $(document).on('click','#send-message',sendMessage);
+
+    function sendMessage(e)
+    {
+        e.preventDefault();
     let message = $('#user-input-message').val();
     let message_to = $(this).data('message-to');
     let current_user = '<?php echo $_username; ?>';
 
-if(message !== '')
-{
-        $.ajax({
-            url : "process/send-message.php",
-            type : "POST",
-            data : {message,message_to,current_user},
-            success : function(data)
-            {
-                $('#user-input-message').val('');
-                $("#display-all-messages").append(data);
-                document.querySelector('#display-all-messages').scrollTop = document.querySelector('#display-all-messages').scrollHeight ;
-                viewAllFriendsToChat();
-            }
-        });
-}
-    });
+        if(message !== '')
+        {
+                $.ajax({
+                    url : "process/send-message.php",
+                    type : "POST",
+                    data : {message,message_to,current_user},
+                    success : function(data)
+                    {
+                        $('#user-input-message').val('');
+                        $("#display-all-messages").append(data);
+                        document.querySelector('#display-all-messages').scrollTop = document.querySelector('#display-all-messages').scrollHeight ;
+                        viewAllFriendsToChat();
+                    }
+                });
+        }
+    }
+
+    setInterval(() => {
+        viewAllFriendsToChat();
+    }, 2000);
 
 </script>
 
