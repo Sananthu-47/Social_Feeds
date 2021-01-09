@@ -108,6 +108,13 @@ function viewAllFriendsToChat()
         }
     }
 
+    $(document).on('click','#close-chat',function(){
+        let output = `<div class='d-flex justify-content-center align-items-center bg-white h-100'>
+                         <span class='h4'>Keep chatting</span>
+                       </div>`;
+        $('#chating-messages').html(output);
+    });
+
     setInterval(() => {
         viewAllFriendsToChat();
     }, 2000);

@@ -56,9 +56,10 @@ if($message_to !== $current_user)
                         <span>$friend_name</span>
                         <span class='$last_seen_class'>$last_seen</span>
                     </div>
-                    <div class='d-flex w-25 p-1 d-flex justify-content-center align-items-center'>
-                        <i class='fa fa-search text-light mr-3'></i>
-                        <i class='fa fa-ellipsis-v text-light ml-3'></i>
+                    <div class='d-flex w-25 p-1 d-flex justify-content-between align-items-center'>
+                        <i class='fa fa-search text-light'></i>
+                        <i class='fa fa-ellipsis-v text-light'></i>
+                        <i class='fa fa-times text-light' id='close-chat'></i>
                     </div>
                 </div><!--  </custom-header>  --->
 
