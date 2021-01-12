@@ -16,6 +16,7 @@ include "../global.php";
                 $latest_message = getLastMessageByFriend('message',$message_id);
                 $latest_message = (strlen($latest_message) > 20) ? mb_strimwidth($latest_message,0,20,'...') : $latest_message;
                 $msg_status = getLastMessageByFriend('seen_status',$message_id);
+                $last_message_sent_by = getLastMessageByFriend('message_from',$message_id);
                 $time = time();
                 $seen_or_not = '';
 
@@ -40,7 +41,12 @@ include "../global.php";
                 </div>
                 <div class='d-flex flex-column ml-2'>
                 <span class='text-primary h5'>$friend_name</span>
-                <span class='mx-2'>$latest_message<i class='mx-1 small-text $seen_or_not'></i> </span>";
+                <span class='mx-2'>$latest_message";
+                if($last_message_sent_by === $userLogged_in)
+                {
+                    $output.="<i class='mx-1 small-text $seen_or_not'></i> ";
+                }
+                $output.="</span>";
                 if($last_seen >= $time)
                 {
                     $output.="<div class='online online-chat'></div></div>";
