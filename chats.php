@@ -46,12 +46,14 @@ function viewAllFriendsToChat()
 
     viewAllFriendsToChat();
 
+    let timer = null;
 //Show the private chattings of the people to whom user clicks
     $(document).on('click','#chat-list',function(e){
     let message_from = $(this).data('message-from');
     let message_to = $(this).data('message-to');
     let current_user = '<?php echo $_username; ?>';
-
+    let current_click = this;
+    
         $.ajax({
             url : "process/show-chattings.php",
             type : "POST",
@@ -63,8 +65,36 @@ function viewAllFriendsToChat()
                 $('#user-input-message').focus();
                 makeMsgSeen(message_from,message_to);
             }
-        });
     });
+    
+    startTimer(current_click,message_from,message_to,current_user);
+
+    });
+
+    function startTimer(current_click,message_from,message_to,current_user)
+    {
+            window.clearInterval(timer);
+            timer = refreshForNewMessages(message_from,message_to,current_user);
+    }
+
+
+    //refreshForNewMessages
+    function refreshForNewMessages(message_from,message_to,current_user)
+    {
+       let timer = setInterval(function(){
+    $.ajax({
+            url : "process/see-for-new-messages.php",
+            type : "POST",
+            data : {message_from,message_to,current_user},
+            success : function(data)
+            {
+                $("#display-all-messages").append(data);
+                console.log(data);
+            }
+        });
+},1000);
+    return timer;
+    }
 
     //makeMsgSeen
 
