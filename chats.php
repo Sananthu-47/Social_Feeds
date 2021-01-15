@@ -27,6 +27,8 @@
     </div> <!-- wrapper -->
 
 <script>
+//Array holds the message ids of all unseen messages
+let message_id_unseen = [];
 
 function viewAllFriendsToChat()
     {
@@ -78,10 +80,11 @@ function viewAllFriendsToChat()
             timer = refreshForNewMessages(message_from,message_to,current_user);
     }
 
-let message_id_unseen = [];
+
     //refreshForNewMessages
     function refreshForNewMessages(message_from,message_to,current_user)
     {
+        //Stores the timer to keep track of the interval of calling the function
        let timer = setInterval(function(){
     $.ajax({
             url : "process/see-for-new-messages.php",
@@ -90,14 +93,37 @@ let message_id_unseen = [];
             success : function(data)
             {
                 let response = JSON.parse(data);
+                //If only a new meessage is been recived this will add it to the doc
                 if(response.id !== 0)
                 {
                 $("#display-all-messages").append(response.output);
                 document.querySelector('#display-all-messages').scrollTop = document.querySelector('#display-all-messages').scrollHeight ;
-                message_id_unseen.push(response.id);
                 }
             }
         });
+        //check only if the message array has any unseen message ids
+        if(message_id_unseen.length>0)
+        {
+            //Check for ecah message id to verify if its seen or not
+        message_id_unseen.forEach(msgid=>{
+                $.ajax({
+                    url : "process/check-seen-or-not.php",
+                    type : "POST",
+                    data : {msgid},
+                    success : function(data)
+                    {
+                        //If the sent message is seen by user the message is updated as seen with blue ticks with ajax
+                        if(data === 'seen')
+                        {
+                            let check = now = $('#message-id-'+msgid)[0].children[0];
+                            check.children[0].classList.add('text-primary');
+                            message_id_unseen.shift();
+                        }
+                    }
+            });
+        });
+       }//
+
 },1000);
     return timer;
     }
@@ -135,21 +161,18 @@ let message_id_unseen = [];
                     data : {message,message_to,current_user},
                     success : function(data)
                     {
+                        let response = JSON.parse(data);
                         $('#user-input-message').val('');
-                        $("#display-all-messages").append(data);
+                        $("#display-all-messages").append(response.output);
                         document.querySelector('#display-all-messages').scrollTop = document.querySelector('#display-all-messages').scrollHeight ;
                         viewAllFriendsToChat();
-                        // refreshForNewMessages(current_user,message_to,current_user);
-                        // if(message_id_unseen !== 0)
-                        // {
-                        //     console.log(message_id_unseen);
-                        //     $('#message-id-'+message_id_unseen).children('i').addClass('text-primary');
-                        // }
+                        message_id_unseen.push(response.id);//Push the message ids to make it seen or not seen
                     }
                 });
         }
     }
 
+//Close the chatting interface
     $(document).on('click','#close-chat',function(){
         let output = `<div class='d-flex justify-content-center align-items-center bg-white h-100'>
                          <span class='h4'>Keep chatting</span>
@@ -158,6 +181,7 @@ let message_id_unseen = [];
         window.clearInterval(timer);
     });
 
+//Set interval to check for new incoming messages
     setInterval(() => {
         viewAllFriendsToChat();
     }, 2000);
