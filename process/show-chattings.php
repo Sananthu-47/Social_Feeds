@@ -70,6 +70,7 @@ if($message_to !== $current_user)
 
                     while($row = mysqli_fetch_assoc($response))
                     {
+                        $message_id = $row['id'];
                         $message = $row['message'];
                         $message_sent = date_create($row['sent_at']);
                         $message_sent = date_format($message_sent,'g:ia');
@@ -92,7 +93,7 @@ if($message_to !== $current_user)
                             $message_class = 'friend-message'; 
                         }
 
-                        $output.="<div class='d-flex flex-column message $message_class'>$message<span class='text-right p-0 small-text text-secondary'>$message_sent <i class='mx-1 $seen_or_not'></i> </span></div>";
+                        $output.="<div class='d-flex flex-column message $message_class' id='message-id-$message_id'>$message<span class='text-right p-0 small-text text-secondary'>$message_sent <i class='mx-1 $seen_or_not'></i> </span></div>";
                     }
 
                     $output.="</div>

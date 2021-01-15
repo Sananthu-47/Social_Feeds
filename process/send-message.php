@@ -12,9 +12,10 @@ $message_sent = date_format($message_sent,'g:ia');
 
 $query = "INSERT INTO messages (message_from , message_to , message, sent_at , seen_status) VALUES ('{$message_from}' , '{$message_to}' , '{$message}'  , '$date_time_now' , 'not seen')";
 $result = mysqli_query($connection,$query);
+$message_id = mysqli_insert_id($connection);
 
 if($result)
 {
-    echo "<div class='d-flex flex-column message my-message'>$message<span class='text-right p-0 small-text text-secondary'>$message_sent <i class='mx-1 fa fa-check-circle-o'></i> </span></div>";
+    echo "<div class='d-flex flex-column message my-message' id='message-id-$message_id'>$message<span class='text-right p-0 small-text text-secondary'>$message_sent <i class='mx-1 fa fa-check-circle-o'></i> </span></div>";
 }
 

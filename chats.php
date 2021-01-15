@@ -46,6 +46,7 @@ function viewAllFriendsToChat()
 
     viewAllFriendsToChat();
 
+//Global timer to set for receving new messages
     let timer = null;
 //Show the private chattings of the people to whom user clicks
     $(document).on('click','#chat-list',function(e){
@@ -77,7 +78,7 @@ function viewAllFriendsToChat()
             timer = refreshForNewMessages(message_from,message_to,current_user);
     }
 
-
+let message_id_unseen = [];
     //refreshForNewMessages
     function refreshForNewMessages(message_from,message_to,current_user)
     {
@@ -88,8 +89,13 @@ function viewAllFriendsToChat()
             data : {message_from,message_to,current_user},
             success : function(data)
             {
-                $("#display-all-messages").append(data);
-                console.log(data);
+                let response = JSON.parse(data);
+                if(response.id !== 0)
+                {
+                $("#display-all-messages").append(response.output);
+                document.querySelector('#display-all-messages').scrollTop = document.querySelector('#display-all-messages').scrollHeight ;
+                message_id_unseen.push(response.id);
+                }
             }
         });
 },1000);
@@ -133,6 +139,12 @@ function viewAllFriendsToChat()
                         $("#display-all-messages").append(data);
                         document.querySelector('#display-all-messages').scrollTop = document.querySelector('#display-all-messages').scrollHeight ;
                         viewAllFriendsToChat();
+                        // refreshForNewMessages(current_user,message_to,current_user);
+                        // if(message_id_unseen !== 0)
+                        // {
+                        //     console.log(message_id_unseen);
+                        //     $('#message-id-'+message_id_unseen).children('i').addClass('text-primary');
+                        // }
                     }
                 });
         }
@@ -143,6 +155,7 @@ function viewAllFriendsToChat()
                          <span class='h4'>Keep chatting</span>
                        </div>`;
         $('#chating-messages').html(output);
+        window.clearInterval(timer);
     });
 
     setInterval(() => {
