@@ -587,7 +587,27 @@ hr
       color: #eee4eb;
   }
 
+  .chat-options
+  {
+      position: absolute;
+      top: 0%;
+      right: 10px;
+      z-index: 5;
+      margin-top: 5px;
+      cursor: pointer;
+  }
 
+  .more-options
+  {
+      position: absolute;
+      top: -100%;
+      transform: translateY(-50%);
+      right: 0px;
+    max-width: 100px;
+    text-align: center;
+    height: auto;
+    padding: 5px;
+  }
 
   @media screen and (max-width: 768px)
 {

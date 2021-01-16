@@ -181,6 +181,33 @@ function viewAllFriendsToChat()
         window.clearInterval(timer);
     });
 
+    //Make more options for each message in chatting
+$(document).on('click','.chat-options',function(){
+    let current_ele = document.querySelectorAll('.more-options');
+    current_ele.forEach(ele=>{
+        if(!ele.classList.contains('d-none'))
+        {
+        ele.classList.add('d-none');
+        }
+    });
+    this.children[0].classList.remove('d-none');
+});
+
+
+    //delete a message from chat
+    $(document).on('click','.delete-msg',function(){
+        let message_id = $(this).data('msg-id');
+        let current_user = '<?php echo $_SESSION['username']; ?>';
+        $.ajax({
+            url : "process/delete-msg.php",
+            type : "POST",
+            data : {message_id,current_user},
+            success : function(data){
+                $('#message-id-'+message_id).remove()
+            }
+        })
+    });
+
 //Set interval to check for new incoming messages
     setInterval(() => {
         viewAllFriendsToChat();

@@ -26,7 +26,16 @@ while($row = mysqli_fetch_assoc($all_mesages))
         $query = "UPDATE messages SET seen_status = 'seen' WHERE message_from = '$message_from' AND message_to = '$message_to' AND seen_status = 'not seen'";
         $result = mysqli_query($connection,$query);
 
-    $output.="<div class='d-flex flex-column message friend-message' id='message-id-$message_id'>$message<span class='text-right p-0 small-text text-secondary'>$message_sent<i class='mx-1'></i> </span></div>";
+    $output.="<div class='d-flex flex-column message friend-message' id='message-id-$message_id'>$message<span class='text-right p-0 small-text text-secondary'>$message_sent<i class='mx-1'></i> </span>
+    <i class='fa fa-ellipsis-v chat-options'>
+    <div class='more-options d-none'>
+    <ul class='list-group list-group-flush'>
+    <li class='list-group-item bg-dark p-1 text-white delete-msg' data-msg-id='$message_id'>Delete</li>
+    <li class='list-group-item bg-dark p-1 text-white'>Reply</li>
+    </ul>
+    </div>
+    </i>
+    </div>";
     $msg_id_array = $message_id;
     }
 }

@@ -77,6 +77,7 @@ if($message_to !== $current_user)
                         $msg_from = $row['message_from'];
                         $msg_to = $row['message_to'];
                         $msg_status = $row['seen_status'];
+                        $msg_deleted = $row['msg_deleted'];
                         $message_class = '';
                         $seen_or_not = '';
                         //Set my message to right and friend as left
@@ -93,7 +94,23 @@ if($message_to !== $current_user)
                             $message_class = 'friend-message'; 
                         }
 
-                        $output.="<div class='d-flex flex-column message $message_class' id='message-id-$message_id'>$message<span class='text-right p-0 small-text text-secondary'>$message_sent <i class='mx-1 $seen_or_not'></i> </span></div>";
+                        if($msg_deleted==='deleted' && $msg_to == $current_user)
+                        {
+                            $output .= '';
+                        }else{
+                        $output.="
+                        <div class='d-flex flex-column message pt-3 $message_class' id='message-id-$message_id'>$message<span class='text-right p-0 small-text text-secondary'>$message_sent <i class='mx-1 $seen_or_not'></i> </span>
+                        <i class='fa fa-ellipsis-v chat-options'>
+                        <div class='more-options d-none'>
+                        <ul class='list-group list-group-flush'>
+                        <li class='list-group-item bg-dark p-1 text-white delete-msg' data-msg-id='$message_id'>Delete</li>
+                        <li class='list-group-item bg-dark p-1 text-white'>Reply</li>
+                        </ul>
+                        </div>
+                        </i>
+                        </div>
+                        ";
+                        }
                     }
 
                     $output.="</div>

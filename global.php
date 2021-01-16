@@ -339,7 +339,7 @@ function checkInArray($search,$array)
     return true;
 }
 
-function getLastMessageByFriend($getValue,$id)
+function getAllMessgaesById($getValue,$id)
 {
     global $connection;
     $query = "SELECT $getValue FROM messages WHERE id = '$id'";
@@ -374,4 +374,17 @@ function getAllMessagesWithUnseen($message_from,$message_to)
             die("Error".mysqli_error($connection));
         }
         return $result;
+}
+
+function getLastMessageByFriend($getValue,$id)
+{
+    global $connection;
+    $query = "SELECT $getValue FROM messages WHERE id = '$id'";
+    $result = mysqli_query($connection,$query);
+    if(!$result)
+        {
+            die("Error".mysqli_error($connection));
+        }
+        $row = mysqli_fetch_array($result);
+        return $row[0];
 }
