@@ -12,7 +12,7 @@
                 <i class="fa fa-refresh fa-spin fa-3x fa-fw loading m-auto text-white"></i>
                 <span class="sr-only">Loading...</span>
                 </div><!--</all-chats>-->
-            </div>
+        </div>
 
             <!--- Show chats -->
             <div id='chating-messages' class='col-md-7 col-lg-5 border border-dark chats lg-d-flex flex-column p-0 m-0'>
@@ -23,12 +23,18 @@
 
             </div>
 
-       </div><!-- Ends holding -->
     </div> <!-- wrapper -->
 
 <script>
 //Array holds the message ids of all unseen messages
 let message_id_unseen = [];
+
+if(window.innerWidth <= 768)
+{
+    $('#chating-messages').addClass('d-none');
+}else{
+    $('#chating-messages').removeClass('d-none');
+}
 
 function viewAllFriendsToChat()
     {
@@ -56,6 +62,13 @@ function viewAllFriendsToChat()
     let message_to = $(this).data('message-to');
     let current_user = '<?php echo $_username; ?>';
     let current_click = this;
+
+    if(window.innerWidth <= 768)
+    {
+        $('#chat-left').addClass('d-none');
+        $('#chat-left').removeClass('d-flex');
+        $('#chating-messages').removeClass('d-none');
+    }
     
         $.ajax({
             url : "process/show-chattings.php",
@@ -177,20 +190,28 @@ function viewAllFriendsToChat()
         let output = `<div class='d-flex justify-content-center align-items-center bg-white h-100'>
                          <span class='h4'>Keep chatting</span>
                        </div>`;
-        $('#chating-messages').html(output);
+        if(window.innerWidth <= 768)
+        {
+            $('#chat-left').removeClass('d-none');
+            $('#chat-left').addClass('d-flex');
+            $('#chating-messages').addClass('d-none');
+        }else{
+            $('#chating-messages').html(output);
+        }
         window.clearInterval(timer);
     });
 
     //Make more options for each message in chatting
 $(document).on('click','.chat-options',function(){
-    let current_ele = document.querySelectorAll('.more-options');
-    current_ele.forEach(ele=>{
-        if(!ele.classList.contains('d-none'))
-        {
-        ele.classList.add('d-none');
-        }
-    });
     this.children[0].classList.remove('d-none');
+});
+
+//Check if the selec more options is on then close it if its on while clicking in window
+window.addEventListener('click',function(e){
+    if(!e.target.classList.contains('chat-options') && document.querySelectorAll('.more-options'))
+    {
+        document.querySelectorAll('.more-options').forEach(ele=>ele.classList.add('d-none'));
+    }
 });
 
 
