@@ -6,7 +6,14 @@
             <!-- Header or the logo of the app  --->
             <header class='text-center custom-header'><span class="custom-logo-font">Social_Feeds</span></header>
             <!-- Search field --->
-            <div class='w-100'><input type='text' class='form-control my-1 border border-secondary' placeholder='Search..'/></div>
+            <div class='w-100'><input type='text' class='form-control my-1 border border-secondary' id='search-chat' placeholder='Search..'/></div>
+
+        <!-- Get the searched person from list -->
+            <div id='searched-result' class='d-none flex-column w-100 all-chats'>
+            <i class="fa fa-refresh fa-spin fa-3x fa-fw loading m-auto text-white"></i>
+                <span class="sr-only">Loading...</span>
+            </div> <!-- </searched-results> -->
+
             <!-- all cahts persons --->
                 <div id='all-chats-wrapper' class='all-chats d-flex flex-column w-100'>
                 <i class="fa fa-refresh fa-spin fa-3x fa-fw loading m-auto text-white"></i>
@@ -190,6 +197,7 @@ function viewAllFriendsToChat()
         let output = `<div class='d-flex justify-content-center align-items-center bg-white h-100'>
                          <span class='h4'>Keep chatting</span>
                        </div>`;
+        //If window width is more than 768 then this will be reszised
         if(window.innerWidth <= 768)
         {
             $('#chat-left').removeClass('d-none');
@@ -198,6 +206,15 @@ function viewAllFriendsToChat()
         }else{
             $('#chating-messages').html(output);
         }
+        //Close the search fields if it exists
+        if($('#all-chats-wrapper').hasClass('d-none'))
+        {
+            $('#searched-result').addClass('d-none');
+            $('#all-chats-wrapper').addClass('d-flex');
+            $('#all-chats-wrapper').removeClass('d-none');
+            $('#search-chat').val('');
+        }
+        //Clear the interval so that it doesnot run in background
         window.clearInterval(timer);
     });
 
@@ -224,9 +241,34 @@ window.addEventListener('click',function(e){
             type : "POST",
             data : {message_id,current_user},
             success : function(data){
-                $('#message-id-'+message_id).remove()
+                $('#message-id-'+message_id).remove();
             }
-        })
+        });
+    });
+
+    //Search for friends to chat
+    $('#search-chat').on('keyup',function(){
+        let get_user = $('#search-chat').val();
+        let current_user = '<?php echo $_SESSION['username']; ?>';
+        if(get_user !== '')
+        {
+            $('#searched-result').removeClass('d-none');
+            $('#all-chats-wrapper').removeClass('d-flex');
+            $('#all-chats-wrapper').addClass('d-none');
+
+        $.ajax({
+            url : "process/search-to-chat.php",
+            type : "POST",
+            data : {get_user,current_user},
+            success : function(data){
+                $('#searched-result').html(data);
+            }
+        });
+        }else{
+            $('#searched-result').addClass('d-none');
+            $('#all-chats-wrapper').addClass('d-flex');
+            $('#all-chats-wrapper').removeClass('d-none');
+        }
     });
 
 //Set interval to check for new incoming messages

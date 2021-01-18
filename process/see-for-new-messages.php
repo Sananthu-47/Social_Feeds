@@ -31,7 +31,6 @@ while($row = mysqli_fetch_assoc($all_mesages))
     <div class='more-options d-none'>
     <ul class='list-group list-group-flush'>
     <li class='list-group-item bg-dark p-1 text-white delete-msg' data-msg-id='$message_id'>Delete</li>
-    <li class='list-group-item bg-dark p-1 text-white'>Reply</li>
     </ul>
     </div>
     </i>
