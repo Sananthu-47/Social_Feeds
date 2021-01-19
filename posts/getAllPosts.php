@@ -99,7 +99,7 @@ $query = "SELECT * FROM posts ORDER BY id DESC LIMIT $page , 5";
 
                 if($total_comments > 0)
                 {
-                     include "latest-comment.php";
+                     include "../comments/latest-comment.php";
                 }else{
                     echo "<span class='mx-3'>No comments yet</span>";
                 }

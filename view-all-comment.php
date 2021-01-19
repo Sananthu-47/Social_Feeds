@@ -24,7 +24,7 @@
 
     <div class="card main-content bg-light col-12 col-md-6 p-0">
     <div class="content" id="main-content">
-        <?php include "process/get-all-comments.php"; ?>
+        <?php include "comments/get-all-comments.php"; ?>
         <i class="fa fa-refresh fa-spin fa-3x fa-fw loading"></i>
         <span class="sr-only">Loading...</span>
     </div>
@@ -51,53 +51,11 @@ $(document).ready(function(e)
     updateUserLastSeen();
 });
 
-function loadProfileData()
-{
-    let username = "<?php echo $_username; ?>";
-    $.ajax({
-        url : "process/profile-user-side.php",
-        type : "POST",
-        data : {username},
-        success : function(data)
-        {
-            $("#profile-data").html(data);
-        }
-    });
-}
-
-//Like post
-$(document).on('click',"#like",function(e){
-    let post_id = $(this).data("post");
-    let user_id = "<?php echo getUserInfo("id",$_SESSION['username']); ?>";
-    let postCount = $("#post"+post_id);
-    let likeBtn = this;
-    $.ajax({
-        url : "process/like.php",
-        type : "POST",
-        data : {post_id , user_id},
-        success : function(data)
-        {
-            let result = JSON.parse(data);
-            
-            if(result.status == "add-like")
-            {
-            likeBtn.classList.remove("badge-secondary");
-            likeBtn.classList.add("badge-primary");
-            postCount.html(result.like);
-            }else{
-            likeBtn.classList.add("badge-secondary");
-            likeBtn.classList.remove("badge-primary");
-            postCount.html(result.like);
-            }
-        }
-    });
-});
-
 //Comment like 
 function likeComment(post_id , user_id , comment_id , reply_id , likeCount , likeBtn , type)
 {
     $.ajax({
-        url : "process/comment-like.php",
+        url : "comments/comment-like.php",
         type : "POST",
         data : {post_id , user_id , comment_id , reply_id , type},
         success : function(data)
@@ -148,7 +106,7 @@ $(document).on('click',"#comment",function(e){
     if(comment_body !== "")
     {
     $.ajax({
-        url : "process/comments.php",
+        url : "comments/comments.php",
         type : "POST",
         data : {post_id , user_id , comment_body},
         success : function(data)
@@ -167,7 +125,7 @@ $(document).on('click',"#edit-comment",function(e){
     let post_id = $(this).data("postid");
     let comment_id = $(this).data("commentid");
     $.ajax({
-        url : "process/edit-comment.php",
+        url : "comments/edit-comment.php",
         type : "POST",
         data : {post_id , comment_id},
         success : function(data)
@@ -187,7 +145,7 @@ $(document).on('click',"#update-comment",function(e){
     let comment_id = $(this).data("commentid");
     let comment_body = $("textarea#comment_field").val();
     $.ajax({
-        url : "process/update-comment.php",
+        url : "comments/update-comment.php",
         type : "POST",
         data : {post_id , comment_id , comment_body},
         success : function(data)
@@ -206,7 +164,7 @@ function latestCommentAdded(post_id)
     let page = -5;
     let username = "<?php echo $_username; ?>"; 
     $.ajax({
-        url : "process/display-all-comments.php",
+        url : "comments/display-all-comments.php",
         type : "POST",
         data : {post_id, page , username},
         success : function(data)
@@ -230,7 +188,7 @@ $(document).on('click',"#load-more",function(e){
 function loadMoreComments(post_id,page,username)
 {
     $.ajax({
-            url : "process/display-all-comments.php",
+            url : "comments/display-all-comments.php",
             type : "POST",
             data : {post_id,page,username},
             beforeSend : function(){
@@ -258,7 +216,7 @@ $(document).on('click',"#delete-comment",function(e){
     let comment_id = $(this).data("id");
     let post_id = $(this).data("postid");
         $.ajax({
-            url : "process/delete-comment.php",
+            url : "comments/delete-comment.php",
             type : "POST",
             data : {comment_id,post_id},
             beforeSend : function(){
@@ -338,7 +296,7 @@ $(document).on('click','#comment-reply',(e)=>{
 if(reply_message !== '')
 {
     $.ajax({
-            url : "process/reply_to_comment.php",
+            url : "comments/reply_to_comment.php",
             type : "POST",
             data : {reply_to,reply_from,post_id,comment_id,reply_message},
             success : function(data)
@@ -359,11 +317,11 @@ if(reply_message !== '')
 });
 
 //Load more replies
-$(document).on('click','#load-more-replies', function(e){
+$(document).on('click','#load-more-replies',function(e){
     let comment_id = $(this).data('comment-id');
     let reply_page = $(this).data('reply-page');
     let load_more_replies = this;
-    let username = "<?php echo $_SESSION['username']; ?>";
+    let username = '<?php echo $_SESSION['username']; ?>';
     loadMoreReplies(comment_id,reply_page,load_more_replies,username);
 });
 
@@ -371,7 +329,7 @@ $(document).on('click','#load-more-replies', function(e){
 function loadMoreReplies(comment_id,reply_page,load_more_replies,username)
 {
     $.ajax({
-            url : "process/get-all-replies.php",
+            url : "comments/get-all-replies.php",
             type : "POST",
             data : {comment_id,reply_page,username},
             success : function(data)
@@ -394,7 +352,7 @@ $(document).on('click',"#edit-comment-replied",function(e){
     let post_id = $(this).data("postid");
     let comment_id = $(this).data("commentid");
     $.ajax({
-        url : "process/edit-replied-comment.php",
+        url : "comments/edit-replied-comment.php",
         type : "POST",
         data : {post_id , comment_id},
         success : function(data)
@@ -414,7 +372,7 @@ $(document).on('click',"#update-comment",function(e){
     let comment_id = $(this).data("commentid");
     let comment_body = $("textarea#comment_field").val();
     $.ajax({
-        url : "process/update-replied-comment.php",
+        url : "comments/update-replied-comment.php",
         type : "POST",
         data : {post_id , comment_id , comment_body},
         success : function(data)
@@ -433,7 +391,7 @@ $(document).on('click',"#delete-replied-comment",function(e){
     let post_id = $(this).data("postid");
     let username = "<?php echo $_username; ?>";
         $.ajax({
-            url : "process/delete-replied-comment.php",
+            url : "comments/delete-replied-comment.php",
             type : "POST",
             data : {reply_id,post_id},
             success : function(data)

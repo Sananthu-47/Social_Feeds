@@ -172,7 +172,7 @@ let conformation = confirm("Do you really want to delete the post");
 if(conformation)
 {
     $.ajax({
-        url : "process/delete-post.php",
+        url : "posts/delete-post.php",
         type : "POST",
         data : {request_from , post_id},
         success : function(data)
@@ -200,7 +200,7 @@ $("#my-form").on('submit',function(e){
         formData.append("post_to","<?php echo $_username ;?>");
 
             $.ajax({
-            url : "process/add-post.php",
+            url : "posts/add-post.php",
             type : "POST",
             data : formData,
             contentType : false,
@@ -229,7 +229,7 @@ $("#my-form").on('submit',function(e){
         let username = "<?php echo $_username; ?>";
         let loggedInUser = "<?php echo $_SESSION['username'] ?>";
         $.ajax({
-            url : "process/get-specific-user-post.php",
+            url : "posts/get-specific-user-post.php",
             type : "POST",
             data : {username,loggedInUser,page},
             beforeSend : function(){
@@ -252,85 +252,6 @@ $("#my-form").on('submit',function(e){
                 $(".loading").hide();
             }
         });
-    }
-
-    function loadProfileData()
-{
-    let username = "<?php echo $_username; ?>";
-    $.ajax({
-        url : "process/profile-user-side.php",
-        type : "POST",
-        data : {username},
-        success : function(data)
-        {
-            $("#profile-data").html(data);
-        }
-    });
-}
-//Like a post
-$(document).on('click',"#like",function(e){
-    let post_id = $(this).data("post");
-    let user_id = "<?php echo getUserInfo("id",$_SESSION['username']); ?>";
-    let postCount = $("#post"+post_id);
-    let likeBtn = this;
-    $.ajax({
-        url : "process/like.php",
-        type : "POST",
-        data : {post_id , user_id},
-        success : function(data)
-        {
-            let result = JSON.parse(data);
-            
-            if(result.status == "add-like")
-            {
-            likeBtn.classList.remove("badge-secondary");
-            likeBtn.classList.add("badge-primary");
-            postCount.html(result.like);
-            }else{
-            likeBtn.classList.add("badge-secondary");
-            likeBtn.classList.remove("badge-primary");
-            postCount.html(result.like);
-            }
-        }
-    });
-});
-
-//Comment on post
-$(document).on('click',"#comment",function(e){
-    e.preventDefault();
-    let post_id = $(this).data("post");
-    let user_id = "<?php echo getUserInfo("id",$_SESSION['username']); ?>";
-    let commentCount = $("#comment"+post_id);
-    let comment_body = $("textarea#comment_field"+post_id).val();
-    if(comment_body !== "")
-    {
-    $.ajax({
-        url : "process/comments.php",
-        type : "POST",
-        data : {post_id , user_id , comment_body},
-        success : function(data)
-        {
-            $("textarea#comment_field"+post_id).val('');
-            commentCount.html(" " + data);
-            latestComment(post_id);
-        }
-    });
-    }
-});
-
-//Latest comment
-function latestComment(post_id)
-{
-    $.ajax({
-        url : "process/latest-comment.php",
-        type : "POST",
-        data : {post_id},
-        success : function(data)
-        {
-            $("#comment-"+post_id).html('');
-            $("#comment-"+post_id).html(data);
-        }
-    });
     }
     
     </script>

@@ -70,7 +70,7 @@ $(document).ready(function(e)
     {
         let username = "<?php echo $_SESSION['username']; ?>";
         $.ajax({
-            url : "process/getAllPosts.php",
+            url : "posts/getAllPosts.php",
             type : "POST",
             data : {username,page},
             beforeSend : function(){
@@ -91,27 +91,13 @@ $(document).ready(function(e)
         });
     }
 
-function loadProfileData()
-{
-    let username = "<?php echo $_username; ?>";
-    $.ajax({
-        url : "process/profile-user-side.php",
-        type : "POST",
-        data : {username},
-        success : function(data)
-        {
-            $("#profile-data").html(data);
-        }
-    });
-}
-
 //Add post
 $("#my-form").on('submit',function(e){
     e.preventDefault();
         let formData = new FormData(this);
         formData.append("post_by","<?php echo $_SESSION['username']; ?>");
             $.ajax({
-            url : "process/add-post.php",
+            url : "posts/add-post.php",
             type : "POST",
             data : formData,
             contentType : false,
@@ -127,72 +113,6 @@ $("#my-form").on('submit',function(e){
             }
         });
     });
-
-//Like post
-$(document).on('click',"#like",function(e){
-    let post_id = $(this).data("post");
-    let user_id = "<?php echo getUserInfo("id",$_SESSION['username']); ?>";
-    let postCount = $("#post"+post_id);
-    let likeBtn = this;
-    $.ajax({
-        url : "process/like.php",
-        type : "POST",
-        data : {post_id , user_id},
-        success : function(data)
-        {
-            let result = JSON.parse(data);
-            
-            if(result.status == "add-like")
-            {
-            likeBtn.classList.remove("badge-secondary");
-            likeBtn.classList.add("badge-primary");
-            postCount.html(result.like);
-            }else{
-            likeBtn.classList.add("badge-secondary");
-            likeBtn.classList.remove("badge-primary");
-            postCount.html(result.like);
-            }
-        }
-    });
-});
-
-//Comment on post
-$(document).on('click',"#comment",function(e){
-    let post_id = $(this).data("post");
-    let user_id = "<?php echo getUserInfo("id",$_SESSION['username']); ?>";
-    let commentCount = $("#comment"+post_id);
-    let comment_body = $("#comment_field"+post_id).val();
-    if(comment_body !== "")
-    {
-    $.ajax({
-        url : "process/comments.php",
-        type : "POST",
-        data : {post_id , user_id , comment_body},
-        success : function(data)
-        {
-            $("textarea#comment_field"+post_id).val('');
-            commentCount.html(" " + data);
-            latestComment(post_id);
-        }
-    });
-    }
-});
-
-//Latest comment
-function latestComment(post_id)
-{
-    $.ajax({
-        url : "process/latest-comment.php",
-        type : "POST",
-        data : {post_id},
-        success : function(data)
-        {
-            $("#comment-"+post_id).html('');
-            $("#comment-"+post_id).html(data);
-        }
-    });
-    }
-
     
 </script>
 

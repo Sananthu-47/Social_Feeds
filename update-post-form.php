@@ -99,7 +99,7 @@ let conformation = confirm("Do you really want to remove the image");
 if(conformation)
 {
     $.ajax({
-        url : "process/delete-post-image.php",
+        url : "posts/delete-post-image.php",
         type : "POST",
         data : {post_id},
         success : function(data)

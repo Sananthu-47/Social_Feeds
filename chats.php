@@ -49,7 +49,7 @@ function viewAllFriendsToChat()
         let request_from = "<?php echo $_SESSION['username']; ?>";
 
         $.ajax({
-            url : "process/show-friends-to-chat.php",
+            url : "chats/show-friends-to-chat.php",
             type : "POST",
             data : {request_from},
             success : function(data)
@@ -78,7 +78,7 @@ function viewAllFriendsToChat()
     }
     
         $.ajax({
-            url : "process/show-chattings.php",
+            url : "chats/show-chattings.php",
             type : "POST",
             data : {message_from,message_to,current_user},
             success : function(data)
@@ -107,7 +107,7 @@ function viewAllFriendsToChat()
         //Stores the timer to keep track of the interval of calling the function
        let timer = setInterval(function(){
     $.ajax({
-            url : "process/see-for-new-messages.php",
+            url : "chats/see-for-new-messages.php",
             type : "POST",
             data : {message_from,message_to,current_user},
             success : function(data)
@@ -127,7 +127,7 @@ function viewAllFriendsToChat()
             //Check for ecah message id to verify if its seen or not
         message_id_unseen.forEach(msgid=>{
                 $.ajax({
-                    url : "process/check-seen-or-not.php",
+                    url : "chats/check-seen-or-not.php",
                     type : "POST",
                     data : {msgid},
                     success : function(data)
@@ -153,7 +153,7 @@ function viewAllFriendsToChat()
     function makeMsgSeen(message_from,message_to)
     {
         $.ajax({
-            url : "process/make-msg-seen.php",
+            url : "chats/make-msg-seen.php",
             type : "POST",
             data : {message_from,message_to},
             success : function(data)
@@ -176,7 +176,7 @@ function viewAllFriendsToChat()
         if(message !== '')
         {
                 $.ajax({
-                    url : "process/send-message.php",
+                    url : "chats/send-message.php",
                     type : "POST",
                     data : {message,message_to,current_user},
                     success : function(data)
@@ -237,7 +237,7 @@ window.addEventListener('click',function(e){
         let message_id = $(this).data('msg-id');
         let current_user = '<?php echo $_SESSION['username']; ?>';
         $.ajax({
-            url : "process/delete-msg.php",
+            url : "chats/delete-msg.php",
             type : "POST",
             data : {message_id,current_user},
             success : function(data){
@@ -257,7 +257,7 @@ window.addEventListener('click',function(e){
             $('#all-chats-wrapper').addClass('d-none');
 
         $.ajax({
-            url : "process/search-to-chat.php",
+            url : "chats/search-to-chat.php",
             type : "POST",
             data : {get_user,current_user},
             success : function(data){
