@@ -237,19 +237,25 @@ $("#my-form").on('submit',function(e){
             },
             success : function(data)
             {
-                if(data === "No post!")
+            if(document.querySelector('.over-data') === null)
                 {
-                    $('.over-data').remove();
-                    over_alert = false;
-                }else
-                if(data === "Account private")
-                {
-                    data = "<span class='d-flex justify-content-center align-items-center h5'>"+data+"</span>";
-                    $('.over-data').remove();
-                    over_alert = false;
+                    if(data === "No post!")
+                    {
+                        $('.over-data').remove();
+                        over_alert = false;
+                        let output = "<div class='alert alert-danger text-center over-data'>"+data+"</div>"
+                        $("#all-posts").append(output);
+                    }else
+                    if(data === "Account private")
+                    {
+                        data = "<span class='d-flex justify-content-center align-items-center h5'>"+data+"</span>";
+                        $('.over-data').remove();
+                        over_alert = false;
+                    }
+                    $("#all-posts").append(data);
+                    $(".loading").hide();
                 }
-                $("#all-posts").append(data);
-                $(".loading").hide();
+
             }
         });
     }

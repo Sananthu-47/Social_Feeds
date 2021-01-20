@@ -18,6 +18,7 @@ $query = "SELECT * FROM posts ORDER BY id DESC LIMIT $page , 5";
         {
                 $post_id = $row['id'];
                 $post_body = $row['post_body'];
+                $post_body = (strlen($post_body) > 200) ? mb_strimwidth($post_body,0,200,"<a href='view-all-comment.php?post_id=$post_id'>Read more</a>") : $post_body;
                 $post_image = $row['post_image'];
                 $post_user = $row['posted_by'];
                 $post_to = $row['post_to'];
@@ -69,10 +70,10 @@ $query = "SELECT * FROM posts ORDER BY id DESC LIMIT $page , 5";
                         <a href='view-all-comment.php?post_id=$post_id'><img class='w-100' src='assets/images/posts/$post_image' alt='image'></a>
                         </div>";
                     }else{
-                        echo "<a href='view-all-comment.php?post_id=$post_id'>
+                        echo "
                         <div class='post-body m-2'>
                         <span class='text-dark h4 px-3'>$post_body</span>
-                        </div></a>";
+                        </div>";
                     }
 
                 echo " 

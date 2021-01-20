@@ -78,6 +78,8 @@ $(document).ready(function(e)
             },
             success : function(data)
             {
+        if(document.querySelector('.over-data') === null)
+            {
                 if(data === "No more posts")
                 {
                     $('.over-data').remove();
@@ -88,6 +90,7 @@ $(document).ready(function(e)
                 $(".loading").hide();
                 $("#all-posts").append(data);
             }
+        }
         });
     }
 
