@@ -7,6 +7,8 @@ include "../global.php";
       $output = ''; 
       $friends_array = userMessagedOrNot($userLogged_in);
         
+      if(count($friends_array) > 0)
+      {
           foreach ($friends_array as $key=>$friend) {  
               $friend_id = $friend->friend;
               $message_id = $friend->id;
@@ -61,3 +63,7 @@ include "../global.php";
               }
           
           echo $output;  
+
+            }else{
+                echo "<div class='text-center p-2 bg-light text-danger'>No chats found!</div>";
+            }

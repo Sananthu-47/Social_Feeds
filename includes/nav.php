@@ -6,7 +6,7 @@
         <div class='d-flex'>
         <i class="fa fa-bell mx-2" id="notification"><span></span></i>
         <?php 
-        $user_id = getUserInfo('id',$_SESSION['username']);
+            $user_id = getUserInfo('id',$_SESSION['username']);
             $query = "SELECT notification_number FROM notifications WHERE notification_to = '$user_id' AND notification_number = 'not-checked'";
             $result = mysqli_query($connection,$query);
             $total = mysqli_num_rows($result);

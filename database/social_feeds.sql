@@ -147,7 +147,8 @@ CREATE TABLE `messages` (
   `message_to` int(255) NOT NULL,
   `message` text NOT NULL,
   `sent_at` datetime NOT NULL,
-  `seen_status` varchar(50) NOT NULL DEFAULT 'not seen'
+  `seen_status` varchar(50) NOT NULL DEFAULT 'not seen',
+  `msg_deleted` varchar(10) NOT NULL DEFAULT 'none'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
