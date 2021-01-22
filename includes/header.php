@@ -29,6 +29,8 @@
 
 <script>
 
+loadMoreNotifications(-10,<?php echo getUserInfo('id',$_SESSION['username']); ?>);
+
 function viewAllFriends()
     {
         let request_to = "<?php echo $_username; ?>";

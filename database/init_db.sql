@@ -55,10 +55,10 @@ CREATE TABLE `notifications` (
   `notification_status` varchar(10) NOT NULL,
   `notification_to` int(255) NOT NULL,
   `notification_from` int(255) NOT NULL,
-  `post_id` int(255) NOT NULL,
-  `comment_message` text NOT NULL,
-  `comment_id` int(255) NOT NULL,
-  `replied_comment_id` int(255) NOT NULL,
+  `post_id` int(255) NOT NULL DEFAULT 0,
+  `comment_message` text NOT NULL DEFAULT 'none',
+  `comment_id` int(255) NOT NULL DEFAULT 0,
+  `replied_comment_id` int(255) NOT NULL DEFAULT 0,
   `notification_number` varchar(50) NOT NULL DEFAULT 'not-checked'
 ) ;
 

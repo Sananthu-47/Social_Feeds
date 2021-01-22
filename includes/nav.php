@@ -1,12 +1,12 @@
+<?php  $user_id = getUserInfo('id',$_SESSION['username']); ?>
 <div class="navbar py-1 custom-header d-flex jusify-content-around">
     <a href="index.php" class="remove-decoration text-end"><span class="custom-logo-font">
         Social_Feeds
     </span></a>
     <div class="d-flex justify-content-between align-items-center text-white menu col-12 col-md-auto">
         <div class='d-flex'>
-        <i class="fa fa-bell mx-2" id="notification"><span></span></i>
+        <i class="fa fa-bell mx-2" id="notification" data-user-id='<?php echo $user_id; ?>'><span></span></i>
         <?php 
-            $user_id = getUserInfo('id',$_SESSION['username']);
             $query = "SELECT notification_number FROM notifications WHERE notification_to = '$user_id' AND notification_number = 'not-checked'";
             $result = mysqli_query($connection,$query);
             $total = mysqli_num_rows($result);
@@ -35,7 +35,7 @@
 <div id="notification-dropdown" style="display:none;">
             <ul class="list-group" id="all-notifications">
                 
-            <?php include "notification.php"; ?>
+            <!-- <?php //include "notification.php"; ?> -->
 
             </ul>
             <i class='fa fa-refresh fa-spin fa-3x fa-fw loading'></i>
@@ -45,7 +45,7 @@
         <script>
         $("#notification").on('click',function(){
          $("#notification-dropdown").toggle('display');
-            let user_id = $('#notification-number').data('user-id');
+            let user_id = $(this).data('user-id');
             $.ajax({
                     url : 'process/check-notifications.php',
                     type : "POST",
