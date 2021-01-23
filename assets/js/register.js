@@ -128,10 +128,10 @@
             }
             }
 
-            function selectFile()
-            {
-                document.getElementById('profile-image').click();
-            }
+            document.getElementById('profile-selector').addEventListener('click',()=>{
+              document.getElementById('clearImage').classList.remove('d-none');
+              document.getElementById('profile-image').click();  
+            });
 
             function displayImage(e) {
               if(e.files[0])
@@ -148,3 +148,10 @@
                 reader.readAsDataURL(e.files[0]);
               }
             }
+
+            document.getElementById('clearImage').addEventListener('click',(e)=>{
+              e.preventDefault();
+                document.getElementById('profile-image').value='';
+                document.getElementById('preview').setAttribute('src','assets/images/profiles/profile.png');
+                document.getElementById('clearImage').classList.add('d-none');
+            });

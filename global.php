@@ -67,42 +67,6 @@ function getCommentInfo($getValue,$id)
         return $row[0];
 }
 
-function addPost($post_to,$post_data,$image)
-{
-    global $connection;
-    if(!empty($post_data) || !empty($image))
-    {
-        $post_body = charecterParse(strip_tags($post_data));
-        $image = $image;
-        $post_at = date("Y-m-d H:i:s");
-        $post_to = $post_to;
-        $post_by = $_SESSION['username'];
-        $post_image =time(). '_' . $image;
-        if($image == '')
-        {
-            $post_image = "none";
-        }
-        echo $_FILES['image']['tmp_name'];
-        // $post_image_temp = $_FILES['image']['tmp_name'];
-        // move_uploaded_file($post_image_temp,"assets/images/posts/$post_image");
-
-        // if($post_by == $post_to)
-        // {
-        //     $post_to="";
-        // }
-
-        // $query = "INSERT INTO posts (post_body , post_image , post_to, posted_by , posted_at) VALUES ('{$post_body}' , '{$post_image}' , '{$post_to}' , '{$post_by}' , '{$post_at}')";
-        // $result = mysqli_query($connection,$query);
-
-        // $total_post = getUserInfo('posts',$post_by);
-        // $query = "UPDATE users SET posts = $total_post+1 WHERE username = '$post_by'";
-        // $result = mysqli_query($connection,$query);
-
-    }else{
-        alert('alert-danger','Post cannot be empty!');
-    }
-}
-
 function isFriend($friendToCheck , $username)
 {
     $friends_list = getUserInfo('friends_list', $username);
@@ -294,7 +258,7 @@ function userMessagedOrNot($userLogged_in)
 {
     global $connection;
     $friends_array = [];
-    $query = "SELECT message_to , message_from , id FROM messages WHERE message_from = '$userLogged_in' OR message_to = '$userLogged_in' ORDER BY id DESC";
+    $query = "SELECT message_to , message_from , id FROM messages WHERE message_from = '$userLogged_in' OR message_to = '$userLogged_in'  AND msg_deleted = 'none' ORDER BY id DESC";
         $result = mysqli_query($connection,$query);
 
             while($row = mysqli_fetch_assoc($result))

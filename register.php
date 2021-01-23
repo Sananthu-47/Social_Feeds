@@ -82,11 +82,12 @@
                 }
         }
             ?>
-            <div class="row d-flex justify-content-center align-items-center">
-            <div class="profile-circle" onClick="selectFile()">
+            <div class="row d-flex flex-column justify-content-center align-items-center">
+            <div class="profile-circle" id='profile-selector'>
             <img src='assets/images/profiles/profile.png' class="profile-image-tag" id="preview">
             <input type="file" name="profile" id="profile-image" value="" onChange="displayImage(this)" class="d-none">
             </div>
+            <button id='clearImage' class='my-2 border border-primary btn btn-light d-none'>Cancel</button>
             </div>
                 <label class='badge badge-dark' for="first-name">First name</label>
                 <input type="text" name="first-name" class="form-control border" id="first-name" autocomplete='false' placeholder="first name" onChange="firstNameCheck(this.value)" value="<?php if(isset($first_name))
@@ -136,7 +137,7 @@
                 </br>
                 <div class="w-100 d-flex justify-content-between">
                 <input type="submit" name="register" class="btn btn-primary mr-2" id="register" value="Register" disabled='false'>
-                <a href="" class="h6">Already have an account?</a>
+                <a href="login.php" class="h6">Already have an account?</a>
                 </div>
             </form>
         </div>

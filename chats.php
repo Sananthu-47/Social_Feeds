@@ -169,9 +169,9 @@ function viewAllFriendsToChat()
     function sendMessage(e)
     {
         e.preventDefault();
-    let message = $('#user-input-message').val();
-    let message_to = $(this).data('message-to');
-    let current_user = '<?php echo $_username; ?>';
+        let message = $('#user-input-message').val();
+        let message_to = $(this).data('message-to');
+        let current_user = '<?php echo $_username; ?>';
 
         if(message !== '')
         {
