@@ -432,11 +432,16 @@ hr
       font-size: 14px;
   }
 
+  .notification-div
+  {
+      position: relative;
+  }
+
   #notification-number
   {
       position: absolute;
-      top: 25px;
-      left: 40px;
+      top: 18px;
+      left: 25px;
       width: 22px;
       height: 22px;
       border-radius: 50%;
@@ -486,10 +491,10 @@ hr
 
   #chating-messages
   {
-      overflow: hidden;
       background: url('../images/backgrounds/chat-bg.jpg') no-repeat center center fixed; 
       background-size: 100% 100%;
       min-height: 100vh;
+      max-height: 100vh;
   }
   
   #display-messages
@@ -633,11 +638,6 @@ hr
       width: 100%;
       height: 100%;
   }
-
-  /* .chats
-  {
-      display: none;
-  } */
 }
 
 @media screen and (max-width: 600px)
@@ -651,11 +651,6 @@ hr
     {
         width: 40px;
         height: 40px;
-    }
-
-    .custom-header
-    {
-        padding: 0;
     }
 
     .post-image
@@ -696,7 +691,7 @@ hr
   {
       position: absolute;
       left: 25px;
-      top: 20px;
+      top: 18px;
   }
 
 }
